@@ -33,8 +33,8 @@ export default async function handler(req, res) {
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST || 'mail.privateemail.com',
-      port: parseInt(process.env.SMTP_PORT || '465'),
-      secure: true,
+      port: parseInt(process.env.SMTP_PORT || '587'),
+      secure: false, // Required for Port 587 (upgrades to secure via STARTTLS)
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
