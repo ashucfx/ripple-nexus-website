@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Priority pages
+Allow: /
+Allow: /about
+Allow: /services
+Allow: /contact
+Allow: /case-studies
+
+# De-prioritize legal pages (still crawlable but low priority)
+# Legal pages have low priority in sitemap.xml
+
+Sitemap: https://www.theripplenexus.com/sitemap.xml
