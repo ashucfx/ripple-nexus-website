@@ -97,6 +97,9 @@ const LeadForm = () => {
       if (!response.ok) throw new Error("Failed to send email");
       
       setStatus("success");
+      setTimeout(() => {
+        document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 50);
     } catch {
       setStatus("error");
     }
@@ -114,7 +117,7 @@ const LeadForm = () => {
 
   if (status === "success") {
     return (
-      <section id="lead-form" className="section-spacing overflow-hidden">
+      <section id="lead-form" className="section-spacing overflow-hidden min-h-[500px] flex flex-col justify-center">
         <div className="section-padding max-w-3xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
