@@ -10,13 +10,14 @@ export default async function handler(req, res) {
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
   );
 
+  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
@@ -41,7 +42,7 @@ export default async function handler(req, res) {
       },
     });
 
-    const htmlTemplate = \`
+    const htmlTemplate = `
       <!DOCTYPE html>
       <html>
       <head>
@@ -80,35 +81,35 @@ export default async function handler(req, res) {
           
           <div class="content">
             <div class="greeting">
-              \${full_name || 'A prospective client'} has requested a technical consultation.
+              ${full_name || 'A prospective client'} has requested a technical consultation.
             </div>
             
             <div class="grid">
               <div class="row">
                 <div class="label">Company / Stage</div>
-                <div class="value">\${company_name || 'N/A'} &nbsp;•&nbsp; \${business_stage || 'N/A'}</div>
+                <div class="value">${company_name || 'N/A'} &nbsp;•&nbsp; ${business_stage || 'N/A'}</div>
               </div>
               
               <div class="row">
                 <div class="label">Digital Footprint</div>
-                <div class="value">\${business_website && business_website !== 'N/A' ? \`<a href="\${business_website}">\${business_website}</a>\` : 'No URL Provided'}</div>
+                <div class="value">${business_website && business_website !== 'N/A' ? `<a href="${business_website}">${business_website}</a>` : 'No URL Provided'}</div>
               </div>
               
               <!-- Core Intent Highlights -->
               <div class="row highlight">
                 <div class="label" style="color: #059669;">Primary Objective</div>
-                <div class="value" style="color: #065f46; font-size: 18px;">\${primary_challenge || 'N/A'}</div>
+                <div class="value" style="color: #065f46; font-size: 18px;">${primary_challenge || 'N/A'}</div>
               </div>
               
               <div class="row highlight" style="border-left-color: #6366f1; background: #eef2ff;">
                 <div class="label" style="color: #4f46e5;">Budget & Timeline</div>
-                <div class="value" style="color: #3730a3; font-size: 18px;">\${budget_range || 'N/A'} &nbsp;|&nbsp; \${timeline || 'N/A'}</div>
+                <div class="value" style="color: #3730a3; font-size: 18px;">${budget_range || 'N/A'} &nbsp;|&nbsp; ${timeline || 'N/A'}</div>
               </div>
             </div>
             
             <div class="box">
               <div class="box-label">Technical Scope & Project Description</div>
-              <div class="box-text">\${project_description || 'No description provided by the client.'}</div>
+              <div class="box-text">${project_description || 'No description provided by the client.'}</div>
             </div>
           </div>
           
@@ -118,7 +119,7 @@ export default async function handler(req, res) {
         </div>
       </body>
       </html>
-    \`;
+    `;
 
     await transporter.sendMail({
       from: `"Ripple Nexus Notifier" <${process.env.SMTP_USER}>`,
@@ -130,6 +131,6 @@ export default async function handler(req, res) {
     res.status(200).json({ success: true, message: 'Email sent successfully!' });
   } catch (error) {
     console.error("Error sending email:", error);
-    res.status(500).json({ success: false, error: 'Failed to send email.' });
+    res.status(500).json({ error: error.message || 'Internal Server Error' });
   }
 }
