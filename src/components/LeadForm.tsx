@@ -225,13 +225,56 @@ const LeadForm = () => {
                   value={formData.phone_code} 
                   onChange={(e) => handleChange("phone_code", e.target.value)}
                 >
-                  <option value="+1">US (+1)</option>
+                  <option value="+1">US/CA (+1)</option>
                   <option value="+44">UK (+44)</option>
                   <option value="+91">IN (+91)</option>
                   <option value="+61">AU (+61)</option>
                   <option value="+971">UAE (+971)</option>
                   <option value="+65">SG (+65)</option>
                   <option value="+49">DE (+49)</option>
+                  <option value="+33">FR (+33)</option>
+                  <option value="+39">IT (+39)</option>
+                  <option value="+34">ES (+34)</option>
+                  <option value="+81">JP (+81)</option>
+                  <option value="+82">KR (+82)</option>
+                  <option value="+86">CN (+86)</option>
+                  <option value="+852">HK (+852)</option>
+                  <option value="+886">TW (+886)</option>
+                  <option value="+31">NL (+31)</option>
+                  <option value="+32">BE (+32)</option>
+                  <option value="+41">CH (+41)</option>
+                  <option value="+46">SE (+46)</option>
+                  <option value="+47">NO (+47)</option>
+                  <option value="+45">DK (+45)</option>
+                  <option value="+358">FI (+358)</option>
+                  <option value="+43">AT (+43)</option>
+                  <option value="+353">IE (+353)</option>
+                  <option value="+64">NZ (+64)</option>
+                  <option value="+27">ZA (+27)</option>
+                  <option value="+55">BR (+55)</option>
+                  <option value="+52">MX (+52)</option>
+                  <option value="+54">AR (+54)</option>
+                  <option value="+57">CO (+57)</option>
+                  <option value="+56">CL (+56)</option>
+                  <option value="+51">PE (+51)</option>
+                  <option value="+60">MY (+60)</option>
+                  <option value="+62">ID (+62)</option>
+                  <option value="+63">PH (+63)</option>
+                  <option value="+66">TH (+66)</option>
+                  <option value="+84">VN (+84)</option>
+                  <option value="+92">PK (+92)</option>
+                  <option value="+880">BD (+880)</option>
+                  <option value="+94">LK (+94)</option>
+                  <option value="+974">QA (+974)</option>
+                  <option value="+966">SA (+966)</option>
+                  <option value="+48">PL (+48)</option>
+                  <option value="+420">CZ (+420)</option>
+                  <option value="+40">RO (+40)</option>
+                  <option value="+380">UA (+380)</option>
+                  <option value="+90">TR (+90)</option>
+                  <option value="+20">EG (+20)</option>
+                  <option value="+234">NG (+234)</option>
+                  <option value="+254">KE (+254)</option>
                   <option value="+">Other (+)</option>
                 </select>
                 <input 
