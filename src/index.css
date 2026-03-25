@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 4%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 6%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 6%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 222 74% 48%; /* #1f56d4 */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 156 50% 49%; /* #3FBD8B */
+    --secondary-foreground: 222 47% 4%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 156 50% 49%;
+    --accent-foreground: 222 47% 4%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 222 74% 48%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --hero-gradient: radial-gradient(circle at top center, hsl(var(--primary)/0.15), transparent 60%), linear-gradient(to bottom, hsl(222 47% 4%), hsl(222 47% 2%));
+    --card-gradient: linear-gradient(145deg, hsl(222 47% 8%), hsl(222 47% 5%));
+    --glow-primary: 222 74% 48%;
+    --glow-secondary: 156 50% 49%;
+    --text-bright: 0 0% 100%;
+    --text-soft: 215 20.2% 65.1%;
+    --section-alt: 222 47% 6%;
+
+    --sidebar-background: 222 47% 4%;
+    --sidebar-foreground: 215 20.2% 65.1%;
+    --sidebar-primary: 222 74% 48%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 222 74% 48%;
+  }
+
+  /* Force dark mode */
+  .dark {
+    --background: 222 47% 4%;
+    --foreground: 210 40% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    background-color: hsl(var(--background));
+    background-image: 
+      radial-gradient(ellipse at top right, hsl(var(--primary) / 0.08) 0%, transparent 40%),
+      radial-gradient(ellipse at bottom left, hsl(var(--secondary) / 0.05) 0%, transparent 40%);
+    background-attachment: fixed;
+  }
+
+  /* Optional: Custom scrollbar for modern feel */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+
+  @media (pointer: fine) {
+    body, a, button, [role="button"], input[type="submit"], select, summary {
+      cursor: none !important;
+    }
+  }
+
+  @media (pointer: coarse) {
+    a, button, [role="button"], input[type="submit"], select, summary {
+      cursor: pointer;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-bright;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply px-5 sm:px-8 md:px-12 lg:px-20 xl:px-28;
+  }
+
+  .section-spacing {
+    @apply py-16 sm:py-20 md:py-24 lg:py-28;
+  }
+
+  .section-alt-bg {
+    background: hsl(var(--section-alt));
+    border-top: 1px solid hsl(var(--border) / 0.5);
+    border-bottom: 1px solid hsl(var(--border) / 0.5);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)) 20%, hsl(var(--secondary)) 100%);
+  }
+
+  .glow-border {
+    position: relative;
+  }
+  .glow-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)), transparent);
+    z-index: -1;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+  }
+  .glow-border:hover::before {
+    opacity: 0.7;
+    filter: blur(8px);
+  }
+
+  .card-elevated {
+    background: var(--card-gradient);
+    @apply border border-border/50 rounded-2xl backdrop-blur-[24px];
+    box-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.05), 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .glass-panel {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@layer utilities {
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px -12px hsl(var(--glow-primary) / 0.15);
+  }
+
+  /* Smooth section transitions */
+  section {
+    @apply transition-colors duration-500 ease-in-out;
+  }
+}
