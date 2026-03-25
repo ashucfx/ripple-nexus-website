@@ -23,6 +23,8 @@ export default async function handler(req, res) {
   try {
     const { 
       full_name, 
+      email,
+      phone,
       company_name, 
       business_website, 
       business_stage, 
@@ -85,6 +87,14 @@ export default async function handler(req, res) {
             </div>
             
             <div class="grid">
+              <div class="row">
+                <div class="label">Contact Identity</div>
+                <div class="value">
+                  <a href="mailto:${email || ''}">${email || 'No email provided'}</a><br/>
+                  <a href="tel:${phone ? phone.replace(/\s+/g, '') : ''}">${phone || 'No phone provided'}</a>
+                </div>
+              </div>
+              
               <div class="row">
                 <div class="label">Company / Stage</div>
                 <div class="value">${company_name || 'N/A'} &nbsp;•&nbsp; ${business_stage || 'N/A'}</div>

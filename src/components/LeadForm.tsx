@@ -32,6 +32,9 @@ const budgetOptions = [
 const LeadForm = () => {
   const [formData, setFormData] = useState({
     full_name: "",
+    email: "",
+    phone_code: "+1",
+    phone: "",
     company_name: "",
     business_website: "",
     business_stage: "",
@@ -49,6 +52,18 @@ const LeadForm = () => {
   const validate = () => {
     const errs: Record<string, string> = {};
     if (!formData.full_name.trim()) errs.full_name = "Name is required";
+    
+    if (!formData.email.trim()) {
+      errs.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      errs.email = "Enter a valid email address";
+    }
+
+    if (!formData.phone.trim()) {
+      errs.phone = "Phone number is required";
+    } else if (!/^\d{7,15}$/.test(formData.phone.replace(/[\s-()]/g, ""))) {
+      errs.phone = "Enter a valid 7-15 digit phone number";
+    }
 
     if (!isCareerService) {
       if (!formData.company_name.trim()) errs.company_name = "Company name is required";
@@ -78,6 +93,8 @@ const LeadForm = () => {
     try {
       const payload = {
         full_name: formData.full_name.trim(),
+        email: formData.email.trim(),
+        phone: `${formData.phone_code} ${formData.phone.trim()}`,
         company_name: isCareerService ? (formData.company_name.trim() || "N/A — Career Service") : formData.company_name.trim(),
         business_website: isCareerService ? (formData.business_website.trim() || "N/A") : formData.business_website.trim(),
         business_stage: isCareerService ? (formData.business_stage || "Individual") : formData.business_stage,
@@ -191,6 +208,42 @@ const LeadForm = () => {
               <label className="block text-sm font-medium text-foreground mb-1.5">Full Name *</label>
               <input type="text" className={inputClass("full_name")} value={formData.full_name} onChange={(e) => handleChange("full_name", e.target.value)} placeholder="Your full name" maxLength={100} />
               {errors.full_name && <p className="text-destructive text-xs mt-1">{errors.full_name}</p>}
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1.5">Email Address *</label>
+              <input type="email" className={inputClass("email")} value={formData.email} onChange={(e) => handleChange("email", e.target.value)} placeholder="name@company.com" maxLength={255} />
+              {errors.email && <p className="text-destructive text-xs mt-1">{errors.email}</p>}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1.5">Contact Number *</label>
+              <div className="flex gap-2">
+                <select 
+                  className="w-28 px-2 py-3 rounded-lg border bg-background text-foreground text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 border-border"
+                  value={formData.phone_code} 
+                  onChange={(e) => handleChange("phone_code", e.target.value)}
+                >
+                  <option value="+1">US (+1)</option>
+                  <option value="+44">UK (+44)</option>
+                  <option value="+91">IN (+91)</option>
+                  <option value="+61">AU (+61)</option>
+                  <option value="+971">UAE (+971)</option>
+                  <option value="+65">SG (+65)</option>
+                  <option value="+49">DE (+49)</option>
+                  <option value="+">Other (+)</option>
+                </select>
+                <input 
+                  type="text" 
+                  className={inputClass("phone")} 
+                  value={formData.phone} 
+                  onChange={(e) => handleChange("phone", e.target.value.replace(/[^\d\s\-\(\)]/g, ''))} 
+                  placeholder="(555) 123-4567" 
+                  maxLength={20} 
+                />
+              </div>
+              {errors.phone && <p className="text-destructive text-xs mt-1">{errors.phone}</p>}
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-1.5">What Do You Need? *</label>
