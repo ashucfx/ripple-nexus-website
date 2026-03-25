@@ -84,7 +84,7 @@ export default async function handler(req, res) {
     `;
 
     await transporter.sendMail({
-      from: '"Ripple Nexus Notifier" <no-reply@theripplenexus.com>',
+      from: `"Ripple Nexus Notifier" <${process.env.SMTP_USER}>`,
       to: 'info@theripplenexus.com',
       subject: `New Project Lead: ${full_name} - ${company_name || 'Consultation'}`,
       html: htmlTemplate,
