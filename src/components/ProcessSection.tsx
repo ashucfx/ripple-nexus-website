@@ -140,7 +140,7 @@ const ProcessSection = () => {
           className="mt-14 text-center"
         >
           <a
-            href="/contact#lead-form"
+            href="#lead-form"
             className="group inline-flex items-center gap-2.5 bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-white/20 text-white/80 hover:text-white px-8 py-4 rounded-xl font-semibold text-[15px] transition-all duration-200"
           >
             Start Your Diagnostic

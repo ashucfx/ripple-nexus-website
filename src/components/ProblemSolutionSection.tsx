@@ -142,7 +142,7 @@ const ProblemSolutionSection = () => {
             Ready to close the gap? We'll map your system in a free 30-min call.
           </p>
           <a
-            href="/contact#lead-form"
+            href="#lead-form"
             className="group inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-semibold text-sm hover:bg-primary/90 hover:shadow-[0_0_30px_hsl(222_74%_48%/0.35)] transition-all duration-200 shrink-0"
           >
             Get My System Audit

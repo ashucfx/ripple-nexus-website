@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, CheckCircle2, Shield, Clock } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const guarantees = [
   { icon: CheckCircle2, text: "Free 30-min strategy session" },
@@ -71,12 +70,12 @@ const CtaSection = () => {
             Book Your Free Strategy Call
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
           </a>
-          <Link
-            to="/contact"
+          <a
+            href="#lead-form"
             className="inline-flex items-center justify-center gap-2 bg-transparent border border-white/20 text-white/80 px-9 py-4 rounded-xl font-semibold text-base hover:bg-white/[0.05] hover:border-white/35 hover:text-white transition-all duration-200 w-full sm:w-auto"
           >
-            Contact Our Team <ArrowRight size={16} />
-          </Link>
+            Fill Out the Form <ArrowRight size={16} />
+          </a>
         </motion.div>
 
         {/* Trust guarantees */}

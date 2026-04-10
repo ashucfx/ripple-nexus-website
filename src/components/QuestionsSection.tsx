@@ -77,7 +77,7 @@ const QuestionsSection = () => {
               transition={{ delay: 0.2 }}
             >
               <a
-                href="/contact#lead-form"
+                href="#lead-form"
                 className="group inline-flex items-center gap-2.5 bg-primary text-white px-7 py-3.5 rounded-lg font-semibold text-sm hover:bg-primary/90 hover:shadow-[0_0_32px_hsl(222_74%_48%/0.35)] transition-all duration-200"
               >
                 Get My Free Diagnostic
