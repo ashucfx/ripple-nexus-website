@@ -23,9 +23,17 @@ const Footer = () => {
                 Ripple <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Nexus</span>
               </span>
             </Link>
-            <p className="text-white/60 text-[15px] leading-relaxed mb-8">
-              Pioneering digital governance and engineering resilient high-scale architectures. Securely. Scalably. Compliantly.
+            <p className="text-white/60 text-[15px] leading-relaxed mb-4">
+              Automation-first systems for founders and enterprises who refuse to operate below their potential.
+              Trusted by 200+ companies across 18+ countries.
             </p>
+            <div className="flex flex-wrap gap-2 mb-8">
+              {["SOC 2 Ready", "99.97% SLA", "18+ Countries"].map((badge) => (
+                <span key={badge} className="text-[11px] text-white/40 border border-white/10 rounded-full px-2.5 py-0.5 font-medium">
+                  {badge}
+                </span>
+              ))}
+            </div>
             <div className="flex items-center gap-4">
               <a href="https://www.linkedin.com/company/ripple-nexus" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:bg-primary/20 hover:text-primary hover:border-primary/30 transition-all shadow-sm">
                 <Linkedin size={18} />
@@ -44,12 +52,13 @@ const Footer = () => {
 
           {/* Navigation (Spans 2 columns) */}
           <div className="lg:col-span-2 lg:ml-10">
-            <h4 className="text-white font-bold text-sm tracking-wider uppercase mb-7">Platform</h4>
+            <h4 className="text-white font-bold text-sm tracking-wider uppercase mb-7">Company</h4>
             <nav className="flex flex-col gap-4 text-[15px] text-white/60">
-              <Link to="/" className="hover:text-primary transition-colors flex items-center gap-2">Home</Link>
-              <Link to="/about" className="hover:text-primary transition-colors flex items-center gap-2">Our Approach</Link>
-              <Link to="/services" className="hover:text-primary transition-colors flex items-center gap-2">Capabilities</Link>
-              <Link to="/case-studies" className="hover:text-primary transition-colors flex items-center gap-2">Case Studies</Link>
+              <Link to="/" className="hover:text-primary transition-colors">Home</Link>
+              <Link to="/about" className="hover:text-primary transition-colors">Our Approach</Link>
+              <Link to="/services" className="hover:text-primary transition-colors">Capabilities</Link>
+              <Link to="/case-studies" className="hover:text-primary transition-colors">Case Studies</Link>
+              <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
             </nav>
           </div>
 
@@ -98,9 +107,14 @@ const Footer = () => {
 
         {/* Bottom Legal Bar */}
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-[14px] text-white/40 font-medium tracking-wide">
-            © {new Date().getFullYear()} Ripple Nexus. All rights reserved.
-          </p>
+          <div>
+            <p className="text-[14px] text-white/40 font-medium tracking-wide">
+              © {new Date().getFullYear()} Ripple Nexus. All rights reserved.
+            </p>
+            <p className="text-[12px] text-white/20 mt-1">
+              Building growth systems for the world's most ambitious companies.
+            </p>
+          </div>
           <div className="flex items-center gap-6 text-[14px] font-medium text-white/40">
             <Link to="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
             <Link to="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</Link>

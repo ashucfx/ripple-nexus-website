@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { caseStudies } from "@/data/caseStudies";
 
 const RealStoriesSection = () => {
@@ -50,8 +50,8 @@ const RealStoriesSection = () => {
                  <div className="space-y-3 pt-5 border-t border-white/10">
                    {story.outcomes.slice(0, 2).map((outcome, idx) => (
                      <div key={idx} className="flex gap-2.5 items-start">
-                       <span className="text-secondary mt-0.5 text-sm leading-none">✓</span>
-                       <span className="text-sm text-white/80 leading-relaxed">{outcome}</span>
+                       <CheckCircle2 size={15} className="text-secondary mt-0.5 shrink-0 drop-shadow-[0_0_4px_rgba(63,189,139,0.5)]" />
+                       <span className="text-sm text-white/85 leading-relaxed font-medium">{outcome}</span>
                      </div>
                    ))}
                  </div>

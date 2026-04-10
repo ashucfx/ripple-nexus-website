@@ -107,22 +107,22 @@ const Services = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <AnimatedCard glowOnHover={false} delay={0.1} className="p-8 md:p-10 border border-destructive/20 bg-destructive/5 hover:bg-destructive/10">
+            <AnimatedCard glowOnHover={false} delay={0.1} className="p-8 md:p-10 border border-red-500/30 bg-red-500/[0.08] hover:bg-red-500/[0.12]">
                <div className="flex items-center justify-between mb-8">
-                 <h3 className="text-2xl font-bold text-destructive/90 flex items-center gap-3"><ShieldAlert size={28} /> Traditional Vendors</h3>
-                 <span className="bg-destructive/10 text-destructive text-xs font-bold px-3 py-1 uppercase rounded-md tracking-wider">The Risk</span>
+                 <h3 className="text-2xl font-bold text-red-400 flex items-center gap-3"><ShieldAlert size={28} /> Traditional Vendors</h3>
+                 <span className="bg-red-500/15 text-red-400 border border-red-500/30 text-xs font-bold px-3 py-1 uppercase rounded-md tracking-wider">The Risk</span>
                </div>
                <ul className="space-y-6">
                  <li className="flex gap-4">
-                   <div className="w-1.5 h-1.5 rounded-full bg-destructive mt-2" />
+                   <div className="w-2 h-2 rounded-full bg-red-500 mt-2 shadow-[0_0_6px_rgba(239,68,68,0.6)] shrink-0" />
                    <p className="text-white/80"><strong className="text-white block mb-1">Feature-Obsessed, System-Agnostic</strong> They build isolated features that break under multi-tenant scale or traffic spikes.</p>
                  </li>
                  <li className="flex gap-4">
-                   <div className="w-1.5 h-1.5 rounded-full bg-destructive mt-2" />
+                   <div className="w-2 h-2 rounded-full bg-red-500 mt-2 shadow-[0_0_6px_rgba(239,68,68,0.6)] shrink-0" />
                    <p className="text-white/80"><strong className="text-white block mb-1">Blackbox Monoliths</strong> Codebases that are impossible to hand over or maintain internally without heavy vendor lock-in.</p>
                  </li>
                  <li className="flex gap-4">
-                   <div className="w-1.5 h-1.5 rounded-full bg-destructive mt-2" />
+                   <div className="w-2 h-2 rounded-full bg-red-500 mt-2 shadow-[0_0_6px_rgba(239,68,68,0.6)] shrink-0" />
                    <p className="text-white/80"><strong className="text-white block mb-1">Reactive Problem Solving</strong> They wait for servers to crash before scaling, resulting in permanent data loss.</p>
                  </li>
                </ul>

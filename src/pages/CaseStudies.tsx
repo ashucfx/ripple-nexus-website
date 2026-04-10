@@ -132,8 +132,8 @@ const CaseStudies = () => {
 
                       <div className="space-y-5 flex-1 bg-black/20 p-5 rounded-xl border border-white/[0.02]">
                         <div>
-                          <p className="text-[11px] font-bold text-destructive/90 uppercase tracking-widest mb-1.5 flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-destructive/80" /> The Chaos
+                          <p className="text-[11px] font-bold text-red-400 uppercase tracking-widest mb-1.5 flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_5px_rgba(239,68,68,0.7)]" /> The Chaos
                           </p>
                           <p className="text-sm text-foreground/80 leading-relaxed">{project.challenge}</p>
                         </div>
