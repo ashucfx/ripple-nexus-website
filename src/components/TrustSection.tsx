@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 
 const brands = [
-  "Acme Corp", "GlobalTech", "Nexus Industries", "NovaLabs", "Quantum Financial", "Aurora Systems"
+  "FMCG Distribution", "FinTech Startup", "EdTech Platform", "Insurance Tech",
+  "PropTech", "HealthTech", "Logistics Firm", "Dental Practice",
+  "Enterprise SaaS", "Banking", "Retail Chain", "Manufacturing",
 ];
 
 const TrustSection = () => {
@@ -12,7 +14,7 @@ const TrustSection = () => {
           
           <div className="shrink-0 max-w-xs text-center md:text-left">
             <h3 className="font-display font-medium text-white text-2xl tracking-tight mb-2">Trusted by 200+</h3>
-            <p className="text-white/40 text-sm font-light">Industry leaders running on our infrastructure.</p>
+            <p className="text-white/60 text-sm">Industry leaders running on our infrastructure.</p>
           </div>
 
           {/* Minimal Logo Ticker */}
@@ -23,7 +25,7 @@ const TrustSection = () => {
               transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
             >
               {[...brands, ...brands].map((brand, i) => (
-                <div key={i} className="text-xl font-bold font-display text-white/20 uppercase tracking-widest flex items-center shrink-0">
+                <div key={i} className="text-xl font-bold font-display text-white/50 uppercase tracking-widest flex items-center shrink-0 hover:text-white/70 transition-colors duration-300">
                   {brand}
                 </div>
               ))}

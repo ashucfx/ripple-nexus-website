@@ -16,14 +16,14 @@ const EmotionalStatement = () => {
         className="section-padding max-w-5xl mx-auto text-center relative z-10"
       >
         <div className="space-y-8">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight">
             We don't build projects.
             <br />
             <span className="text-gradient">
               We build growth systems.
             </span>
           </h2>
-          <p className="text-muted-foreground text-lg sm:text-xl max-w-2xl mx-auto">
+          <p className="text-foreground/70 text-lg sm:text-xl max-w-2xl mx-auto">
             Most agencies hand you a product and walk away. We stick around to make sure it actually moves your business forward.
           </p>
           <a

@@ -1,7 +1,52 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Code2, Cpu, Globe, Zap, Calendar } from "lucide-react";
-import FloatingElement from "./FloatingElement";
+import { motion, useInView, animate } from "framer-motion";
+import { ArrowRight, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+
+const stats = [
+  { from: 150, to: 200, suffix: "+", label: "Clients Worldwide" },
+  { from: 99, to: 99.97, suffix: "%", decimals: 2, label: "Uptime SLA" },
+  { from: 60, to: 90, suffix: " Days", label: "Avg. Time to Launch" },
+  { from: 5, to: 10, prefix: "$", suffix: "M+", label: "Revenue Unlocked" },
+];
+
+function CountUpStat({ from, to, suffix, prefix = "", decimals = 0, label }: {
+  from: number; to: number; suffix: string; prefix?: string; decimals?: number; label: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const numRef = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  useEffect(() => {
+    if (!inView || !numRef.current) return;
+    const el = numRef.current;
+    const controls = animate(from, to, {
+      duration: 1.6,
+      ease: "easeOut",
+      onUpdate(v) {
+        el.textContent = prefix + v.toFixed(decimals) + suffix;
+      },
+    });
+    return () => controls.stop();
+  }, [inView, from, to, suffix, prefix, decimals]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 12 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="text-center group"
+    >
+      <div className="text-2xl sm:text-3xl font-display font-bold text-white group-hover:text-gradient transition-all duration-300">
+        <span ref={numRef}>{prefix}{from.toFixed(decimals)}{suffix}</span>
+      </div>
+      <div className="text-[11px] text-white/40 uppercase tracking-widest mt-1 font-medium">
+        {label}
+      </div>
+    </motion.div>
+  );
+}
 
 const HeroSection = () => {
   return (
@@ -26,17 +71,17 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-          className="text-5xl md:text-7xl lg:text-[80px] font-display font-medium text-white tracking-tight leading-[1.05] mb-8"
+          className="text-5xl md:text-7xl lg:text-[80px] font-display font-bold text-white tracking-tight leading-[1.05] mb-8"
         >
           Build for scale.<br />
-          <span className="text-white/40">Architect for growth.</span>
+          <span className="text-gradient">Architect for growth.</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-          className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed mb-10 font-light"
+          className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed mb-10 font-normal"
         >
           We engineer high-performance software, intelligent automation, and scalable platforms for companies that demand perfection.
         </motion.p>
@@ -49,7 +94,7 @@ const HeroSection = () => {
           >
             <Link
               to="/contact"
-              className="group relative inline-flex items-center justify-center gap-2 bg-white text-black px-8 py-4 rounded-md font-medium text-[15px] hover:bg-white/90 transition-all duration-300 w-full sm:w-auto"
+              className="group relative inline-flex items-center justify-center gap-2 bg-white text-black px-8 py-4 rounded-md font-semibold text-[15px] hover:bg-white/95 hover:shadow-[0_0_28px_rgba(255,255,255,0.15)] hover:-translate-y-0.5 transition-all duration-200 w-full sm:w-auto"
             >
               Start Your Project <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
@@ -57,38 +102,24 @@ const HeroSection = () => {
               href="https://calendly.com/ripplenexus/book-a-consultation"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-transparent border border-white/10 text-white px-8 py-4 rounded-md font-medium text-[15px] hover:bg-white/5 transition-all duration-300 w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 bg-transparent border border-white/25 text-white/85 px-8 py-4 rounded-md font-medium text-[15px] hover:bg-white/5 hover:border-white/40 hover:text-white transition-all duration-300 w-full sm:w-auto"
             >
               <Calendar size={18} /> Direct Booking
             </a>
           </motion.div>
 
-        {/* Minimalist Dashboard Preview Placeholder */}
+        {/* Animated Stats Bar */}
         <motion.div
-           initial={{ opacity: 0, y: 40 }}
-           animate={{ opacity: 1, y: 0 }}
-           transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-           className="mt-20 relative mx-auto max-w-4xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.55, ease: "easeOut" }}
+          className="mt-16 border-t border-white/[0.07] pt-10"
         >
-           <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent blur-2xl opacity-50" />
-           <div className="relative rounded-xl border border-white/10 bg-black/50 backdrop-blur-xl overflow-hidden aspect-video shadow-2xl flex items-center justify-center">
-             <div className="absolute top-0 left-0 right-0 h-10 border-b border-white/10 flex items-center px-4 gap-2 bg-white/[0.02]">
-                <div className="w-3 h-3 rounded-full bg-white/20" />
-                <div className="w-3 h-3 rounded-full bg-white/20" />
-                <div className="w-3 h-3 rounded-full bg-white/20" />
-             </div>
-             {/* Simple code or dashboard visualization */}
-             <div className="text-white/20 font-mono text-sm p-10 w-full h-full pt-20 flex flex-col gap-4">
-                <div className="h-4 w-1/3 bg-white/5 rounded" />
-                <div className="h-4 w-1/2 bg-white/5 rounded" />
-                <div className="h-4 w-1/4 bg-white/5 rounded" />
-                <div className="mt-8 grid grid-cols-3 gap-4">
-                  <div className="h-24 bg-white/5 rounded border border-white/5" />
-                  <div className="h-24 bg-white/5 rounded border border-white/5" />
-                  <div className="h-24 bg-white/5 rounded border border-white/5" />
-                </div>
-             </div>
-           </div>
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-16">
+            {stats.map((stat) => (
+              <CountUpStat key={stat.label} {...stat} />
+            ))}
+          </div>
         </motion.div>
 
       </div>

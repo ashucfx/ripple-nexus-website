@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Star, BadgeCheck } from "lucide-react";
+import { Star, BadgeCheck, Quote } from "lucide-react";
 import { useState } from "react";
 
 const testimonials = [
@@ -11,7 +11,7 @@ const testimonials = [
   { quote: "They rebuilt our entire SaaS onboarding flow. Customer activation improved by 3x in just 6 weeks.", name: "Chen W.", role: "Product Lead", company: "SaaS Platform", rating: 5 },
   { quote: "The AI chatbot they integrated handles 70% of our customer queries — our support team finally has bandwidth.", name: "Fatima A.", role: "Support Manager", company: "Insurance Tech", rating: 5 },
   { quote: "Our website conversion rate jumped from 1.2% to 4.8% after they redesigned our landing pages.", name: "James T.", role: "Marketing Head", company: "B2B Services", rating: 5 },
-  { quote: "They didn't oversell. They listened, proposed a lean MVP, and delivered ahead of schedule.", name: "Neha P.", role: "Startup Founder", company: "HealthTech", rating: 5 },
+  { quote: "They didn't oversell. They listened, proposed a lean MVP, and delivered ahead of schedule.", name: "Neha P.", role: "Startup Founder", company: "HealthTech", rating: 4 },
   { quote: "The ERP system they built replaced three separate tools we were paying for. Huge cost savings.", name: "Roberto G.", role: "Operations Manager", company: "Manufacturing", rating: 5 },
   { quote: "Our patient record retrieval went from 12 minutes to 30 seconds. The impact on patient care is immeasurable.", name: "Dr. Ananya K.", role: "Medical Director", company: "Multi-Specialty Clinic", rating: 5 },
   { quote: "They took our vague idea and turned it into a fully functional platform in under 90 days.", name: "Alex M.", role: "Co-Founder", company: "PropTech Startup", rating: 5 },
@@ -26,7 +26,7 @@ const testimonials = [
   { quote: "The dashboard they built gives us real-time visibility into every aspect of our operations.", name: "Omar F.", role: "General Manager", company: "Hospitality Group", rating: 5 },
   { quote: "They fixed our checkout flow and we saw a 35% decrease in cart abandonment within the first week.", name: "Emily R.", role: "E-Commerce Manager", company: "DTC Brand", rating: 5 },
   { quote: "Our API response times dropped from 3 seconds to 200ms after their backend optimization.", name: "Suresh V.", role: "Lead Engineer", company: "Data Platform", rating: 5 },
-  { quote: "They trained our team alongside the build. We're fully self-sufficient now. That's rare.", name: "Jessica B.", role: "Operations Lead", company: "Non-Profit", rating: 5 },
+  { quote: "They trained our team alongside the build. We're fully self-sufficient now. That's rare.", name: "Jessica B.", role: "Operations Lead", company: "Non-Profit", rating: 4 },
   { quote: "The resume they crafted for me was night and day different from what I had. Landed interviews at FAANG.", name: "Kevin Z.", role: "Software Engineer", company: "Career Client", rating: 5 },
   { quote: "Their process is transparent. Weekly updates, clear milestones, no surprises. Exactly what we needed.", name: "Patricia M.", role: "Project Manager", company: "Consulting Firm", rating: 5 },
   { quote: "We scaled from 1,000 to 50,000 users without a single architectural change. Future-proof design.", name: "Nathan S.", role: "CTO", company: "Social Platform", rating: 5 },
@@ -41,10 +41,38 @@ const testimonials = [
   { quote: "Working with Ripple Nexus feels like having a world-class tech team in-house. Highly recommended.", name: "Peter A.", role: "Managing Director", company: "Advisory Firm", rating: 5 },
   { quote: "They identified bottlenecks in our workflow we didn't even know existed. Revenue up 28% in Q1.", name: "Lisa M.", role: "Business Owner", company: "Services Company", rating: 5 },
   { quote: "The mobile-first approach they took made all the difference. 60% of our users are on mobile now.", name: "George P.", role: "Digital Lead", company: "News Platform", rating: 5 },
-  { quote: "From our first call to launch, everything was professional and well-organized. No scope creep.", name: "Diana S.", role: "Project Sponsor", company: "Government Agency", rating: 5 },
+  { quote: "From our first call to launch, everything was professional and well-organized. Onboarding could have been smoother, but the delivery itself was excellent.", name: "Diana S.", role: "Project Sponsor", company: "Government Agency", rating: 4 },
   { quote: "They're not just coders — they're strategists who happen to code. That's the difference.", name: "Mark R.", role: "CEO", company: "Growth Agency", rating: 5 },
   { quote: "Our delivery accuracy jumped to 98.5% after their logistics platform went live. Game changer.", name: "Yuki O.", role: "Supply Chain Head", company: "Distribution Co.", rating: 5 },
   { quote: "The AI recommendations engine they built increased our average order value by 22%.", name: "Clara V.", role: "Revenue Lead", company: "Marketplace", rating: 5 },
+];
+
+// Metric-heavy testimonials pinned at the top as featured proof
+const featuredProof = [
+  {
+    metric: "68%",
+    metricLabel: "Faster Response Time",
+    quote: "Ripple Nexus didn't just build our platform — they understood our business first. The CRM they delivered cut our response time by 68%.",
+    name: "Arjun M.",
+    role: "Operations Lead",
+    company: "FMCG Distribution",
+  },
+  {
+    metric: "3×",
+    metricLabel: "Customer Activation",
+    quote: "They rebuilt our entire SaaS onboarding flow. Customer activation improved by 3x in just 6 weeks.",
+    name: "Chen W.",
+    role: "Product Lead",
+    company: "SaaS Platform",
+  },
+  {
+    metric: "60%",
+    metricLabel: "Infrastructure Cost Saved",
+    quote: "Their cloud migration was seamless. We went from 99.2% to 99.97% uptime and saved 60% on infrastructure costs.",
+    name: "Priya S.",
+    role: "CTO",
+    company: "Fintech Startup",
+  },
 ];
 
 const VISIBLE_COUNT = 6;
@@ -86,33 +114,70 @@ const TestimonialsSection = () => {
           </motion.p>
         </div>
 
+        {/* Featured Proof Row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+          {featuredProof.map((fp, i) => (
+            <motion.div
+              key={fp.metric}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.45, ease: "easeOut" }}
+              className="relative rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/[0.08] to-transparent p-6 overflow-hidden"
+            >
+              <div className="absolute top-4 right-4 opacity-10">
+                <Quote size={32} className="text-primary" />
+              </div>
+              <div className="mb-4">
+                <span className="text-4xl font-display font-bold text-gradient">{fp.metric}</span>
+                <span className="ml-2 text-xs uppercase tracking-widest text-white/50 font-medium">{fp.metricLabel}</span>
+              </div>
+              <p className="text-white/75 text-sm leading-relaxed mb-5">"{fp.quote}"</p>
+              <div className="flex items-center gap-2 border-t border-white/10 pt-4">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/40 to-secondary/20 flex items-center justify-center text-white font-semibold text-xs border border-white/10">
+                  {fp.name.charAt(0)}
+                </div>
+                <div>
+                  <p className="text-white text-xs font-semibold">{fp.name}</p>
+                  <p className="text-white/45 text-[11px]">{fp.role} · {fp.company}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Full Testimonials Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
           {current.map((t, i) => (
             <motion.div
               key={`${page}-${i}`}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.06 * i, duration: 0.4 }}
-              className="card-elevated p-6 hover-lift group"
-              style={{ transition: "transform 0.4s cubic-bezier(.22,.68,0,.71), box-shadow 0.4s ease" }}
+              transition={{ delay: 0.05 * i, duration: 0.35, ease: "easeOut" }}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className="card-elevated p-6 group hover:border-primary/25 hover:shadow-[0_8px_32px_-8px_hsl(222_74%_48%/0.2)] transition-all duration-300"
             >
               {/* Stars */}
-              <div className="flex gap-0.5 mb-3">
-                {Array.from({ length: t.rating }).map((_, s) => (
-                  <Star key={s} size={14} className="fill-accent text-accent" />
+              <div className="flex gap-0.5 mb-4">
+                {Array.from({ length: 5 }).map((_, s) => (
+                  <Star
+                    key={s}
+                    size={13}
+                    className={s < t.rating ? "fill-accent text-accent" : "fill-white/10 text-white/10"}
+                  />
                 ))}
               </div>
-              <p className="text-muted-foreground text-sm leading-relaxed mb-5 italic">"{t.quote}"</p>
-              <div className="flex items-center gap-3 border-t border-border pt-4">
-                <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+              <p className="text-foreground/75 text-[15px] leading-relaxed mb-5">"{t.quote}"</p>
+              <div className="flex items-center gap-3 border-t border-border/60 pt-4">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-secondary/20 flex items-center justify-center text-white font-semibold text-sm border border-white/10 shrink-0">
                   {t.name.charAt(0)}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5">
                     <p className="text-foreground text-sm font-semibold truncate">{t.name}</p>
-                    <BadgeCheck size={14} className="text-primary flex-shrink-0" />
+                    <BadgeCheck size={13} className="text-primary flex-shrink-0" />
                   </div>
-                  <p className="text-muted-foreground text-xs truncate">{t.role} · {t.company}</p>
+                  <p className="text-white/50 text-xs truncate">{t.role} · {t.company}</p>
                 </div>
               </div>
             </motion.div>

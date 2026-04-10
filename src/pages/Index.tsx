@@ -28,12 +28,12 @@ const Index = () => {
       <HeroSection />
       <Suspense fallback={<div className="py-20" />}>
         <TrustSection />
+        <ServicesSection />
+        <RealStoriesSection />
         <TestimonialsSection />
         <QuestionsSection />
-        <ServicesSection />
         <EmotionalStatement />
         <CtaSection />
-        <RealStoriesSection />
         <LeadForm />
         <Footer />
       </Suspense>
