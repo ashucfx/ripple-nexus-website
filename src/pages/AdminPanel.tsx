@@ -3,12 +3,13 @@
  * Password-protected dashboard for managing the Ripple Nexus Scheduler.
  */
 import { useEffect, useState, useCallback } from 'react';
+import SEOHead from '@/components/SEOHead';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Users, CreditCard, Calendar, Settings, TrendingUp, CheckCircle,
   XCircle, ChevronDown, ChevronUp, Loader2, LogOut, Plus,
   BarChart3, RefreshCw, Trash2, AlertTriangle, Search, DollarSign,
-  IndianRupee, Clock, Activity, Shield, Briefcase, ExternalLink, Maximize2,
+  IndianRupee, Clock, Activity, Shield, Briefcase, ExternalLink,
 } from 'lucide-react';
 import type { AdminApplicant } from '@/lib/scheduler-types';
 
@@ -822,62 +823,110 @@ function SettingsTab() {
   );
 }
 
-// ── Client Forge Embed ────────────────────────────────────────────────────
+// ── Client Forge Feature Showcase ────────────────────────────────────────
 
 const CLIENT_FORGE_URL = 'https://clientforge.theripplenexus.com/';
 
-function ClientForgeTab() {
-  const [frameLoading, setFrameLoading] = useState(true);
-  const [fullscreen, setFullscreen] = useState(false);
+const CF_FEATURES = [
+  {
+    icon: <Users className="w-5 h-5" />,
+    title: 'Client Onboarding',
+    desc: 'Structured onboarding flows that collect everything you need from new clients — requirements, assets, approvals — in one place.',
+    color: '#1f56d4',
+  },
+  {
+    icon: <CreditCard className="w-5 h-5" />,
+    title: 'Invoicing & Payments',
+    desc: 'Generate professional invoices, track payment status, and send reminders automatically. INR and USD supported.',
+    color: '#3FBD8B',
+  },
+  {
+    icon: <Briefcase className="w-5 h-5" />,
+    title: 'Project Deliverables',
+    desc: 'Organise draft and final deliverables per project. Clients review, approve, or request revisions directly in the portal.',
+    color: '#a855f7',
+  },
+  {
+    icon: <Activity className="w-5 h-5" />,
+    title: 'Requirements Collection',
+    desc: 'Smart intake forms that capture technical and business requirements before a project kicks off — no back-and-forth emails.',
+    color: '#f59e0b',
+  },
+  {
+    icon: <CheckCircle className="w-5 h-5" />,
+    title: 'Approval Workflows',
+    desc: 'Send deliverables for sign-off. Track which clients have approved, what is pending, and what needs revision at a glance.',
+    color: '#3FBD8B',
+  },
+  {
+    icon: <Clock className="w-5 h-5" />,
+    title: 'Timeline & Milestones',
+    desc: 'Set project milestones and keep clients informed of progress without manual status update emails.',
+    color: '#1f56d4',
+  },
+];
 
+function ClientForgeTab() {
   return (
-    <div className={fullscreen ? 'fixed inset-0 z-50 flex flex-col bg-background' : 'flex flex-col'} style={fullscreen ? {} : { height: 'calc(100vh - 113px)' }}>
-      {/* Toolbar */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-card/60 shrink-0">
-        <div className="flex items-center gap-2.5">
-          <div className="w-6 h-6 bg-[#1f56d4]/10 border border-[#1f56d4]/25 rounded-md flex items-center justify-center">
-            <Briefcase className="w-3.5 h-3.5 text-[#1f56d4]" />
+    <div className="max-w-5xl mx-auto px-4 py-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 mb-10">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 bg-[#1f56d4]/10 border border-[#1f56d4]/25 rounded-2xl flex items-center justify-center shrink-0">
+            <Briefcase className="w-6 h-6 text-[#1f56d4]" />
           </div>
-          <span className="text-sm font-bold text-foreground">Client Forge</span>
-          <span className="text-[10px] text-muted-foreground bg-white/5 border border-white/10 px-2 py-0.5 rounded-full">
-            clientforge.theripplenexus.com
-          </span>
+          <div>
+            <h2 className="text-xl font-bold text-foreground">Client Forge</h2>
+            <p className="text-sm text-muted-foreground mt-0.5">
+              Your end-to-end client operations platform
+            </p>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setFullscreen((f) => !f)}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground border border-border hover:border-white/20 rounded-lg transition-colors"
-          >
-            <Maximize2 className="w-3 h-3" />
-            {fullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
-          </button>
-          <a
-            href={CLIENT_FORGE_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground border border-border hover:border-white/20 rounded-lg transition-colors"
-          >
-            <ExternalLink className="w-3 h-3" />
-            Open in Tab
-          </a>
-        </div>
+        <a
+          href={CLIENT_FORGE_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2.5 bg-[#1f56d4] hover:bg-[#1a47b8] text-white font-bold px-6 py-3 rounded-xl text-sm transition-colors shadow-lg shadow-[#1f56d4]/20 shrink-0"
+        >
+          <ExternalLink className="w-4 h-4" />
+          Open Client Forge
+        </a>
       </div>
 
-      {/* iframe */}
-      <div className="relative flex-1 min-h-0">
-        {frameLoading && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-background z-10">
-            <Loader2 className="w-6 h-6 animate-spin text-[#1f56d4]" />
-            <p className="text-sm text-muted-foreground">Loading Client Forge...</p>
+      {/* Feature grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+        {CF_FEATURES.map(({ icon, title, desc, color }) => (
+          <div
+            key={title}
+            className="bg-card border border-border rounded-2xl p-5 hover:border-white/15 transition-colors"
+          >
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+              style={{ background: `${color}15`, border: `1px solid ${color}30`, color }}
+            >
+              {icon}
+            </div>
+            <h3 className="text-sm font-bold text-foreground mb-1.5">{title}</h3>
+            <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
           </div>
-        )}
-        <iframe
-          src={CLIENT_FORGE_URL}
-          className="w-full h-full border-0"
-          onLoad={() => setFrameLoading(false)}
-          allow="clipboard-read; clipboard-write"
-          title="Client Forge"
-        />
+        ))}
+      </div>
+
+      {/* CTA banner */}
+      <div className="rounded-2xl border border-[#1f56d4]/25 bg-[#1f56d4]/5 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <p className="text-sm font-bold text-foreground mb-1">Ready to manage your clients?</p>
+          <p className="text-xs text-muted-foreground">All client operations in one place — onboarding, invoicing, deliverables, and approvals.</p>
+        </div>
+        <a
+          href={CLIENT_FORGE_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 bg-[#1f56d4] hover:bg-[#1a47b8] text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors shrink-0"
+        >
+          <ExternalLink className="w-3.5 h-3.5" />
+          Launch Client Forge
+        </a>
       </div>
     </div>
   );
@@ -950,7 +999,14 @@ export default function AdminPanel() {
     );
   }
 
-  if (!authed) return <LoginScreen onLogin={onLogin} />;
+  const seoTitle = 'RNS Admin: Ripple Nexus Scheduler Dashboard';
+
+  if (!authed) return (
+    <>
+      <SEOHead title={seoTitle} description="" />
+      <LoginScreen onLogin={onLogin} />
+    </>
+  );
 
   const TABS: { key: Tab; label: string; icon: React.ReactNode; badge?: number; highlight?: boolean }[] = [
     { key: 'overview',     label: 'Overview',      icon: <BarChart3 className="w-4 h-4" /> },
@@ -962,6 +1018,7 @@ export default function AdminPanel() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title={seoTitle} description="" />
       {/* Top bar */}
       <div className="border-b border-border bg-card/50 sticky top-0 z-10 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
