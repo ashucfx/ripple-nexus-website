@@ -2,11 +2,11 @@
 import type { CountryInfo } from './scheduler-types';
 
 const INR_BUDGET_OPTIONS = [
-  { label: 'Under ₹50,000',               value: 'under_50k',    numericValue: 500  },
-  { label: '₹50,000 – ₹1,50,000',         value: '50k_150k',     numericValue: 1800 },
-  { label: '₹1,50,000 – ₹5,00,000',       value: '150k_500k',    numericValue: 6000 },
-  { label: '₹5,00,000 – ₹15,00,000',      value: '500k_1500k',   numericValue: 18000 },
-  { label: '₹15,00,000+',                 value: 'above_1500k',  numericValue: 18001 },
+  { label: 'Under ₹50,000',               value: 'under_50k',    numericValue: 25000   },
+  { label: '₹50,000 – ₹1,50,000',         value: '50k_150k',     numericValue: 100000  },
+  { label: '₹1,50,000 – ₹5,00,000',       value: '150k_500k',    numericValue: 325000  },
+  { label: '₹5,00,000 – ₹15,00,000',      value: '500k_1500k',   numericValue: 1000000 },
+  { label: '₹15,00,000+',                 value: 'above_1500k',  numericValue: 1500001 },
 ];
 
 const USD_BUDGET_OPTIONS = [
