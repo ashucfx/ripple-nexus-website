@@ -20,7 +20,7 @@ const CaseStudies = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Case Studies — Ripple Nexus",
+    name: "Case Studies: Verified Enterprise Engineering Results | Ripple Nexus",
     description: "Verified enterprise projects with measurable business outcomes across CRM, cloud, ERP, cybersecurity, and more.",
     mainEntity: {
       "@type": "ItemList",
@@ -36,8 +36,8 @@ const CaseStudies = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Case Studies — Verified Enterprise Projects | Ripple Nexus"
-        description="Explore 30+ verified enterprise projects: CRM overhauls, cloud migrations, ERP implementations, cybersecurity setups, and more. Real results, measurable impact."
+        title="Case Studies: Verified Enterprise Engineering Results | Ripple Nexus"
+        description="30+ verified projects: SaaS platforms, AI pipelines, cloud migrations, ERP implementations, and RPA automation. Real clients, specific metrics, measurable ROI."
         canonical={`${BASE_URL}/case-studies`}
         schemaMarkup={schema}
       />

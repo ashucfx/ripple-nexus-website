@@ -70,14 +70,14 @@ const Services = () => {
     "@type": "Service",
     provider: { "@type": "Organization", name: "Ripple Nexus", url: BASE_URL },
     serviceType: services.map(s => s.title),
-    areaServed: { "@type": "Country", name: "India" },
+    areaServed: "Worldwide",
   };
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       <SEOHead
-        title="Services — Enterprise SaaS, AI & Digital Solutions | Ripple Nexus"
-        description="Scalable engineering, SaaS platforms, AI chatbots, ERP systems, and automation. Enterprise-grade development for modern businesses."
+        title="Outcome-Driven Engineering: SaaS Architecture, AI Pipelines & Data Systems | Ripple Nexus"
+        description="Enterprise SaaS platforms with 99.9% uptime, agentic AI pipelines, ERP and data warehouses, native mobile, and RPA automation. Measurable ROI from day one."
         canonical={`${BASE_URL}/services`}
         schemaMarkup={schema}
       />

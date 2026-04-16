@@ -68,7 +68,7 @@ const schemaMarkup = {
       "@type": "WebPage",
       "@id": `${BASE_URL}/#webpage`,
       url: BASE_URL,
-      name: "Ripple Nexus — Enterprise SaaS Architecture, Agentic AI & Data Engineering",
+      name: "Ripple Nexus: Enterprise SaaS Architecture, Agentic AI & Data Engineering",
       description:
         "Ripple Nexus architects enterprise SaaS platforms, agentic AI pipelines, and data infrastructure that deliver measurable uptime, throughput, and revenue outcomes.",
       isPartOf: { "@id": `${BASE_URL}/#organization` },
@@ -76,6 +76,34 @@ const schemaMarkup = {
       potentialAction: {
         "@type": "ReadAction",
         target: BASE_URL,
+      },
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${BASE_URL}/#service`,
+      name: "Ripple Nexus Engineering Services",
+      url: BASE_URL,
+      description: "Enterprise SaaS architecture, agentic AI pipelines, real-time data engineering, native mobile development, and RPA workflow automation.",
+      provider: { "@id": `${BASE_URL}/#organization` },
+      areaServed: "Worldwide",
+      serviceType: [
+        "SaaS Architecture",
+        "Agentic AI Development",
+        "Data Engineering",
+        "Mobile App Development",
+        "RPA Automation",
+        "Cloud Infrastructure",
+      ],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Engineering Service Catalog",
+        itemListElement: [
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "High-Scale SaaS Architecture" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Agentic AI and RAG Pipelines" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Real-Time Data Infrastructure" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Native Mobile Development" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Operational Automation via RPA" } },
+        ],
       },
     },
     {
@@ -127,8 +155,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background scroll-smooth">
       <SEOHead
-        title="Ripple Nexus — Enterprise SaaS Architecture, Agentic AI & Data Engineering"
-        description="Ripple Nexus architects enterprise SaaS platforms, agentic AI pipelines, and data infrastructure that deliver measurable uptime, throughput, and revenue outcomes. 200+ deployments. 18+ countries."
+        title="Ripple Nexus: Enterprise SaaS Architecture, Agentic AI & Data Engineering"
+        description="We engineer enterprise SaaS platforms, agentic AI pipelines, and scalable data infrastructure that deliver measurable uptime, throughput, and revenue outcomes. 200+ deployments across 18+ countries."
         canonical={BASE_URL}
         schemaMarkup={schemaMarkup}
       />

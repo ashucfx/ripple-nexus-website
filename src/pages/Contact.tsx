@@ -42,7 +42,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Contact Ripple Nexus — Request a Technical Architecture Audit"
+        title="Contact Ripple Nexus: Request a Technical Architecture Audit"
         description="Get in touch with Ripple Nexus for enterprise SaaS architecture, agentic AI pipelines, and data engineering. Senior architects respond within 24 hours."
         canonical={`${BASE_URL}/contact`}
         schemaMarkup={schema}

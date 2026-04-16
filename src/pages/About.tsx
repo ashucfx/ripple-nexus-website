@@ -31,15 +31,15 @@ const About = () => {
       "@type": "Organization",
       name: "Ripple Nexus",
       url: BASE_URL,
-      description: "Growth partner for modern businesses — Enterprise SaaS, IT infrastructure, AI solutions, and career branding services.",
+      description: "Enterprise engineering partner for SaaS architecture, agentic AI pipelines, data infrastructure, and operational automation across 18+ countries.",
     },
   };
 
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="About Ripple Nexus — Growth Partner for Modern Businesses"
-        description="Ripple Nexus helps founders remove system chaos, clarify strategy, and build scalable growth platforms. Learn about our mission, values, and team."
+        title="Ripple Nexus: Enterprise Engineering Partner for SaaS and AI Architecture"
+        description="Ripple Nexus engineers the technical backbone of growing businesses. 200+ deployments across 18+ countries. Zero data breaches, 99.9% uptime, GDPR-aligned security."
         canonical={`${BASE_URL}/about`}
         schemaMarkup={schema}
       />
