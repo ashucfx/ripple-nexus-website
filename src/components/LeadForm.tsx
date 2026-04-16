@@ -2,14 +2,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 
-const careerServices = [
-  "Career Branding & Resume Services",
-  "Career Branding Services",
-  "Resume Writing",
-  "LinkedIn Optimization",
-  "Cover Letters",
-];
-
 const challengeOptions = [
   "Website & Digital Presence",
   "App Development (Mobile/Cloud)",
@@ -17,16 +9,14 @@ const challengeOptions = [
   "ERP / CMS Systems",
   "AI & Chatbot Solutions",
   "Automation & Process Optimization",
-  "Career Branding & Resume Services",
   "Other",
 ];
 
 const budgetOptions = [
-  "Under $500",
-  "$500 – $2,000",
-  "$2,000 – $5,000",
   "$5,000 – $10,000",
-  "$10,000+",
+  "$10,000 – $25,000",
+  "$25,000 – $50,000",
+  "$50,000+",
 ];
 
 const LeadForm = () => {
@@ -47,12 +37,10 @@ const LeadForm = () => {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const isCareerService = careerServices.includes(formData.primary_challenge);
-
   const validate = () => {
     const errs: Record<string, string> = {};
     if (!formData.full_name.trim()) errs.full_name = "Name is required";
-    
+
     if (!formData.email.trim()) {
       errs.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
@@ -65,13 +53,11 @@ const LeadForm = () => {
       errs.phone = "Enter a valid 7-15 digit phone number";
     }
 
-    if (!isCareerService) {
-      if (!formData.company_name.trim()) errs.company_name = "Company name is required";
-      if (!formData.business_website.trim()) errs.business_website = "Business website is required";
-      else if (!/^https?:\/\/.+\..+/.test(formData.business_website.trim()) && !/^.+\..+/.test(formData.business_website.trim()))
-        errs.business_website = "Enter a valid website URL";
-      if (!formData.business_stage) errs.business_stage = "Select your business stage";
-    }
+    if (!formData.company_name.trim()) errs.company_name = "Company name is required";
+    if (!formData.business_website.trim()) errs.business_website = "Business website is required";
+    else if (!/^https?:\/\/.+\..+/.test(formData.business_website.trim()) && !/^.+\..+/.test(formData.business_website.trim()))
+      errs.business_website = "Enter a valid website URL";
+    if (!formData.business_stage) errs.business_stage = "Select your business stage";
 
     if (!formData.primary_challenge) errs.primary_challenge = "Select your primary challenge";
     if (!formData.budget_range) errs.budget_range = "Select your budget range";
@@ -95,9 +81,9 @@ const LeadForm = () => {
         full_name: formData.full_name.trim(),
         email: formData.email.trim(),
         phone: `${formData.phone_code} ${formData.phone.trim()}`,
-        company_name: isCareerService ? (formData.company_name.trim() || "N/A — Career Service") : formData.company_name.trim(),
-        business_website: isCareerService ? (formData.business_website.trim() || "N/A") : formData.business_website.trim(),
-        business_stage: isCareerService ? (formData.business_stage || "Individual") : formData.business_stage,
+        company_name: formData.company_name.trim(),
+        business_website: formData.business_website.trim(),
+        business_stage: formData.business_stage,
         primary_challenge: formData.primary_challenge,
         budget_range: formData.budget_range,
         timeline: formData.timeline,
@@ -177,7 +163,7 @@ const LeadForm = () => {
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4"
           >
-            Tell Us About Your <span className="text-gradient">Project</span>
+            Describe Your <span className="text-gradient">Technical Challenge</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -186,7 +172,7 @@ const LeadForm = () => {
             transition={{ delay: 0.15 }}
             className="text-muted-foreground text-lg"
           >
-            We work with businesses ready to grow. Share your project details and we'll get back to you within 24 hours.
+            We engage with companies investing $5k+ in engineering outcomes. Share your requirements and a senior architect will respond within 24 hours.
           </motion.p>
         </div>
 
@@ -298,46 +284,29 @@ const LeadForm = () => {
             </div>
           </div>
 
-          {!isCareerService && (
-            <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Company Name *</label>
-                  <input type="text" className={inputClass("company_name")} value={formData.company_name} onChange={(e) => handleChange("company_name", e.target.value)} placeholder="Your company" maxLength={100} />
-                  {errors.company_name && <p className="text-destructive text-xs mt-1">{errors.company_name}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Business Stage *</label>
-                  <select className={inputClass("business_stage")} value={formData.business_stage} onChange={(e) => handleChange("business_stage", e.target.value)}>
-                    <option value="">Select stage</option>
-                    <option value="Startup">Startup</option>
-                    <option value="Growing">Growing</option>
-                    <option value="Scaling">Scaling</option>
-                    <option value="Established">Established</option>
-                  </select>
-                  {errors.business_stage && <p className="text-destructive text-xs mt-1">{errors.business_stage}</p>}
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-1.5">Business Website *</label>
-                <input type="url" className={inputClass("business_website")} value={formData.business_website} onChange={(e) => handleChange("business_website", e.target.value)} placeholder="https://yourcompany.com" maxLength={255} />
-                {errors.business_website && <p className="text-destructive text-xs mt-1">{errors.business_website}</p>}
-              </div>
-            </>
-          )}
-
-          {isCareerService && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-1.5">Current Role / Title</label>
-                <input type="text" className={inputClass("company_name")} value={formData.company_name} onChange={(e) => handleChange("company_name", e.target.value)} placeholder="e.g. Marketing Manager" maxLength={100} />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-1.5">LinkedIn Profile URL</label>
-                <input type="url" className={inputClass("business_website")} value={formData.business_website} onChange={(e) => handleChange("business_website", e.target.value)} placeholder="https://linkedin.com/in/yourprofile" maxLength={255} />
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1.5">Company Name *</label>
+              <input type="text" className={inputClass("company_name")} value={formData.company_name} onChange={(e) => handleChange("company_name", e.target.value)} placeholder="Your company" maxLength={100} />
+              {errors.company_name && <p className="text-destructive text-xs mt-1">{errors.company_name}</p>}
             </div>
-          )}
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1.5">Business Stage *</label>
+              <select className={inputClass("business_stage")} value={formData.business_stage} onChange={(e) => handleChange("business_stage", e.target.value)}>
+                <option value="">Select stage</option>
+                <option value="Startup">Startup</option>
+                <option value="Growing">Growing</option>
+                <option value="Scaling">Scaling</option>
+                <option value="Established">Established</option>
+              </select>
+              {errors.business_stage && <p className="text-destructive text-xs mt-1">{errors.business_stage}</p>}
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-1.5">Business Website *</label>
+            <input type="url" className={inputClass("business_website")} value={formData.business_website} onChange={(e) => handleChange("business_website", e.target.value)} placeholder="https://yourcompany.com" maxLength={255} />
+            {errors.business_website && <p className="text-destructive text-xs mt-1">{errors.business_website}</p>}
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
@@ -362,14 +331,14 @@ const LeadForm = () => {
 
           <div>
             <label className="block text-sm font-medium text-foreground mb-1.5">
-              {isCareerService ? "Tell Us About Your Career Goals *" : "Project Description *"}{" "}
+              Project Description *{" "}
               <span className="text-muted-foreground font-normal">(min 50 characters)</span>
             </label>
             <textarea
               className={`${inputClass("project_description")} min-h-[120px] resize-y`}
               value={formData.project_description}
               onChange={(e) => handleChange("project_description", e.target.value)}
-              placeholder={isCareerService ? "Describe your career goals, target roles, industries..." : "Describe your project goals, current challenges, and what success looks like..."}
+              placeholder="Describe your project goals, current architecture challenges, and what success looks like..."
               maxLength={2000}
             />
             <div className="flex justify-between mt-1">
@@ -403,7 +372,7 @@ const LeadForm = () => {
               </>
             ) : (
               <>
-                Submit Your Project
+                Submit for Architecture Review
                 <Send size={18} />
               </>
             )}

@@ -80,10 +80,10 @@ const HeroSection = () => {
         >
           <Zap size={12} className="text-primary fill-primary" />
           <span className="text-xs font-semibold text-white/85 tracking-wide">
-            Automation-First Growth Systems
+            Enterprise Architecture & AI Systems
           </span>
           <span className="w-px h-3.5 bg-white/15" />
-          <span className="text-xs text-primary font-medium">Trusted by 200+ Companies</span>
+          <span className="text-xs text-primary font-medium">200+ Deployments Worldwide</span>
         </motion.div>
 
         {/* Headline */}
@@ -107,9 +107,9 @@ const HeroSection = () => {
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
           className="text-lg md:text-xl text-white/65 max-w-2xl mx-auto leading-relaxed mb-8"
         >
-          Ripple Nexus architects automation-first platforms for founders and enterprises
-          who refuse to operate below their potential. From AI pipelines to enterprise SaaS —
-          we build systems that compound.
+          Ripple Nexus engineers enterprise SaaS platforms, agentic AI pipelines, and
+          data infrastructure that deliver measurable uptime, throughput, and revenue gains.
+          We own the architecture end-to-end so your team can scale without the bottlenecks.
         </motion.p>
 
         {/* Social proof pills */}
@@ -142,7 +142,7 @@ const HeroSection = () => {
             className="group relative inline-flex items-center justify-center gap-2.5 bg-primary text-white px-8 py-4 rounded-lg font-semibold text-[15px] hover:bg-primary/90 hover:shadow-[0_0_40px_hsl(222_74%_48%/0.4)] hover:-translate-y-0.5 transition-all duration-200 w-full sm:w-auto"
           >
             <Calendar size={17} />
-            Get Your Growth Diagnosis
+            Request a Technical Architecture Audit
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
           </a>
           <Link
@@ -160,7 +160,7 @@ const HeroSection = () => {
           transition={{ delay: 0.5, duration: 0.4 }}
           className="text-white/30 text-xs mt-5 tracking-wide"
         >
-          No commitment required · Free 30-min diagnostic · Response within 4 hours
+          No retainer lock-in · Written architecture brief within 48h · Senior engineers, not sales
         </motion.p>
 
         {/* Stats bar */}

@@ -33,7 +33,7 @@ const schemaMarkup = {
       url: BASE_URL,
       logo: `${BASE_URL}/logo-icon.svg`,
       description:
-        "Ripple Nexus builds automation-first platforms, enterprise SaaS, AI/LLM pipelines, and RPA workflows for founders and enterprises across 18+ countries.",
+        "Ripple Nexus architects enterprise SaaS platforms, agentic AI pipelines, data engineering systems, and RPA workflows for companies across 18+ countries.",
       foundingDate: "2021",
       areaServed: "Worldwide",
       contactPoint: {
@@ -68,9 +68,9 @@ const schemaMarkup = {
       "@type": "WebPage",
       "@id": `${BASE_URL}/#webpage`,
       url: BASE_URL,
-      name: "Ripple Nexus — Automation-First Growth Systems for Enterprises",
+      name: "Ripple Nexus — Enterprise SaaS Architecture, Agentic AI & Data Engineering",
       description:
-        "We architect automation-first platforms, AI pipelines, and enterprise SaaS for founders and companies who refuse to operate below their potential.",
+        "Ripple Nexus architects enterprise SaaS platforms, agentic AI pipelines, and data infrastructure that deliver measurable uptime, throughput, and revenue outcomes.",
       isPartOf: { "@id": `${BASE_URL}/#organization` },
       inLanguage: "en-US",
       potentialAction: {
@@ -127,8 +127,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background scroll-smooth">
       <SEOHead
-        title="Ripple Nexus — Automation-First Growth Systems for Founders & Enterprises"
-        description="We build automation-first platforms, AI pipelines, and enterprise SaaS for companies that refuse to operate below their potential. 200+ clients. 18+ countries. Free strategy call."
+        title="Ripple Nexus — Enterprise SaaS Architecture, Agentic AI & Data Engineering"
+        description="Ripple Nexus architects enterprise SaaS platforms, agentic AI pipelines, and data infrastructure that deliver measurable uptime, throughput, and revenue outcomes. 200+ deployments. 18+ countries."
         canonical={BASE_URL}
         schemaMarkup={schemaMarkup}
       />

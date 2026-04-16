@@ -38,7 +38,7 @@ const FloatingCTA = () => {
               <MessageSquareText size={20} />
             </div>
             <div className="flex flex-col">
-              <span className="text-[10px] font-bold text-primary uppercase tracking-wider leading-tight">Limited Spots</span>
+              <span className="text-[10px] font-bold text-primary uppercase tracking-wider leading-tight">Architecture Audit</span>
               <span className="text-sm font-semibold text-white leading-none">See If You Qualify</span>
             </div>
           </a>

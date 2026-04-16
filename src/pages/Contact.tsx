@@ -42,8 +42,8 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Contact Ripple Nexus — Book a Free Consultation"
-        description="Get in touch with Ripple Nexus for enterprise SaaS, AI solutions, website development, and digital transformation services. Free consultation available."
+        title="Contact Ripple Nexus — Request a Technical Architecture Audit"
+        description="Get in touch with Ripple Nexus for enterprise SaaS architecture, agentic AI pipelines, and data engineering. Senior architects respond within 24 hours."
         canonical={`${BASE_URL}/contact`}
         schemaMarkup={schema}
       />
@@ -110,12 +110,12 @@ const Contact = () => {
             <h2 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-3">
               <Calendar size={20} className="text-white/50" /> Direct Booking
             </h2>
-            <p className="text-white/60 text-sm mb-8 leading-relaxed">For founders and operators with a real problem to solve. Qualify in 2 minutes, pay once, get a session worth 10×.</p>
+            <p className="text-white/60 text-sm mb-8 leading-relaxed">For founders and engineering leaders with a specific architecture or scaling problem. Qualify in 2 minutes. A senior architect leads your session.</p>
             <a
               href="/#rns-scheduler"
               className="inline-flex items-center justify-between w-full bg-white text-black px-6 py-3.5 rounded-lg font-medium hover:bg-white/90 transition-colors text-sm"
             >
-              <span>See If You Qualify</span>
+              <span>Request Architecture Audit</span>
               <ArrowRight size={16} />
             </a>
           </div>
