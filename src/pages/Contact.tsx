@@ -110,14 +110,12 @@ const Contact = () => {
             <h2 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-3">
               <Calendar size={20} className="text-white/50" /> Direct Booking
             </h2>
-            <p className="text-white/60 text-sm mb-8 leading-relaxed">Instantly schedule a deep-dive technical consultation with our lead architects.</p>
+            <p className="text-white/60 text-sm mb-8 leading-relaxed">For founders and operators with a real problem to solve. Qualify in 2 minutes, pay once, get a session worth 10×.</p>
             <a
-              href="https://calendly.com/ripplenexus/book-a-consultation"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/#rns-scheduler"
               className="inline-flex items-center justify-between w-full bg-white text-black px-6 py-3.5 rounded-lg font-medium hover:bg-white/90 transition-colors text-sm"
             >
-              <span>Schedule a Call</span>
+              <span>See If You Qualify</span>
               <ArrowRight size={16} />
             </a>
           </div>

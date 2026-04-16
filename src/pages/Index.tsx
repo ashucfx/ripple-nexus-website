@@ -17,6 +17,7 @@ const GlobalSection = lazy(() => import("@/components/GlobalSection"));
 const QuestionsSection = lazy(() => import("@/components/QuestionsSection"));
 const EmotionalStatement = lazy(() => import("@/components/EmotionalStatement"));
 const CtaSection = lazy(() => import("@/components/CtaSection"));
+const RNSScheduler = lazy(() => import("@/components/scheduler/RNSScheduler"));
 const LeadForm = lazy(() => import("@/components/LeadForm"));
 const Footer = lazy(() => import("@/components/Footer"));
 
@@ -109,7 +110,7 @@ const schemaMarkup = {
           name: "How do I start working with Ripple Nexus?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Book a free 30-minute strategy call at calendly.com/ripplenexus/book-a-consultation. We'll diagnose your system and propose a solution within 48 hours.",
+            text: "Apply for a premium strategy consultation at theripplenexus.com. Complete a short qualification form, secure your session with a one-time fee, and book a time that works for you.",
           },
         },
       ],
@@ -165,10 +166,13 @@ const Index = () => {
         {/* 10. Final CTA — strong close */}
         <CtaSection />
 
-        {/* 11. Lead form */}
+        {/* 11. Ripple Nexus Scheduler — paid qualification + booking funnel */}
+        <RNSScheduler />
+
+        {/* 12. Lead form (general inquiries) */}
         <LeadForm />
 
-        {/* 12. Footer */}
+        {/* 13. Footer */}
         <Footer />
       </Suspense>
 

@@ -30,18 +30,16 @@ const FloatingCTA = () => {
         <div className="absolute inset-0 bg-primary/40 blur-xl rounded-full scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
         <div className="glass-panel flex items-center bg-card/80 border border-primary/20 backdrop-blur-xl p-1.5 rounded-full pr-4 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
-          <a 
-            href="https://calendly.com/ripplenexus/book-a-consultation" 
-            target="_blank" 
-            rel="noopener noreferrer"
+          <a
+            href="/#rns-scheduler"
             className="flex items-center gap-3 group/btn"
           >
             <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-inner group-hover/btn:scale-105 transition-transform duration-300">
               <MessageSquareText size={20} />
             </div>
             <div className="flex flex-col">
-              <span className="text-[10px] font-bold text-primary uppercase tracking-wider leading-tight">Scale Now</span>
-              <span className="text-sm font-semibold text-white leading-none">Free Strategy Call</span>
+              <span className="text-[10px] font-bold text-primary uppercase tracking-wider leading-tight">Limited Spots</span>
+              <span className="text-sm font-semibold text-white leading-none">See If You Qualify</span>
             </div>
           </a>
           

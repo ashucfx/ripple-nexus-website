@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, Building2, Globe, ExternalLink, Filter } from "lucide-react";
+import { CheckCircle2, Building2, Globe, ArrowRight, Filter } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -192,12 +192,10 @@ const CaseStudies = () => {
               We analyze constraints, architect solutions, and build scalable engines for growth. Let's discuss your specific operational challenges.
             </p>
             <a
-              href="https://calendly.com/ripplenexus/book-a-consultation"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/#rns-scheduler"
               className="inline-flex items-center gap-3 bg-primary text-primary-foreground px-8 py-4 rounded-xl font-bold text-base hover:shadow-[0_0_30px_rgba(31,86,212,0.4)] hover:-translate-y-1 transition-all duration-300"
             >
-              Book an Architectural Review <ExternalLink size={18} />
+              Get a Strategy Like This <ArrowRight size={18} />
             </a>
           </div>
         </section>

@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 import { ArrowRight, Calendar, CheckCircle2, Shield, Clock } from "lucide-react";
 
 const guarantees = [
-  { icon: CheckCircle2, text: "Free 30-min strategy session" },
-  { icon: Shield, text: "No commitment required" },
-  { icon: Clock, text: "Response within 4 hours" },
+  { icon: CheckCircle2, text: "Senior team — not a sales rep" },
+  { icon: Shield, text: "Written strategy brief within 48h" },
+  { icon: Clock, text: "Qualify in under 2 minutes" },
 ];
 
 const CtaSection = () => {
@@ -49,7 +49,7 @@ const CtaSection = () => {
         >
           Every week you operate without the right systems, you're paying for it in missed
           revenue, burned team capacity, and ground lost to competitors who already fixed this.
-          Book your free session. We'll show you exactly where you're leaking.
+          Qualify in 2 minutes. We'll show you exactly where you're leaking — and how to stop it.
         </motion.p>
 
         {/* CTAs */}
@@ -61,13 +61,11 @@ const CtaSection = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8"
         >
           <a
-            href="https://calendly.com/ripplenexus/book-a-consultation"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/#rns-scheduler"
             className="group inline-flex items-center justify-center gap-2.5 bg-primary text-white px-9 py-4 rounded-xl font-bold text-base hover:bg-primary/90 hover:shadow-[0_0_50px_hsl(222_74%_48%/0.45)] hover:-translate-y-0.5 transition-all duration-200 w-full sm:w-auto"
           >
             <Calendar size={17} />
-            Book Your Free Strategy Call
+            Find Out Where You're Leaking
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
           </a>
           <a

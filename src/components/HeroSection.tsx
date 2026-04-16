@@ -138,13 +138,11 @@ const HeroSection = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="https://calendly.com/ripplenexus/book-a-consultation"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/#rns-scheduler"
             className="group relative inline-flex items-center justify-center gap-2.5 bg-primary text-white px-8 py-4 rounded-lg font-semibold text-[15px] hover:bg-primary/90 hover:shadow-[0_0_40px_hsl(222_74%_48%/0.4)] hover:-translate-y-0.5 transition-all duration-200 w-full sm:w-auto"
           >
             <Calendar size={17} />
-            Book Free Strategy Call
+            Get Your Growth Diagnosis
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
           </a>
           <Link

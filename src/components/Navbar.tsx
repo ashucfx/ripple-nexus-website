@@ -60,12 +60,10 @@ const Navbar = () => {
             Contact
           </Link>
           <a
-            href="https://calendly.com/ripplenexus/book-a-consultation"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/#rns-scheduler"
             className="bg-white text-black px-4 py-1.5 rounded-full font-medium text-[13px] hover:bg-white/90 transition-colors"
           >
-            Book Call
+            See If You Qualify
           </a>
         </div>
 
@@ -101,13 +99,11 @@ const Navbar = () => {
                 </Link>
               ))}
               <a
-                href="https://calendly.com/ripplenexus/book-a-consultation"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/#rns-scheduler"
                 onClick={() => setMobileOpen(false)}
                 className="bg-white text-black px-4 py-2 mt-4 rounded-md font-medium text-[13px] text-center w-full"
               >
-                Book a Consultation
+                See If You Qualify
               </a>
             </div>
           </motion.div>
