@@ -31,7 +31,7 @@ export function buildCountryInfo(
       isIndia: true,
       currency: 'INR',
       symbol: '₹',
-      consultationFee: feesFromSettings?.inr ?? 4999,
+      consultationFee: feesFromSettings?.inr ?? 1999,
       budgetOptions: INR_BUDGET_OPTIONS,
       minBudgetUsdEquivalent: 900, // ≈ ₹75,000 threshold enforced server-side
     };
