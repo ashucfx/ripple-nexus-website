@@ -12,11 +12,18 @@ const challengeOptions = [
   "Other",
 ];
 
-const budgetOptions = [
+const USD_BUDGET_OPTIONS = [
   "$5,000 – $10,000",
   "$10,000 – $25,000",
   "$25,000 – $50,000",
   "$50,000+",
+];
+
+const INR_BUDGET_OPTIONS = [
+  "₹4,00,000 – ₹8,00,000",
+  "₹8,00,000 – ₹20,00,000",
+  "₹20,00,000 – ₹40,00,000",
+  "₹40,00,000+",
 ];
 
 const LeadForm = () => {
@@ -113,6 +120,9 @@ const LeadForm = () => {
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }));
   };
 
+  const isIndia = formData.phone_code === "+91";
+  const budgetOptions = isIndia ? INR_BUDGET_OPTIONS : USD_BUDGET_OPTIONS;
+
   const inputClass = (field: string) =>
     `w-full px-4 py-3 rounded-lg border bg-background text-foreground text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 ${
       errors[field] ? "border-destructive" : "border-border"
@@ -172,7 +182,7 @@ const LeadForm = () => {
             transition={{ delay: 0.15 }}
             className="text-muted-foreground text-lg"
           >
-            We engage with companies investing $5k+ in engineering outcomes. Share your requirements and a senior architect will respond within 24 hours.
+            We engage with companies investing seriously in engineering outcomes. Share your requirements and a senior architect will respond within 24 hours.
           </motion.p>
         </div>
 
@@ -206,10 +216,13 @@ const LeadForm = () => {
             <div>
               <label className="block text-sm font-medium text-foreground mb-1.5">Contact Number *</label>
               <div className="flex gap-2">
-                <select 
+                <select
                   className="w-28 px-2 py-3 rounded-lg border bg-background text-foreground text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 border-border"
-                  value={formData.phone_code} 
-                  onChange={(e) => handleChange("phone_code", e.target.value)}
+                  value={formData.phone_code}
+                  onChange={(e) => {
+                    handleChange("phone_code", e.target.value);
+                    handleChange("budget_range", "");
+                  }}
                 >
                   <option value="+1">US/CA (+1)</option>
                   <option value="+44">UK (+44)</option>
