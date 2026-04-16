@@ -93,11 +93,11 @@ const HeroSection = () => {
           transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
           className="text-5xl md:text-[72px] lg:text-[88px] font-display font-bold text-white tracking-tight leading-[1.02] mb-6"
         >
-          Your Systems Are
+          Engineer Your Scale
           <br />
-          <span className="text-gradient">the Bottleneck.</span>
+          <span className="text-gradient">Without Expanding</span>
           <br />
-          <span className="text-white/90">We Remove It.</span>
+          <span className="text-white/90">Your Headcount.</span>
         </motion.h1>
 
         {/* Subheadline */}
@@ -107,9 +107,9 @@ const HeroSection = () => {
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
           className="text-lg md:text-xl text-white/65 max-w-2xl mx-auto leading-relaxed mb-8"
         >
-          Ripple Nexus engineers enterprise SaaS platforms, agentic AI pipelines, and
-          data infrastructure that deliver measurable uptime, throughput, and revenue gains.
-          We own the architecture end-to-end so your team can scale without the bottlenecks.
+          We engineer the technical backbone of your business. Replace manual bottlenecks
+          with 99.9% uptime SaaS architecture and AI agents designed for verifiable ROI
+          and long-term scalability. No generic templates. Precise, outcome-driven engineering.
         </motion.p>
 
         {/* Social proof pills */}

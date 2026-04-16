@@ -6,45 +6,45 @@ const services = [
   {
     num: "01",
     icon: Code2,
-    title: "Enterprise SaaS",
-    desc: "Full-stack platforms engineered for 99.9%+ uptime and 10x scale. We own your architecture end-to-end — from schema design to CI/CD.",
+    title: "High-Scale SaaS Architecture",
+    desc: "We build multi-tenant platforms engineered for 99.9%+ uptime. Our engineers own the architecture from CI/CD to secure schema design, ensuring your platform scales to 10x current traffic without a rewrite.",
     tags: ["React", "Node.js", "AWS", "PostgreSQL"],
-    metric: "10× scale capacity",
+    metric: "10× scale without a rewrite",
     span: "md:col-span-2 lg:col-span-2",
-    featured: true,
+    featured: false,
   },
   {
     num: "02",
     icon: Bot,
-    title: "AI & LLMs",
-    desc: "Custom GenAI agents, RAG pipelines, and LLM workflows that cut manual work by 60%+. We build AI that understands your business context.",
+    title: "Agentic AI & RAG Pipelines",
+    desc: "Deploy RAG-enabled LLM pipelines that integrate with your proprietary data to automate decision-heavy operations 24/7. We build agents that understand your business context, not just generic commands.",
     tags: ["OpenAI", "LangChain", "RAG", "Fine-tuning"],
-    metric: "60%+ manual work eliminated",
+    metric: "60%+ operational tasks automated",
     span: "md:col-span-1 lg:col-span-1",
   },
   {
     num: "03",
     icon: Database,
-    title: "Data Engines",
-    desc: "Enterprise database architecture, real-time pipelines, and BI integrations that make every decision data-driven.",
+    title: "Real-Time Data Infrastructure",
+    desc: "Convert fragmented data silos into a competitive moat. We implement real-time Kafka and BigQuery pipelines that eliminate gut-feeling decisions and deliver sub-100ms response times for your core metrics.",
     tags: ["Kafka", "Spark", "BigQuery", "dbt"],
-    metric: "Real-time data at scale",
+    metric: "Sub-100ms query response",
     span: "md:col-span-1 lg:col-span-1",
   },
   {
     num: "04",
     icon: Smartphone,
     title: "Native Mobile",
-    desc: "Cross-platform iOS & Android apps with native performance. Concept to App Store in under 10 weeks.",
+    desc: "Cross-platform iOS and Android apps with native performance and enterprise-grade security. Concept to App Store in under 10 weeks.",
     tags: ["React Native", "Swift", "Kotlin"],
-    metric: "10-week launch cycle",
+    metric: "10-week App Store launch",
     span: "md:col-span-1 lg:col-span-1",
   },
   {
     num: "05",
     icon: Globe,
     title: "Web Platforms",
-    desc: "Headless CMS and composable frontends built for Core Web Vitals perfection and extreme traffic load.",
+    desc: "Headless composable frontends built for Core Web Vitals perfection and extreme traffic load. Your platform loads fast, ranks higher, and converts better.",
     tags: ["Next.js", "Vercel", "Sanity", "Edge"],
     metric: "Sub-100ms response",
     span: "md:col-span-1 lg:col-span-1",
@@ -52,9 +52,9 @@ const services = [
   {
     num: "06",
     icon: Zap,
-    title: "RPA Automation",
-    desc: "Zero-latency intelligent workflows that eliminate repetitive ops. Our clients reclaim 20+ hours per week from day one.",
-    tags: ["UiPath", "n8n", "Zapier", "Custom"],
+    title: "Operational Autonomy via RPA",
+    desc: "Reclaim 20+ hours of executive and engineering time per week. We install zero-latency workflows using n8n and custom scripts that eliminate operational friction at the source and free your team for high-leverage work.",
+    tags: ["UiPath", "n8n", "Python", "Custom"],
     metric: "20+ hrs/week reclaimed",
     span: "md:col-span-2 lg:col-span-3",
     wide: true,
@@ -117,13 +117,6 @@ const ServicesSection = () => {
                 hover:shadow-[0_12px_48px_-12px_hsl(222_74%_48%/0.3)]
                 transition-colors duration-300 cursor-pointer ${s.span} ${s.featured ? "relative overflow-hidden" : ""}`}
             >
-              {/* Featured badge */}
-              {s.featured && (
-                <span className="absolute top-5 right-5 text-[10px] font-bold tracking-widest text-primary uppercase bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full">
-                  Most Popular
-                </span>
-              )}
-
               <div className="flex items-start justify-between mb-6">
                 <div className="w-10 h-10 rounded-xl bg-white/[0.04] flex items-center justify-center border border-white/[0.07] group-hover:bg-primary/15 group-hover:border-primary/25 transition-all duration-300">
                   <s.icon size={18} className="text-white/60 group-hover:text-primary transition-colors duration-300" />

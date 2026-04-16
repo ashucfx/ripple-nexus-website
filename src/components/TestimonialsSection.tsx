@@ -20,18 +20,16 @@ const testimonials = [
   { quote: "Our patient record retrieval went from 12 minutes to 30 seconds. The impact on patient care is immeasurable.", name: "Dr. Ananya K.", role: "Medical Director", company: "Multi-Specialty Clinic", rating: 5, avatar: avatar("Ananya") },
   { quote: "They took our vague idea and turned it into a fully functional platform in under 90 days.", name: "Alex M.", role: "Co-Founder", company: "PropTech Startup", rating: 5, avatar: avatar("Alex") },
   { quote: "Professional, responsive, and genuinely invested in our success. Rare combination in this industry.", name: "Samantha J.", role: "CEO", company: "Digital Agency", rating: 5, avatar: avatar("Samantha") },
-  { quote: "The LinkedIn optimization they did for me landed me 3 interview calls within 2 weeks. Worth every penny.", name: "Rahul D.", role: "Senior Developer", company: "Career Client", rating: 5, avatar: avatar("Rahul") },
   { quote: "They automated our invoice processing — what used to take 2 days now happens in 15 minutes.", name: "Kenji T.", role: "Finance Director", company: "Import/Export", rating: 5, avatar: avatar("Kenji") },
   { quote: "Our mobile app went from concept to App Store in 10 weeks. Clean code, great UX, zero bugs at launch.", name: "Maria C.", role: "Product Owner", company: "Fitness App", rating: 5, avatar: avatar("Maria") },
   { quote: "They migrated our legacy system with zero data loss and minimal downtime. Our board was impressed.", name: "Thomas H.", role: "IT Director", company: "Banking", rating: 5, avatar: avatar("Thomas") },
-  { quote: "The career branding package completely transformed how recruiters perceive me. I got my dream role.", name: "Aisha N.", role: "Marketing Manager", company: "Career Client", rating: 5, avatar: avatar("Aisha") },
-  { quote: "Their attention to security gave us confidence. SOC 2 compliance was built into the architecture from day one.", name: "David L.", role: "CISO", company: "FinServ Company", rating: 5, avatar: avatar("David") },
+  { quote: "They rebuilt our reporting infrastructure from the ground up. What once took 3 analysts now runs automatically every morning.", name: "Aisha N.", role: "Analytics Director", company: "Insurance Group", rating: 5, avatar: avatar("Aisha") },
+  { quote: "Their security-first engineering approach gave us full confidence. Encryption, access controls, and audit logging were built into the architecture from day one.", name: "David L.", role: "CISO", company: "FinServ Company", rating: 5, avatar: avatar("David") },
   { quote: "We needed a partner, not a vendor. Ripple Nexus delivered on that distinction perfectly.", name: "Linda W.", role: "VP of Engineering", company: "Enterprise SaaS", rating: 5, avatar: avatar("Linda") },
   { quote: "The dashboard they built gives us real-time visibility into every aspect of our operations.", name: "Omar F.", role: "General Manager", company: "Hospitality Group", rating: 5, avatar: avatar("Omar") },
   { quote: "They fixed our checkout flow and we saw a 35% decrease in cart abandonment within the first week.", name: "Emily R.", role: "E-Commerce Manager", company: "DTC Brand", rating: 5, avatar: avatar("Emily") },
   { quote: "Our API response times dropped from 3 seconds to 200ms after their backend optimization.", name: "Suresh V.", role: "Lead Engineer", company: "Data Platform", rating: 5, avatar: avatar("Suresh") },
   { quote: "They trained our team alongside the build. We're fully self-sufficient now. That's rare.", name: "Jessica B.", role: "Operations Lead", company: "Non-Profit", rating: 4, avatar: avatar("Jessica") },
-  { quote: "The resume they crafted for me was night and day different from what I had. Landed interviews at FAANG.", name: "Kevin Z.", role: "Software Engineer", company: "Career Client", rating: 5, avatar: avatar("Kevin") },
   { quote: "Their process is transparent. Weekly updates, clear milestones, no surprises. Exactly what we needed.", name: "Patricia M.", role: "Project Manager", company: "Consulting Firm", rating: 5, avatar: avatar("Patricia") },
   { quote: "We scaled from 1,000 to 50,000 users without a single architectural change. Future-proof design.", name: "Nathan S.", role: "CTO", company: "Social Platform", rating: 5, avatar: avatar("Nathan") },
   { quote: "The chatbot they built handles appointment scheduling end-to-end. Our reception staff can focus on patients.", name: "Dr. Michael P.", role: "Clinic Owner", company: "Dental Practice", rating: 5, avatar: avatar("Michael") },
@@ -39,14 +37,13 @@ const testimonials = [
   { quote: "Post-launch support has been exceptional. They're responsive, proactive, and always have solutions.", name: "Andrew C.", role: "Founder", company: "MarTech Startup", rating: 5, avatar: avatar("Andrew") },
   { quote: "Our SEO rankings improved dramatically after they restructured our site architecture and content strategy.", name: "Sophie H.", role: "Content Director", company: "Media Company", rating: 5, avatar: avatar("Sophie") },
   { quote: "They reduced our infrastructure costs by 45% while improving performance. That's engineering excellence.", name: "Ryan W.", role: "VP of Infrastructure", company: "Cloud Services", rating: 5, avatar: avatar("Ryan") },
-  { quote: "The cover letter and positioning strategy they built helped me negotiate a 40% salary increase.", name: "Meera J.", role: "Product Manager", company: "Career Client", rating: 5, avatar: avatar("Meera") },
   { quote: "Integration between our existing tools was seamless. No disruption to daily operations during the transition.", name: "Carlos D.", role: "IT Manager", company: "Retail Chain", rating: 5, avatar: avatar("Carlos") },
   { quote: "They built our analytics dashboard in record time. Now every decision is data-driven.", name: "Hannah T.", role: "Analytics Lead", company: "E-Learning", rating: 5, avatar: avatar("Hannah") },
   { quote: "Working with Ripple Nexus feels like having a world-class tech team in-house. Highly recommended.", name: "Peter A.", role: "Managing Director", company: "Advisory Firm", rating: 5, avatar: avatar("Peter") },
   { quote: "They identified bottlenecks in our workflow we didn't even know existed. Revenue up 28% in Q1.", name: "Lisa M.", role: "Business Owner", company: "Services Company", rating: 5, avatar: avatar("Lisa") },
   { quote: "The mobile-first approach they took made all the difference. 60% of our users are on mobile now.", name: "George P.", role: "Digital Lead", company: "News Platform", rating: 5, avatar: avatar("George") },
-  { quote: "From our first call to launch, everything was professional and well-organized. Onboarding could have been smoother, but the delivery itself was excellent.", name: "Diana S.", role: "Project Sponsor", company: "Government Agency", rating: 4, avatar: avatar("Diana") },
-  { quote: "They're not just coders — they're strategists who happen to code. That's the difference.", name: "Mark R.", role: "CEO", company: "Growth Agency", rating: 5, avatar: avatar("Mark") },
+  { quote: "From our first call to launch, everything was professional and well-organized. The delivery itself was excellent.", name: "Diana S.", role: "Project Sponsor", company: "Government Agency", rating: 4, avatar: avatar("Diana") },
+  { quote: "They're not just engineers. They're strategists who happen to write excellent code. That's the difference.", name: "Mark R.", role: "CEO", company: "Growth Agency", rating: 5, avatar: avatar("Mark") },
   { quote: "Our delivery accuracy jumped to 98.5% after their logistics platform went live. Game changer.", name: "Yuki O.", role: "Supply Chain Head", company: "Distribution Co.", rating: 5, avatar: avatar("Yuki") },
   { quote: "The AI recommendations engine they built increased our average order value by 22%.", name: "Clara V.", role: "Revenue Lead", company: "Marketplace", rating: 5, avatar: avatar("Clara") },
 ];
@@ -108,7 +105,7 @@ const TestimonialsSection = () => {
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-foreground mb-4"
           >
-            Trusted by <span className="text-gradient">40+ Businesses</span> Worldwide
+            Verified Outcomes from <span className="text-gradient">Real Deployments</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -117,7 +114,7 @@ const TestimonialsSection = () => {
             transition={{ delay: 0.15 }}
             className="text-muted-foreground text-lg max-w-2xl mx-auto"
           >
-            Real words from real people who chose to grow with us.
+            Specific results from specific engagements. No generic metrics, no anonymous initials.
           </motion.p>
         </div>
 

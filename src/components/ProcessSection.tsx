@@ -5,36 +5,36 @@ const steps = [
   {
     num: "01",
     icon: Search,
-    title: "Diagnose",
-    headline: "We map your system — before touching your code.",
-    desc: "Every engagement starts with a deep-dive diagnostic: your current stack, bottlenecks, growth blockers, and the exact gap between where you are and where your business needs to be.",
+    title: "Architectural Audit",
+    headline: "We identify the technical debt capping your current revenue.",
+    desc: "Every engagement begins with a deep-dive analysis of your stack and operational bottlenecks. We define a precise gap-closure roadmap and deliver a System Audit Report that shows exactly what is holding your business back.",
     duration: "Week 1",
     deliverable: "System Audit Report",
   },
   {
     num: "02",
     icon: Layers,
-    title: "Design",
-    headline: "Architecture built for your scale target — not just today.",
-    desc: "We design a bespoke solution blueprint: tech stack selection, integration architecture, data flows, and a phased delivery roadmap. No guesswork, no generic templates.",
+    title: "Bespoke Design",
+    headline: "A solution blueprint built for your scale target, not just today.",
+    desc: "We design the architecture with your growth in mind: tech stack selection, data flow design, integration architecture, and a phased delivery roadmap. No guesswork. No generic templates.",
     duration: "Week 2",
     deliverable: "Solution Blueprint",
   },
   {
     num: "03",
     icon: Rocket,
-    title: "Deploy",
-    headline: "Weekly sprints. Full visibility. Zero surprises.",
-    desc: "Our engineering team builds with weekly demos, a live Kanban board, and clear milestone gates. You see progress — not promises. Every delivery is tested before it touches production.",
+    title: "Iterative Deployment",
+    headline: "Weekly sprints. Full visibility. Production-ready code.",
+    desc: "Our engineering team builds in transparent weekly sprints. With a live Kanban board and weekly demos you have full visibility into every delivery. Code is tested before it ever touches your server.",
     duration: "Weeks 3–10",
     deliverable: "Production-Ready System",
   },
   {
     num: "04",
     icon: TrendingUp,
-    title: "Scale",
-    headline: "We don't hand over a project and disappear.",
-    desc: "Post-launch, we monitor performance, optimize bottlenecks, and evolve the system as your business grows. Your success metrics become our KPIs.",
+    title: "Continuous Partnership",
+    headline: "We monitor, optimize, and evolve your system as you grow.",
+    desc: "Post-launch, we track performance metrics, reduce infrastructure costs, and extend the system as your business enters new markets. Your success metrics become our KPIs.",
     duration: "Ongoing",
     deliverable: "Growth Partnership",
   },
@@ -143,10 +143,10 @@ const ProcessSection = () => {
             href="#lead-form"
             className="group inline-flex items-center gap-2.5 bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-white/20 text-white/80 hover:text-white px-8 py-4 rounded-xl font-semibold text-[15px] transition-all duration-200"
           >
-            Start Your Diagnostic
+            Request an Infrastructure Audit
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
           </a>
-          <p className="text-white/25 text-xs mt-4">Free · No commitment · 30 minutes</p>
+          <p className="text-white/25 text-xs mt-4">No retainer lock-in · Written brief within 48h · Senior engineers, not sales</p>
         </motion.div>
 
       </div>
