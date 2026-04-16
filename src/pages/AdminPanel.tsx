@@ -6,9 +6,9 @@ import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Users, CreditCard, Calendar, Settings, TrendingUp, CheckCircle,
-  XCircle, ChevronDown, ChevronUp, Loader2, LogOut, Plus, Eye,
+  XCircle, ChevronDown, ChevronUp, Loader2, LogOut, Plus,
   BarChart3, RefreshCw, Trash2, AlertTriangle, Search, DollarSign,
-  IndianRupee, Clock, Activity, Shield,
+  IndianRupee, Clock, Activity, Shield, Briefcase, ExternalLink, Maximize2,
 } from 'lucide-react';
 import type { AdminApplicant } from '@/lib/scheduler-types';
 
@@ -822,9 +822,70 @@ function SettingsTab() {
   );
 }
 
+// ── Client Forge Embed ────────────────────────────────────────────────────
+
+const CLIENT_FORGE_URL = 'https://clientforge.theripplenexus.com/';
+
+function ClientForgeTab() {
+  const [frameLoading, setFrameLoading] = useState(true);
+  const [fullscreen, setFullscreen] = useState(false);
+
+  return (
+    <div className={fullscreen ? 'fixed inset-0 z-50 flex flex-col bg-background' : 'flex flex-col'} style={fullscreen ? {} : { height: 'calc(100vh - 113px)' }}>
+      {/* Toolbar */}
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-card/60 shrink-0">
+        <div className="flex items-center gap-2.5">
+          <div className="w-6 h-6 bg-[#1f56d4]/10 border border-[#1f56d4]/25 rounded-md flex items-center justify-center">
+            <Briefcase className="w-3.5 h-3.5 text-[#1f56d4]" />
+          </div>
+          <span className="text-sm font-bold text-foreground">Client Forge</span>
+          <span className="text-[10px] text-muted-foreground bg-white/5 border border-white/10 px-2 py-0.5 rounded-full">
+            clientforge.theripplenexus.com
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setFullscreen((f) => !f)}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground border border-border hover:border-white/20 rounded-lg transition-colors"
+          >
+            <Maximize2 className="w-3 h-3" />
+            {fullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+          </button>
+          <a
+            href={CLIENT_FORGE_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground border border-border hover:border-white/20 rounded-lg transition-colors"
+          >
+            <ExternalLink className="w-3 h-3" />
+            Open in Tab
+          </a>
+        </div>
+      </div>
+
+      {/* iframe */}
+      <div className="relative flex-1 min-h-0">
+        {frameLoading && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-background z-10">
+            <Loader2 className="w-6 h-6 animate-spin text-[#1f56d4]" />
+            <p className="text-sm text-muted-foreground">Loading Client Forge...</p>
+          </div>
+        )}
+        <iframe
+          src={CLIENT_FORGE_URL}
+          className="w-full h-full border-0"
+          onLoad={() => setFrameLoading(false)}
+          allow="clipboard-read; clipboard-write"
+          title="Client Forge"
+        />
+      </div>
+    </div>
+  );
+}
+
 // ── Main Admin Dashboard ──────────────────────────────────────────────────
 
-type Tab = 'overview' | 'applicants' | 'slots' | 'settings';
+type Tab = 'overview' | 'applicants' | 'slots' | 'settings' | 'clientforge';
 
 export default function AdminPanel() {
   const [authed, setAuthed] = useState(false);
@@ -891,11 +952,12 @@ export default function AdminPanel() {
 
   if (!authed) return <LoginScreen onLogin={onLogin} />;
 
-  const TABS: { key: Tab; label: string; icon: React.ReactNode; badge?: number }[] = [
-    { key: 'overview',   label: 'Overview',    icon: <BarChart3 className="w-4 h-4" /> },
-    { key: 'applicants', label: 'Applicants',  icon: <Users className="w-4 h-4" />, badge: stats.totalApplicants },
-    { key: 'slots',      label: 'Slots',       icon: <Calendar className="w-4 h-4" /> },
-    { key: 'settings',   label: 'Settings',    icon: <Settings className="w-4 h-4" /> },
+  const TABS: { key: Tab; label: string; icon: React.ReactNode; badge?: number; highlight?: boolean }[] = [
+    { key: 'overview',     label: 'Overview',      icon: <BarChart3 className="w-4 h-4" /> },
+    { key: 'applicants',   label: 'Applicants',    icon: <Users className="w-4 h-4" />, badge: stats.totalApplicants },
+    { key: 'slots',        label: 'Slots',         icon: <Calendar className="w-4 h-4" /> },
+    { key: 'settings',     label: 'Settings',      icon: <Settings className="w-4 h-4" /> },
+    { key: 'clientforge',  label: 'Client Forge',  icon: <Briefcase className="w-4 h-4" />, highlight: true },
   ];
 
   return (
@@ -926,14 +988,16 @@ export default function AdminPanel() {
       <div className="border-b border-border bg-card/20">
         <div className="max-w-5xl mx-auto px-4">
           <div className="flex gap-0 overflow-x-auto">
-            {TABS.map(({ key, label, icon, badge }) => (
+            {TABS.map(({ key, label, icon, badge, highlight }) => (
               <button
                 key={key}
                 onClick={() => setTab(key)}
                 className={`flex items-center gap-2 px-5 py-4 text-sm font-semibold border-b-2 transition-colors whitespace-nowrap relative ${
                   tab === key
                     ? 'border-[#1f56d4] text-[#1f56d4]'
-                    : 'border-transparent text-muted-foreground hover:text-foreground'
+                    : highlight
+                      ? 'border-transparent text-[#3FBD8B] hover:text-[#3FBD8B]/80'
+                      : 'border-transparent text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {icon}
@@ -943,57 +1007,71 @@ export default function AdminPanel() {
                     {badge}
                   </span>
                 )}
+                {highlight && tab !== key && (
+                  <span className="ml-1 text-[9px] bg-[#3FBD8B]/15 text-[#3FBD8B] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide">
+                    New
+                  </span>
+                )}
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <AnimatePresence mode="wait">
-          {tab === 'overview' && (
-            <motion.div key="overview" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-              <OverviewTab stats={stats} onRefresh={loadStats} />
-            </motion.div>
-          )}
+      {/* Content — ClientForge is full-bleed; all other tabs use padded container */}
+      <AnimatePresence mode="wait">
+        {tab === 'clientforge' ? (
+          <motion.div key="clientforge" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <ClientForgeTab />
+          </motion.div>
+        ) : (
+          <motion.div key="padded" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="max-w-5xl mx-auto px-4 py-8">
+            <AnimatePresence mode="wait">
+              {tab === 'overview' && (
+                <motion.div key="overview" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                  <OverviewTab stats={stats} onRefresh={loadStats} />
+                </motion.div>
+              )}
 
-          {tab === 'applicants' && (
-            <motion.div key="applicants" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
-                  <Users className="w-5 h-5 text-[#1f56d4]" /> Applicants
-                </h2>
-              </div>
-              <ApplicantsTab
-                applicants={applicants}
-                loading={applicantsLoading}
-                onRefresh={loadApplicants}
-                onDelete={handleDeleteApplicant}
-                onPurgeAll={handlePurgeAll}
-              />
-            </motion.div>
-          )}
+              {tab === 'applicants' && (
+                <motion.div key="applicants" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
+                      <Users className="w-5 h-5 text-[#1f56d4]" /> Applicants
+                    </h2>
+                  </div>
+                  <ApplicantsTab
+                    applicants={applicants}
+                    loading={applicantsLoading}
+                    onRefresh={loadApplicants}
+                    onDelete={handleDeleteApplicant}
+                    onPurgeAll={handlePurgeAll}
+                  />
+                </motion.div>
+              )}
 
-          {tab === 'slots' && (
-            <motion.div key="slots" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-              <h2 className="text-lg font-bold text-foreground flex items-center gap-2 mb-6">
-                <Calendar className="w-5 h-5 text-[#1f56d4]" /> Availability Slots
-              </h2>
-              <SlotsTab />
-            </motion.div>
-          )}
+              {tab === 'slots' && (
+                <motion.div key="slots" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                  <h2 className="text-lg font-bold text-foreground flex items-center gap-2 mb-6">
+                    <Calendar className="w-5 h-5 text-[#1f56d4]" /> Availability Slots
+                  </h2>
+                  <SlotsTab />
+                </motion.div>
+              )}
 
-          {tab === 'settings' && (
-            <motion.div key="settings" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-              <h2 className="text-lg font-bold text-foreground flex items-center gap-2 mb-6">
-                <Settings className="w-5 h-5 text-[#1f56d4]" /> Qualification & Pricing Settings
-              </h2>
-              <SettingsTab />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+              {tab === 'settings' && (
+                <motion.div key="settings" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                  <h2 className="text-lg font-bold text-foreground flex items-center gap-2 mb-6">
+                    <Settings className="w-5 h-5 text-[#1f56d4]" /> Qualification & Pricing Settings
+                  </h2>
+                  <SettingsTab />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
