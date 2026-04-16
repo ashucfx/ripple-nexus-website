@@ -59,6 +59,31 @@ export async function sbInsert(table, body) {
   return row;
 }
 
+/** DELETE rows matching filter */
+export async function sbDelete(table, filter) {
+  const url = new URL(`${SB_URL()}/rest/v1/${table}`);
+  Object.entries(filter).forEach(([k, v]) => url.searchParams.append(k, `eq.${v}`));
+  const r = await fetch(url.toString(), {
+    method: 'DELETE',
+    headers: sbHeaders(),
+  });
+  if (!r.ok) throw new Error(`sbDelete(${table}): ${await r.text()}`);
+  return true;
+}
+
+/** DELETE all rows in a table (use with care) */
+export async function sbTruncate(table) {
+  const url = new URL(`${SB_URL()}/rest/v1/${table}`);
+  // PostgREST requires at least one filter to allow mass delete — use id neq 'impossible'
+  url.searchParams.append('id', 'neq.00000000-0000-0000-0000-000000000000');
+  const r = await fetch(url.toString(), {
+    method: 'DELETE',
+    headers: sbHeaders(),
+  });
+  if (!r.ok) throw new Error(`sbTruncate(${table}): ${await r.text()}`);
+  return true;
+}
+
 /** PATCH rows matching filter: returns array of updated rows */
 export async function sbUpdate(table, filter, body) {
   const url = new URL(`${SB_URL()}/rest/v1/${table}`);

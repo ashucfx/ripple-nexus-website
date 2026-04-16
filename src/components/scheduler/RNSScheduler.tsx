@@ -193,7 +193,7 @@ export default function RNSScheduler() {
     fetch('/api/scheduler/detect-country')
       .then((r) => r.json())
       .then((d) => {
-        const info = buildCountryInfo(d.countryCode, d.country);
+        const info = buildCountryInfo(d.countryCode, d.country, d.fees);
         dispatch({ type: 'SET_COUNTRY', country: info });
       })
       .catch(() => {

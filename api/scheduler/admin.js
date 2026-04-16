@@ -1,5 +1,5 @@
 import {
-  setCors, handleOptions, sbSelect, sbInsert, sbUpdate,
+  setCors, handleOptions, sbSelect, sbInsert, sbUpdate, sbDelete, sbTruncate,
   generateAdminToken, verifyAdminToken, checkRateLimit,
 } from './_cors.js';
 
@@ -148,6 +148,37 @@ export default async function handler(req, res) {
       const { slotId, isAvailable } = body;
       if (!slotId) return res.status(400).json({ error: 'slotId required' });
       await sbUpdate('rns_slots', { id: slotId }, { is_available: Boolean(isAvailable) });
+      return res.status(200).json({ success: true });
+    }
+
+    if (action === 'delete-slot') {
+      const { slotId } = body;
+      if (!slotId) return res.status(400).json({ error: 'slotId required' });
+      await sbDelete('rns_slots', { id: slotId });
+      return res.status(200).json({ success: true });
+    }
+
+    // ── Delete a single applicant (cascades via FK in Supabase) ───────
+    if (action === 'delete-applicant') {
+      const { applicantId } = body;
+      if (!applicantId) return res.status(400).json({ error: 'applicantId required' });
+      // Delete child records first (payments → bookings → applicant)
+      const payments = await sbSelect('rns_payments', { applicant_id: `eq.${applicantId}`, select: 'id' });
+      for (const p of payments) {
+        await sbDelete('rns_bookings', { payment_id: p.id }).catch(() => {});
+      }
+      for (const p of payments) {
+        await sbDelete('rns_payments', { id: p.id }).catch(() => {});
+      }
+      await sbDelete('rns_applicants', { id: applicantId });
+      return res.status(200).json({ success: true });
+    }
+
+    // ── Purge ALL test data (applicants + payments + bookings) ────────
+    if (action === 'purge-all-records') {
+      await sbTruncate('rns_bookings').catch(() => {});
+      await sbTruncate('rns_payments').catch(() => {});
+      await sbTruncate('rns_applicants').catch(() => {});
       return res.status(200).json({ success: true });
     }
 

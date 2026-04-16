@@ -1,4 +1,4 @@
-import { setCors, handleOptions } from './_cors.js';
+import { setCors, handleOptions, getSetting } from './_cors.js';
 
 // Simple in-process cache: one entry per IP, 1-hour TTL.
 // Avoids burning the 1000 req/day ipapi.co free-tier limit on repeated loads.
@@ -59,18 +59,26 @@ export default async function handler(req, res) {
       }
     }
 
+    // Fetch fee settings from DB (run in parallel with country lookup above)
+    const [feeInr, feeUsd] = await Promise.all([
+      getSetting('consultation_fee_inr', 1999),
+      getSetting('consultation_fee_usd', 199),
+    ]);
+
     return res.status(200).json({
       countryCode,
       country: countryName,
       isIndia: countryCode === 'IN',
+      fees: { inr: Number(feeInr), usd: Number(feeUsd) },
     });
   } catch (err) {
     console.error('[detect-country]', err);
-    // Graceful fallback — assume international
+    // Graceful fallback — assume international, use hardcoded defaults
     return res.status(200).json({
       countryCode: 'US',
       country: 'United States',
       isIndia: false,
+      fees: { inr: 1999, usd: 199 },
     });
   }
 }
