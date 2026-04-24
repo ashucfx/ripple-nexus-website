@@ -1,23 +1,42 @@
 import { motion } from "framer-motion";
-import { XCircle, CheckCircle2, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
-const problems = [
-  "Your tech stack breaks every time you try to scale",
-  "Three different tools that don't talk to each other",
-  "Your team manually does what should be automated",
-  "Projects ship late, over budget, and under-spec",
-  "No real visibility into what's working or why",
-  "Competitors ship faster, respond faster, close faster",
+const marketProblems = [
+  {
+    label: "ChatGPT Wrappers",
+    desc: "Generic AI tools that work identically for every client — no proprietary data, no custom logic, no competitive advantage.",
+  },
+  {
+    label: "Vendor Lock-in",
+    desc: "Agencies that build on proprietary black-box platforms. When you leave, you lose everything. Your IP, your workflows, your data.",
+  },
+  {
+    label: "Time-Billed Projects",
+    desc: "Hours billed, not outcomes delivered. Scope creep, cost overruns, and deliverables that don't move your revenue metrics.",
+  },
+  {
+    label: '"AI-Ready" Roadmaps',
+    desc: "Consultancies that sell 6-month strategy decks instead of deployed systems. Recommendations, not results.",
+  },
 ];
 
-const solutions = [
-  "One integrated system engineered for your scale goal",
-  "Automation that eliminates manual handoffs permanently",
-  "AI-powered workflows operating 24/7 without headcount",
-  "Fixed-scope delivery with weekly transparency checkpoints",
-  "Real-time dashboards that expose every business metric",
-  "Infrastructure that turns your speed into a competitive moat",
+const ourApproach = [
+  {
+    label: "Information Gain Engines",
+    desc: "Systems built on your proprietary data — customer behaviour, operational history, and domain context that no generic AI can replicate.",
+  },
+  {
+    label: "Open-Standard Architecture",
+    desc: "Built on Make, n8n, Python, and open APIs. You own 100% of the code and workflow logic. Walk away with everything, any time.",
+  },
+  {
+    label: "Outcome-Based Pricing",
+    desc: "Project Price = Annual Value Created × Value Capture Rate. If the automation doesn't deliver ROI, the pricing doesn't hold.",
+  },
+  {
+    label: "Production in 60–90 Days",
+    desc: "Not a roadmap. Not a prototype. A deployed, production-grade AI system that your team operates from day one.",
+  },
 ];
 
 const containerVariants = {
@@ -26,54 +45,61 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, x: -20 },
+  hidden: { opacity: 0, x: -16 },
   show: { opacity: 1, x: 0, transition: { duration: 0.45, ease: "easeOut" } },
 };
 
 const ProblemSolutionSection = () => {
   return (
-    <section className="py-28 bg-black border-t border-white/[0.06] relative z-10 overflow-hidden">
-      {/* Subtle background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_100%_50%,rgba(31,86,212,0.04)_0%,transparent_70%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_0%_50%,rgba(63,189,139,0.03)_0%,transparent_70%)] pointer-events-none" />
-
+    <section
+      className="py-28 relative z-10 overflow-hidden"
+      style={{ borderTop: "1px solid var(--graphite-600)" }}
+    >
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Section header */}
         <div className="max-w-2xl mb-20">
-          <motion.span
+          <motion.p
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-primary font-semibold text-xs tracking-widest uppercase mb-5"
+            className="eyebrow mb-6"
           >
-            Why You're Here
-          </motion.span>
+            The Market Reality
+          </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.08 }}
-            className="text-4xl md:text-[56px] font-display font-bold text-white tracking-tight leading-[1.05] mb-5"
+            className="font-display font-bold leading-tight mb-5"
+            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", letterSpacing: "-0.03em", color: "var(--pearl)" }}
           >
-            Most Agencies Sell Time.
-            <br />
-            <span className="text-gradient">We Sell Outcomes.</span>
+            The AI market is flooded<br />
+            with{" "}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
+            >
+              Grey Goo.
+            </span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.14 }}
-            className="text-white/60 text-lg leading-relaxed"
+            className="font-body text-lg leading-relaxed"
+            style={{ color: "var(--graphite-300)" }}
           >
-            If your technology isn't compounding your growth every quarter, it's costing you.
-            Here's the exact gap between where you are and where you need to be.
+            Generic AI outputs. Identical workflows. No proprietary data advantage.
+            If your competitor can buy the same tool and get the same result,
+            you haven't built a moat — you've paid for commoditised automation.
           </motion.p>
         </div>
 
-        {/* Two-column comparison */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Two-column panel comparison */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-px mb-12" style={{ background: "var(--graphite-600)" }}>
 
           {/* Problem column */}
           <motion.div
@@ -81,22 +107,22 @@ const ProblemSolutionSection = () => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-40px" }}
-            className="rounded-2xl border border-red-500/25 bg-red-500/[0.07] p-8"
-            style={{ boxShadow: "inset 0 1px 0 0 rgba(239,68,68,0.08), 0 0 40px -12px rgba(239,68,68,0.08)" }}
+            className="p-8 flex flex-col"
+            style={{ background: "var(--obsidian)" }}
           >
-            <div className="flex items-center gap-3 mb-8">
-              <XCircle size={20} className="text-red-400" />
-              <h3 className="text-white font-bold text-lg">Where most businesses are stuck</h3>
+            <div className="flex items-center gap-3 mb-8" style={{ borderBottom: "1px solid var(--graphite-600)", paddingBottom: "1.5rem" }}>
+              <span className="font-mono text-[0.55rem] tracking-widest uppercase" style={{ color: "rgba(244,63,94,0.8)" }}>
+                What the market delivers
+              </span>
             </div>
-            <div className="space-y-4">
-              {problems.map((p, i) => (
-                <motion.div
-                  key={i}
-                  variants={itemVariants}
-                  className="flex items-start gap-3 group"
-                >
-                  <XCircle size={16} className="text-red-400/80 mt-0.5 shrink-0" />
-                  <p className="text-white/70 text-[15px] leading-snug group-hover:text-white/90 transition-colors duration-200">{p}</p>
+            <div className="space-y-7">
+              {marketProblems.map((p, i) => (
+                <motion.div key={i} variants={itemVariants} className="flex gap-4">
+                  <span className="font-mono text-[0.65rem] mt-0.5 shrink-0" style={{ color: "rgba(244,63,94,0.6)" }}>—</span>
+                  <div>
+                    <p className="font-body text-sm font-semibold mb-1" style={{ color: "var(--pearl)" }}>{p.label}</p>
+                    <p className="font-body text-sm leading-relaxed" style={{ color: "var(--graphite-400)" }}>{p.desc}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -108,44 +134,65 @@ const ProblemSolutionSection = () => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-40px" }}
-            className="rounded-2xl border border-secondary/40 bg-secondary/[0.09] p-8"
-            style={{ boxShadow: "inset 0 1px 0 0 rgba(63,189,139,0.1), 0 0 40px -12px rgba(63,189,139,0.12)" }}
+            className="p-8 flex flex-col"
+            style={{ background: "var(--ink)" }}
           >
-            <div className="flex items-center gap-3 mb-8">
-              <CheckCircle2 size={20} className="text-secondary" />
-              <h3 className="text-white font-bold text-lg">What Ripple Nexus installs</h3>
+            <div className="flex items-center gap-3 mb-8" style={{ borderBottom: "1px solid var(--graphite-600)", paddingBottom: "1.5rem" }}>
+              <span className="eyebrow">What Ripple Nexus delivers</span>
             </div>
-            <div className="space-y-4">
-              {solutions.map((s, i) => (
+            <div className="space-y-7">
+              {ourApproach.map((s, i) => (
                 <motion.div
                   key={i}
-                  variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0, transition: { duration: 0.45, ease: "easeOut" } } }}
-                  className="flex items-start gap-3 group"
+                  variants={{ hidden: { opacity: 0, x: 16 }, show: { opacity: 1, x: 0, transition: { duration: 0.45, ease: "easeOut" } } }}
+                  className="flex gap-4"
                 >
-                  <CheckCircle2 size={16} className="text-secondary mt-0.5 shrink-0 drop-shadow-[0_0_4px_rgba(63,189,139,0.6)]" />
-                  <p className="text-white text-[15px] leading-snug font-medium group-hover:text-white/90 transition-colors duration-200">{s}</p>
+                  <span className="font-mono text-sm mt-0.5 shrink-0" style={{ color: "var(--nexus-violet)" }}>—</span>
+                  <div>
+                    <p className="font-body text-sm font-semibold mb-1" style={{ color: "var(--pearl)" }}>{s.label}</p>
+                    <p className="font-body text-sm leading-relaxed" style={{ color: "var(--graphite-400)" }}>{s.desc}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
         </div>
 
-        {/* Bottom CTA strip */}
+        {/* Positioning formula */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl border border-white/[0.08] bg-white/[0.02] px-8 py-6"
+          className="flex flex-col sm:flex-row items-center justify-between gap-6 px-8 py-6 rounded-xl"
+          style={{ border: "1px solid var(--graphite-600)", background: "var(--ink)" }}
         >
-          <p className="text-white/70 text-base font-medium text-center sm:text-left">
-            Ready to close the gap? We'll map your system in a free 30-min call.
-          </p>
+          <div>
+            <p className="font-mono text-[0.6rem] tracking-widest uppercase mb-2" style={{ color: "var(--nexus-violet)" }}>
+              Value-Based Pricing Formula
+            </p>
+            <p className="font-body text-base italic" style={{ color: "var(--pearl)" }}>
+              Project Price = Annual Value Created × Value Capture Rate (10–25%)
+            </p>
+          </div>
           <a
             href="#lead-form"
-            className="group inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-semibold text-sm hover:bg-primary/90 hover:shadow-[0_0_30px_hsl(222_74%_48%/0.35)] transition-all duration-200 shrink-0"
+            className="group inline-flex items-center gap-2 font-body font-semibold text-sm px-6 py-3 shrink-0 transition-all duration-200 rounded-xl"
+            style={{
+              background: "var(--nexus-violet)",
+              color: "#fff",
+              boxShadow: "0 8px 32px -4px rgba(124,92,255,0.4)",
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = "var(--violet-hover)";
+              e.currentTarget.style.transform = "translateY(-1px)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = "var(--nexus-violet)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
           >
-            Get My System Audit
+            Map My ROI Opportunity
             <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
           </a>
         </motion.div>

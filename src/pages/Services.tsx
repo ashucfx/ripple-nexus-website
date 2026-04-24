@@ -1,66 +1,101 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-  Globe, Smartphone, Code2, Database, Bot, Zap,
-  Palette, FileText, Linkedin, PenTool, ArrowRight,
-  TrendingUp, CheckCircle2, ShieldAlert
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CtaSection from "@/components/CtaSection";
 import SEOHead from "@/components/SEOHead";
-import AnimatedCard from "@/components/AnimatedCard";
 
 const BASE_URL = "https://www.theripplenexus.com";
 
-const services = [
-  { 
-    icon: Code2, 
-    title: "Enterprise SaaS & Software Build", 
-    desc: "We engineer resilient, high-bandwidth applications built on tech-agnostic modern architectures tailored exactly to your requirements, equipped to handle millions of transactions.", 
-    how: "Microservices architecture & containerization for flawless scale.",
-    outcome: "Zero-downtime platforms with a 40%+ increase in deployment speed.",
-    keywords: ["SaaS", "API Design", "Node.js", "AWS", "K8s"] 
+const products = [
+  {
+    num: "01",
+    name: "AI Revenue Qualification System",
+    tagline: "Turn your ICP into an autonomous pipeline.",
+    desc: "Proprietary lead qualification agents trained on your ideal customer profile. Integrates with your CRM to score, route, and engage high-intent accounts 24/7 — before a human sales rep touches them.",
+    how: "RAG pipelines + intent scoring models + CRM API mesh",
+    outcome: "60%+ reduction in unqualified pipeline · Demo-to-close rate improved by 30%",
+    tags: ["LLM Agents", "RAG", "CRM Integration", "Intent Scoring", "OpenAI"],
+    anchor: "Replaces a ₹20L/year SDR function with a ₹4L/year agent licence.",
   },
-  { 
-    icon: Bot, 
-    title: "Conversational AI & LLM Systems", 
-    desc: "Intelligent automation powered by custom-fine-tuned GenAI models that integrate natively into your existing data lakes and support channels.", 
-    how: "RAG architectures and strict token-efficiency models.",
-    outcome: "Resolves up to 75% of tier-1 support autonomously.",
-    keywords: ["GenAI", "LLM", "RAG", "Automation"] 
+  {
+    num: "02",
+    name: "Autonomous Operations Engine",
+    tagline: "Eliminate 20+ hours of manual work per team per week.",
+    desc: "End-to-end workflow automation built on open standards — n8n, Python, and your existing stack. No proprietary platform lock-in. Every workflow you own, forever.",
+    how: "Custom n8n orchestration + Python RPA + API mesh integrations",
+    outcome: "20+ hrs/week reclaimed · 70% reduction in manual internal operations",
+    tags: ["n8n", "Python RPA", "Zapier Enterprise", "API Mesh", "Zero Lock-in"],
+    anchor: "Automating 70% of internal ops increases gross margin to 65–75%.",
   },
-  { 
-    icon: Database, 
-    title: "ERP & Data Warehouse Implementation", 
-    desc: "Unify fragmented data silos into centralized engines (SAP, Snowflake, custom builds) that drive instant business intelligence and automated operations.", 
-    how: "Custom ETL pipelines and complex mapping.",
-    outcome: "100% data visibility leading to dramatic OPEX reductions.",
-    keywords: ["SAP", "Snowflake", "ETL", "BI"] 
+  {
+    num: "03",
+    name: "Scale Infrastructure System",
+    tagline: "99.9%+ uptime. 10× traffic. Zero rewrites.",
+    desc: "Multi-tenant SaaS architecture engineered for scale from day one. We own the full stack — microservices, CI/CD, multi-AZ resilience, schema design — and you own 100% of the IP on delivery.",
+    how: "Microservices architecture + multi-AZ deployment + predictive DevSecOps",
+    outcome: "99.97% uptime SLA · 10× scale capacity · 40%+ deployment speed increase",
+    tags: ["AWS", "Node.js", "PostgreSQL", "Kubernetes", "Microservices"],
+    anchor: "Architecture-first prevents the costly rewrite at 100k users.",
   },
-  { 
-    icon: Smartphone, 
-    title: "Native & Cross-Platform Mobile", 
-    desc: "Stunning iOS & Android applications tailored for massive user retention, utilizing React Native and Swift with hyper-optimized bridge layers.", 
-    how: "60fps animations and modularized state management.",
-    outcome: "Sub-second load times & 4.8+ typical app store ratings.",
-    keywords: ["React Native", "iOS", "Android", "Mobile"] 
+  {
+    num: "04",
+    name: "Real-Time Intelligence Hub",
+    tagline: "Convert data silos into a live competitive moat.",
+    desc: "Unified data infrastructure that eliminates gut-feeling decisions. Custom ETL pipelines, real-time streaming, and BI layers that deliver sub-100ms query response across your entire dataset.",
+    how: "Kafka streaming + BigQuery/Snowflake + dbt transformation layers",
+    outcome: "Sub-100ms query response · 100% data visibility · OPEX reduction from insights",
+    tags: ["Kafka", "BigQuery", "Snowflake", "dbt", "Spark"],
+    anchor: "Data visibility drives 15–25% efficiency gains in operations.",
   },
-  { 
-    icon: Globe, 
-    title: "High-Traffic Web Platforms", 
-    desc: "SEO-obsessed, universally accessible web portals and decoupled CMS implementations focused on instant TTFB (Time To First Byte).", 
-    how: "Headless CMS + Edge content delivery networks.",
-    outcome: "Conversion rates routinely doubled through performance alone.",
-    keywords: ["Custom Stacks", "Tech-Agnostic", "Headless CMS", "SEO"] 
+  {
+    num: "05",
+    name: "AI-First Mobile Platform",
+    tagline: "Native performance. Embedded intelligence.",
+    desc: "iOS and Android applications with AI features built into the architecture level — in-app agents, personalisation layers, predictive UX. Concept to App Store in under 10 weeks.",
+    how: "React Native + Swift/Kotlin + on-device AI models + Edge inference",
+    outcome: "10-week App Store launch · 4.8+ typical store rating · Sub-second load times",
+    tags: ["React Native", "Swift", "Kotlin", "On-device AI", "Edge"],
+    anchor: "Time-to-market advantage compounds quarterly.",
   },
-  { 
-    icon: Zap, 
-    title: "Workflow Security & RPA", 
-    desc: "Identify manual vulnerabilities and inject Robotic Process Automation connected directly to your central auth layer.", 
-    how: "Custom scripting + n8n/Zapier enterprise deployments.",
-    outcome: "Thousands of manual hours eliminated monthly.",
-    keywords: ["RPA", "n8n", "Security", "IAM"] 
+  {
+    num: "06",
+    name: "Conversion Web Platform",
+    tagline: "Built to rank in AI search. Built to convert.",
+    desc: "Headless, composable web platforms optimised for Core Web Vitals and AI search engine discovery. Structured for AEO, GEO, and programmatic SEO — the 2026 standard for B2B visibility.",
+    how: "Next.js + Vercel Edge + headless CMS + structured AEO/GEO schema",
+    outcome: "Conversion rates doubled through performance · 250%+ YoY AI referral traffic growth",
+    tags: ["Next.js", "Vercel Edge", "AEO/GEO", "Headless CMS", "SEO"],
+    anchor: "190%+ YoY AI referral traffic growth is the 2026 industry benchmark.",
+  },
+];
+
+const comparison = [
+  {
+    dimension: "Ownership",
+    market: "Vendor-owned workflows, proprietary platforms, lock-in by design",
+    rn: "100% IP transfer on delivery — code, workflows, data, all yours",
+  },
+  {
+    dimension: "Architecture",
+    market: "Feature-obsessed builds that break at multi-tenant scale",
+    rn: "Systems-first: microservices, multi-AZ, infinite horizontal scale from day one",
+  },
+  {
+    dimension: "AI Approach",
+    market: "Generic ChatGPT wrappers — same output as every competitor",
+    rn: "Proprietary data pipelines — Information Gain your competitors cannot replicate",
+  },
+  {
+    dimension: "Pricing",
+    market: "Hours billed, scope creep, retainer lock-in",
+    rn: "Value-based: Project Price = Annual Value × Value Capture Rate (10–25%)",
+  },
+  {
+    dimension: "Timeline",
+    market: "6-month roadmaps, 12-month builds, 18-month ROI",
+    rn: "Production-deployed in 60–90 days. Verifiable ROI from day one.",
   },
 ];
 
@@ -69,139 +104,238 @@ const Services = () => {
     "@context": "https://schema.org",
     "@type": "Service",
     provider: { "@type": "Organization", name: "Ripple Nexus", url: BASE_URL },
-    serviceType: services.map(s => s.title),
+    serviceType: products.map(p => p.name),
     areaServed: "Worldwide",
   };
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden" style={{ background: "var(--obsidian)" }}>
       <SEOHead
-        title="Outcome-Driven Engineering: SaaS Architecture, AI Pipelines & Data Systems | Ripple Nexus"
-        description="Enterprise SaaS platforms with 99.9% uptime, agentic AI pipelines, ERP and data warehouses, native mobile, and RPA automation. Measurable ROI from day one."
+        title="AI Systems & Automation Infrastructure | Ripple Nexus"
+        description="Six productized AI systems: Revenue Qualification, Autonomous Operations, Scale Infrastructure, Real-Time Intelligence, AI-First Mobile, and Conversion Web Platform. Verifiable ROI. You own 100% of the IP."
         canonical={`${BASE_URL}/services`}
         schemaMarkup={schema}
       />
       <Navbar />
 
       <main className="pt-32 pb-24 relative z-10">
-        <div className="absolute top-[10%] left-[20%] w-[35rem] h-[35rem] bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
 
-        {/* Hero Section */}
-        <section className="section-padding max-w-4xl mx-auto text-center mb-16">
+        {/* ── HERO ──────────────────────────────────────────────── */}
+        <section className="section-padding max-w-5xl mx-auto mb-24">
+          {/* Background glow */}
+          <div
+            className="absolute top-0 right-0 w-1/2 h-96 pointer-events-none"
+            style={{
+              background: "radial-gradient(50% 50% at 80% 20%, rgba(124,92,255,0.18) 0%, rgba(10,11,20,0) 100%)",
+            }}
+          />
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <span className="text-white/40 font-semibold text-sm tracking-widest uppercase mb-4 block">Our Capabilities</span>
-            <h1 className="font-display font-medium text-4xl md:text-6xl text-white tracking-tight mb-6">
-              Full-Stack Architecture.
+            <p className="eyebrow mb-6">System Catalogue</p>
+            <div
+              className="w-12 h-px mb-10"
+              style={{ background: "linear-gradient(90deg, #7C5CFF 0%, #22D3EE 100%)" }}
+            />
+            <h1
+              className="font-display font-bold leading-tight mb-6"
+              style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", letterSpacing: "-0.04em", color: "var(--pearl)" }}
+            >
+              Six systems.<br />
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
+              >
+                One objective: autonomous growth.
+              </span>
             </h1>
-            <p className="text-white/50 text-xl font-light max-w-2xl mx-auto">
-              From high-performance web platforms to enterprise backend systems, we engineer the unshakeable foundations your business needs to scale globally.
+            <p className="font-body text-xl max-w-2xl leading-relaxed" style={{ color: "var(--graphite-300)" }}>
+              Not generic services. Productized AI systems with defined outcomes,
+              open-standard architecture, and 100% IP ownership on delivery.
             </p>
           </motion.div>
         </section>
 
-        {/* The Comparative Approach Block */}
-        <section className="section-padding max-w-7xl mx-auto mb-32 relative">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-4">The Ripple Nexus Difference</h2>
-            <p className="text-muted-foreground text-lg">Why hyper-growth companies migrate to our architectures.</p>
+        {/* ── COMPARISON BLOCK ────────────────────────────────────── */}
+        <section className="section-padding max-w-6xl mx-auto mb-24">
+          <div className="mb-12">
+            <p className="eyebrow mb-6">The Ripple Nexus Difference</p>
+            <h2
+              className="font-display font-bold leading-tight"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)", letterSpacing: "-0.025em", color: "var(--pearl)" }}
+            >
+              Why category leaders migrate to our architecture.
+            </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <AnimatedCard glowOnHover={false} delay={0.1} className="p-8 md:p-10 border border-red-500/30 bg-red-500/[0.08] hover:bg-red-500/[0.12]">
-               <div className="flex items-center justify-between mb-8">
-                 <h3 className="text-2xl font-bold text-red-400 flex items-center gap-3"><ShieldAlert size={28} /> Traditional Vendors</h3>
-                 <span className="bg-red-500/15 text-red-400 border border-red-500/30 text-xs font-bold px-3 py-1 uppercase rounded-md tracking-wider">The Risk</span>
-               </div>
-               <ul className="space-y-6">
-                 <li className="flex gap-4">
-                   <div className="w-2 h-2 rounded-full bg-red-500 mt-2 shadow-[0_0_6px_rgba(239,68,68,0.6)] shrink-0" />
-                   <p className="text-white/80"><strong className="text-white block mb-1">Feature-Obsessed, System-Agnostic</strong> They build isolated features that break under multi-tenant scale or traffic spikes.</p>
-                 </li>
-                 <li className="flex gap-4">
-                   <div className="w-2 h-2 rounded-full bg-red-500 mt-2 shadow-[0_0_6px_rgba(239,68,68,0.6)] shrink-0" />
-                   <p className="text-white/80"><strong className="text-white block mb-1">Blackbox Monoliths</strong> Codebases that are impossible to hand over or maintain internally without heavy vendor lock-in.</p>
-                 </li>
-                 <li className="flex gap-4">
-                   <div className="w-2 h-2 rounded-full bg-red-500 mt-2 shadow-[0_0_6px_rgba(239,68,68,0.6)] shrink-0" />
-                   <p className="text-white/80"><strong className="text-white block mb-1">Reactive Problem Solving</strong> They wait for servers to crash before scaling, resulting in permanent data loss.</p>
-                 </li>
-               </ul>
-            </AnimatedCard>
+          <div className="grid grid-cols-1 gap-px" style={{ background: "var(--graphite-600)" }}>
+            {/* Header row */}
+            <div className="grid grid-cols-3 gap-px" style={{ background: "var(--graphite-600)" }}>
+              <div className="p-4" style={{ background: "var(--obsidian)" }}>
+                <p className="font-mono text-[0.55rem] tracking-widest uppercase" style={{ color: "var(--graphite-400)" }}>Dimension</p>
+              </div>
+              <div className="p-4" style={{ background: "rgba(244,63,94,0.06)" }}>
+                <p className="font-mono text-[0.55rem] tracking-widest uppercase" style={{ color: "rgba(244,63,94,0.7)" }}>
+                  What the market delivers
+                </p>
+              </div>
+              <div className="p-4" style={{ background: "rgba(124,92,255,0.07)" }}>
+                <p className="eyebrow">Ripple Nexus</p>
+              </div>
+            </div>
 
-            <AnimatedCard glowOnHover={true} delay={0.2} className="p-8 md:p-10 border border-primary/30 bg-primary/10 hover:bg-primary/20 relative overflow-hidden">
-               <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-secondary/10 blur-[80px]" />
-               <div className="flex items-center justify-between mb-8 relative z-10">
-                 <h3 className="text-2xl font-bold text-primary flex items-center gap-3"><CheckCircle2 size={28} /> Ripple Nexus</h3>
-                 <span className="bg-primary/20 text-primary-foreground border border-primary/30 text-xs font-bold px-3 py-1 uppercase rounded-md tracking-wider">Our Approach</span>
-               </div>
-               <ul className="space-y-6 relative z-10">
-                 <li className="flex gap-4">
-                   <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
-                   <p className="text-white/90"><strong className="text-white block mb-1">Architecture First</strong> We design multi-AZ databases and microservices first, ensuring infinite horizontal scale from day one.</p>
-                 </li>
-                 <li className="flex gap-4">
-                   <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
-                   <p className="text-white/90"><strong className="text-white block mb-1">Transparent & agnostic</strong> We use modern, tech-agnostic paradigms tailored to your stack. You completely own your IP.</p>
-                 </li>
-                 <li className="flex gap-4">
-                   <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
-                   <p className="text-white/90"><strong className="text-white block mb-1">Predictive DevSecOps</strong> Auto-scaling groups, predictive anomaly monitoring, and automated zero-downtime CI/CD pipelines.</p>
-                 </li>
-               </ul>
-            </AnimatedCard>
-          </div>
-        </section>
-
-        {/* Detailed Services Grid */}
-        <section id="solutions" className="section-padding max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-4">Core Capabilities</h2>
-            <p className="text-muted-foreground text-lg">Deep domain expertise across the modern web stack.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {services.map((s, i) => (
-              <AnimatedCard key={s.title} delay={i * 0.1} glowOnHover={true} className="flex flex-col p-8 bg-card/60 border border-white/5 hover:bg-card/90">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-primary/20 to-secondary/10 flex items-center justify-center mb-6 shadow-inner ring-1 ring-white/10 group-hover:scale-110 transition-transform duration-500">
-                  <s.icon className="text-primary w-7 h-7" />
+            {comparison.map((row, i) => (
+              <motion.div
+                key={row.dimension}
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06 }}
+                className="grid grid-cols-3 gap-px"
+                style={{ background: "var(--graphite-600)" }}
+              >
+                <div className="p-5 flex items-start" style={{ background: "var(--obsidian)" }}>
+                  <p className="font-body text-sm font-semibold" style={{ color: "var(--pearl)" }}>{row.dimension}</p>
                 </div>
-                
-                <h3 className="font-display font-bold text-white text-xl mb-3 tracking-tight">{s.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6 font-light h-20">{s.desc}</p>
-                
-                <div className="flex-1 space-y-4 pt-5 border-t border-white/5">
-                   <div>
-                     <p className="text-[11px] font-bold text-primary uppercase tracking-widest mb-1.5">How we do it</p>
-                     <p className="text-sm text-white/70">{s.how}</p>
-                   </div>
-                   <div>
-                     <p className="text-[11px] font-bold text-secondary uppercase tracking-widest mb-1.5">Outcome</p>
-                     <p className="text-sm font-medium text-white/90 flex gap-2 items-start"><TrendingUp size={16} className="text-secondary flex-shrink-0 mt-0.5" /> {s.outcome}</p>
-                   </div>
+                <div className="p-5 flex items-start" style={{ background: "rgba(244,63,94,0.03)" }}>
+                  <p className="font-body text-sm leading-relaxed" style={{ color: "var(--graphite-400)" }}>{row.market}</p>
                 </div>
-
-                <div className="mt-8 flex flex-wrap gap-2">
-                  {s.keywords.map(k => (
-                    <span key={k} className="text-[11px] font-semibold bg-white/5 text-muted-foreground px-2.5 py-1 rounded-md border border-white/5">{k}</span>
-                  ))}
+                <div className="p-5 flex items-start" style={{ background: "rgba(124,92,255,0.04)" }}>
+                  <p className="font-body text-sm leading-relaxed" style={{ color: "var(--pearl)" }}>{row.rn}</p>
                 </div>
-              </AnimatedCard>
+              </motion.div>
             ))}
           </div>
         </section>
 
-        <section className="section-padding max-w-4xl mx-auto text-center mt-32">
-          <div className="relative py-12 px-8 overflow-hidden rounded-[2rem] border border-primary/20 bg-background pointer-events-none shadow-[0_0_100px_rgba(31,86,212,0.1)]">
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent blur-md" />
-            <h2 className="font-display text-3xl font-bold text-white mb-4 relative z-10 pointer-events-auto">Need a specialized technical capability?</h2>
-            <p className="text-muted-foreground mb-8 relative z-10 pointer-events-auto max-w-xl mx-auto">We assemble elite squads of engineers for bespoke system architecture and massive legacy migrations.</p>
-            <Link to="/contact" className="inline-flex items-center gap-2 bg-white text-black px-8 py-3.5 rounded-xl font-bold hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all pointer-events-auto">
-              Consult Our Architects <ArrowRight size={16} />
+        {/* ── PRODUCT CATALOGUE ───────────────────────────────────── */}
+        <section id="solutions" className="section-padding max-w-6xl mx-auto">
+          <div className="mb-12">
+            <p className="eyebrow mb-6">System Breakdown</p>
+            <h2
+              className="font-display font-bold leading-tight"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)", letterSpacing: "-0.025em", color: "var(--pearl)" }}
+            >
+              Each system. Every outcome.
+            </h2>
+          </div>
+
+          <div className="flex flex-col gap-px" style={{ background: "var(--graphite-600)" }}>
+            {products.map((p, i) => (
+              <motion.div
+                key={p.name}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.07, duration: 0.45 }}
+                className="grid grid-cols-1 lg:grid-cols-3 gap-px group"
+                style={{ background: "var(--graphite-600)" }}
+              >
+                {/* Left: Number + Name */}
+                <div
+                  className="p-8 flex flex-col justify-between lg:col-span-1 transition-colors duration-300"
+                  style={{ background: "var(--obsidian)" }}
+                >
+                  <div>
+                    <p className="font-mono text-[0.55rem] tracking-[0.3em] uppercase mb-4" style={{ color: "var(--nexus-violet)" }}>
+                      {p.num}
+                    </p>
+                    <h3
+                      className="font-display font-bold leading-snug mb-3"
+                      style={{ fontSize: "1.4rem", letterSpacing: "-0.015em", color: "var(--pearl)" }}
+                    >
+                      {p.name}
+                    </h3>
+                    <p className="font-body text-sm italic" style={{ color: "var(--graphite-400)" }}>{p.tagline}</p>
+                  </div>
+                  <div className="mt-8 flex flex-wrap gap-1.5">
+                    {p.tags.map(tag => (
+                      <span
+                        key={tag}
+                        className="font-mono text-[0.55rem] px-2 py-0.5 tracking-wide rounded"
+                        style={{
+                          border: "1px solid rgba(124,92,255,0.2)",
+                          color: "var(--graphite-300)",
+                          background: "rgba(124,92,255,0.06)",
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Middle: Description + How */}
+                <div className="p-8 lg:col-span-1" style={{ background: "var(--ink)" }}>
+                  <p className="font-body text-sm leading-relaxed mb-6" style={{ color: "var(--graphite-400)" }}>{p.desc}</p>
+                  <div>
+                    <p className="font-mono text-[0.55rem] tracking-widest uppercase mb-2" style={{ color: "var(--nexus-violet)" }}>
+                      How we build it
+                    </p>
+                    <p className="font-body text-sm" style={{ color: "var(--pearl)" }}>{p.how}</p>
+                  </div>
+                </div>
+
+                {/* Right: Outcome + Anchor */}
+                <div className="p-8 flex flex-col justify-between lg:col-span-1" style={{ background: "var(--carbon)" }}>
+                  <div>
+                    <p className="font-mono text-[0.55rem] tracking-widest uppercase mb-3" style={{ color: "var(--ion-cyan)" }}>
+                      Verified Outcome
+                    </p>
+                    <p className="font-display font-semibold text-base leading-snug mb-5" style={{ color: "var(--quantum-lime)" }}>{p.outcome}</p>
+                  </div>
+                  <div style={{ borderTop: "1px solid var(--graphite-600)", paddingTop: "1rem" }}>
+                    <p className="font-body text-sm italic" style={{ color: "var(--graphite-400)" }}>{p.anchor}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── BOTTOM CTA ──────────────────────────────────────────── */}
+        <section className="section-padding max-w-5xl mx-auto mt-24">
+          <div
+            className="p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 rounded-2xl"
+            style={{ border: "1px solid var(--graphite-600)", background: "var(--ink)" }}
+          >
+            <div>
+              <p className="eyebrow mb-4">Bespoke Engagements</p>
+              <h2
+                className="font-display font-bold leading-snug mb-3"
+                style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)", letterSpacing: "-0.02em", color: "var(--pearl)" }}
+              >
+                Need something not on this list?
+              </h2>
+              <p className="font-body text-sm max-w-lg leading-relaxed" style={{ color: "var(--graphite-400)" }}>
+                We assemble senior engineering squads for bespoke AI architecture,
+                legacy system migrations, and multi-system integrations.
+              </p>
+            </div>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 font-body font-semibold text-sm px-8 py-4 shrink-0 transition-all duration-200 rounded-xl"
+              style={{
+                background: "var(--nexus-violet)",
+                color: "#fff",
+                boxShadow: "0 8px 32px -4px rgba(124,92,255,0.4)",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = "var(--violet-hover)";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = "var(--nexus-violet)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              Consult Our Architects
+              <ArrowRight size={15} />
             </Link>
           </div>
         </section>
+
       </main>
 
+      <CtaSection />
       <Footer />
     </div>
   );

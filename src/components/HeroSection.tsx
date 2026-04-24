@@ -1,20 +1,13 @@
 import { motion, useInView, animate } from "framer-motion";
-import { ArrowRight, Calendar, CheckCircle2, Zap } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useRef } from "react";
 
 const stats = [
-  { from: 150, to: 200, suffix: "+", label: "Companies Scaled" },
+  { from: 150, to: 200, suffix: "+", label: "Companies Automated" },
   { from: 99, to: 99.97, suffix: "%", decimals: 2, label: "Uptime SLA" },
-  { from: 60, to: 90, suffix: " Days", label: "Avg. Launch Time" },
+  { from: 60, to: 90, suffix: " Days", label: "Avg. Deployment" },
   { from: 5, to: 10, prefix: "$", suffix: "M+", label: "Client Revenue Unlocked" },
-];
-
-const proofPills = [
-  "FinTech Infrastructure",
-  "AI & LLM Automation",
-  "Enterprise SaaS",
-  "RPA Workflows",
 ];
 
 function CountUpStat({
@@ -32,9 +25,7 @@ function CountUpStat({
     const controls = animate(from, to, {
       duration: 1.8,
       ease: "easeOut",
-      onUpdate(v) {
-        el.textContent = prefix + v.toFixed(decimals) + suffix;
-      },
+      onUpdate(v) { el.textContent = prefix + v.toFixed(decimals) + suffix; },
     });
     return () => controls.stop();
   }, [inView, from, to, suffix, prefix, decimals]);
@@ -45,12 +36,12 @@ function CountUpStat({
       initial={{ opacity: 0, y: 14 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.45, ease: "easeOut" }}
-      className="text-center group"
+      className="text-center"
     >
-      <div className="text-3xl sm:text-4xl font-display font-bold text-white group-hover:text-gradient transition-all duration-300">
+      <div className="font-mono text-3xl sm:text-4xl mb-1.5" style={{ color: "var(--ion-cyan)" }}>
         <span ref={numRef}>{prefix}{from.toFixed(decimals)}{suffix}</span>
       </div>
-      <div className="text-[11px] text-white/40 uppercase tracking-widest mt-1.5 font-medium leading-tight">
+      <div className="font-mono text-[0.6rem] uppercase tracking-widest leading-tight" style={{ color: "var(--graphite-400)" }}>
         {label}
       </div>
     </motion.div>
@@ -61,95 +52,161 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#020610] pt-24 pb-16"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16"
+      style={{ background: "var(--obsidian)" }}
     >
-      {/* Background layers */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(31,86,212,0.18)_0%,transparent_70%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,#000_60%,transparent_100%)] pointer-events-none" />
-      {/* Secondary subtle glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[radial-gradient(ellipse_at_center,rgba(63,189,139,0.06)_0%,transparent_70%)] pointer-events-none" />
+      {/* Grid texture */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "linear-gradient(to right, rgba(124,92,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(124,92,255,0.04) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
+
+      {/* Radial violet glow — upper right */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: "-10%",
+          right: "-5%",
+          width: "65%",
+          height: "65%",
+          background: "radial-gradient(60% 60% at 70% 20%, rgba(124,92,255,0.22) 0%, rgba(10,11,20,0) 100%)",
+        }}
+      />
+      {/* Secondary plasma glow — lower left */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          bottom: "-5%",
+          left: "-5%",
+          width: "40%",
+          height: "40%",
+          background: "radial-gradient(50% 50% at 30% 70%, rgba(34,211,238,0.08) 0%, rgba(10,11,20,0) 100%)",
+        }}
+      />
 
       <div className="max-w-5xl mx-auto px-6 relative z-10 w-full text-center">
 
-        {/* Top badge */}
+        {/* Category badge */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-primary/25 bg-primary/[0.07] backdrop-blur-md mb-10"
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-3 mb-10 px-4 py-2 rounded-full"
+          style={{
+            border: "1px solid rgba(124,92,255,0.3)",
+            background: "rgba(124,92,255,0.06)",
+          }}
         >
-          <Zap size={12} className="text-primary fill-primary" />
-          <span className="text-xs font-semibold text-white/85 tracking-wide">
-            Enterprise Architecture & AI Systems
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ background: "var(--nexus-violet)" }}
+          />
+          <span className="label-inst" style={{ color: "var(--nexus-violet)" }}>
+            AI Systems &amp; Automation Infrastructure
           </span>
-          <span className="w-px h-3.5 bg-white/15" />
-          <span className="text-xs text-primary font-medium">200+ Deployments Worldwide</span>
+          <span className="hidden sm:block" style={{ color: "var(--graphite-600)" }}>·</span>
+          <span className="hidden sm:block font-mono text-[0.6rem] tracking-widest uppercase" style={{ color: "var(--graphite-400)" }}>
+            200+ Deployments · 18+ Countries
+          </span>
         </motion.div>
 
-        {/* Headline */}
+        {/* Headline — Loss Aversion + Category Positioning */}
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
-          className="text-5xl md:text-[72px] lg:text-[88px] font-display font-bold text-white tracking-tight leading-[1.02] mb-6"
+          transition={{ duration: 0.55, delay: 0.12 }}
+          className="font-display font-bold leading-tight mb-6"
+          style={{
+            fontSize: "clamp(2.8rem, 7vw, 6rem)",
+            letterSpacing: "-0.04em",
+            color: "var(--pearl)",
+            lineHeight: 1.02,
+          }}
         >
-          Engineer Your Scale
-          <br />
-          <span className="text-gradient">Without Expanding</span>
-          <br />
-          <span className="text-white/90">Your Headcount.</span>
+          AI won&apos;t replace<br />
+          your business.{" "}
+          <span
+            className="bg-clip-text text-transparent"
+            style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
+          >
+            Someone using it will.
+          </span>
         </motion.h1>
 
         {/* Subheadline */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-          className="text-lg md:text-xl text-white/65 max-w-2xl mx-auto leading-relaxed mb-8"
+          transition={{ duration: 0.5, delay: 0.22 }}
+          className="font-body max-w-2xl mx-auto leading-relaxed mb-4"
+          style={{ fontSize: "1.2rem", color: "var(--graphite-300)" }}
         >
-          We engineer the technical backbone of your business. Replace manual bottlenecks
-          with 99.9% uptime SaaS architecture and AI agents designed for verifiable ROI
-          and long-term scalability. No generic templates. Precise, outcome-driven engineering.
+          We build proprietary AI automation systems on your data — not generic ChatGPT
+          wrappers. Autonomous agents that qualify leads, eliminate operational waste,
+          and deliver verifiable ROI from day one.
         </motion.p>
 
-        {/* Social proof pills */}
-        <motion.div
+        <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.28, ease: "easeOut" }}
-          className="flex flex-wrap items-center justify-center gap-2 mb-10"
+          transition={{ duration: 0.45, delay: 0.3 }}
+          className="font-body text-sm max-w-xl mx-auto mb-12"
+          style={{ color: "var(--graphite-400)" }}
         >
-          {proofPills.map((pill) => (
-            <span
-              key={pill}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs text-white/60 font-medium"
-            >
-              <CheckCircle2 size={10} className="text-secondary" />
-              {pill}
-            </span>
-          ))}
-        </motion.div>
+          You own 100% of the workflow IP.{" "}
+          <span style={{ color: "var(--pearl)" }}>No vendor lock-in. No black-box systems.</span>
+        </motion.p>
 
         {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.35 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ duration: 0.5, delay: 0.38 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
         >
           <a
             href="/#rns-scheduler"
-            className="group relative inline-flex items-center justify-center gap-2.5 bg-primary text-white px-8 py-4 rounded-lg font-semibold text-[15px] hover:bg-primary/90 hover:shadow-[0_0_40px_hsl(222_74%_48%/0.4)] hover:-translate-y-0.5 transition-all duration-200 w-full sm:w-auto"
+            className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 font-body font-semibold text-sm transition-all duration-200 w-full sm:w-auto rounded-xl"
+            style={{
+              background: "var(--nexus-violet)",
+              color: "#fff",
+              boxShadow: "0 8px 32px -4px rgba(124,92,255,0.45)",
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = "var(--violet-hover)";
+              e.currentTarget.style.boxShadow = "0 12px 40px -4px rgba(124,92,255,0.55)";
+              e.currentTarget.style.transform = "translateY(-1px)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = "var(--nexus-violet)";
+              e.currentTarget.style.boxShadow = "0 8px 32px -4px rgba(124,92,255,0.45)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
           >
-            <Calendar size={17} />
-            Request a Technical Architecture Audit
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
+            <Calendar size={16} />
+            Request an AI Systems Audit
+            <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
           </a>
           <Link
             to="/case-studies"
-            className="inline-flex items-center justify-center gap-2 bg-transparent border border-white/20 text-white/80 px-8 py-4 rounded-lg font-medium text-[15px] hover:bg-white/[0.05] hover:border-white/35 hover:text-white transition-all duration-200 w-full sm:w-auto"
+            className="group inline-flex items-center justify-center gap-2 px-8 py-4 font-body font-medium text-sm transition-all duration-200 w-full sm:w-auto rounded-xl"
+            style={{
+              border: "1px solid var(--graphite-600)",
+              color: "var(--pearl)",
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = "rgba(124,92,255,0.5)";
+              e.currentTarget.style.background = "rgba(124,92,255,0.06)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = "var(--graphite-600)";
+              e.currentTarget.style.background = "transparent";
+            }}
           >
-            See Real Results <ArrowRight size={16} />
+            See Verified Results <ArrowRight size={15} />
           </Link>
         </motion.div>
 
@@ -157,8 +214,9 @@ const HeroSection = () => {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.4 }}
-          className="text-white/30 text-xs mt-5 tracking-wide"
+          transition={{ delay: 0.52, duration: 0.4 }}
+          className="font-mono text-[0.6rem] tracking-widest uppercase"
+          style={{ color: "var(--graphite-400)" }}
         >
           No retainer lock-in · Written architecture brief within 48h · Senior engineers, not sales
         </motion.p>
@@ -167,10 +225,11 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-          className="mt-20 border-t border-white/[0.07] pt-10"
+          transition={{ duration: 0.6, delay: 0.62 }}
+          className="mt-20 pt-10"
+          style={{ borderTop: "1px solid var(--graphite-600)" }}
         >
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 sm:gap-x-16">
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-20">
             {stats.map((stat) => (
               <CountUpStat key={stat.label} {...stat} />
             ))}

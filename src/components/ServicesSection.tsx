@@ -1,93 +1,96 @@
 import { motion } from "framer-motion";
-import { Code2, Database, Bot, Zap, Smartphone, Globe, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const services = [
+const products = [
   {
     num: "01",
-    icon: Code2,
-    title: "High-Scale SaaS Architecture",
-    desc: "We build multi-tenant platforms engineered for 99.9%+ uptime. Our engineers own the architecture from CI/CD to secure schema design, ensuring your platform scales to 10x current traffic without a rewrite.",
-    tags: ["React", "Node.js", "AWS", "PostgreSQL"],
-    metric: "10× scale without a rewrite",
-    span: "md:col-span-2 lg:col-span-2",
-    featured: false,
+    name: "AI Revenue Qualification System",
+    desc: "Autonomous lead qualification agents trained on your ICP. Replaces manual SDR workflows with 24/7 AI that identifies, scores, and routes high-intent accounts — before a human touches them.",
+    outcome: "60%+ reduction in unqualified pipeline",
+    tags: ["LLM Agents", "RAG", "CRM Integration", "Intent Scoring"],
+    span: "md:col-span-2",
   },
   {
     num: "02",
-    icon: Bot,
-    title: "Agentic AI & RAG Pipelines",
-    desc: "Deploy RAG-enabled LLM pipelines that integrate with your proprietary data to automate decision-heavy operations 24/7. We build agents that understand your business context, not just generic commands.",
-    tags: ["OpenAI", "LangChain", "RAG", "Fine-tuning"],
-    metric: "60%+ operational tasks automated",
-    span: "md:col-span-1 lg:col-span-1",
+    name: "Autonomous Operations Engine",
+    desc: "End-to-end workflow automation that eliminates the manual handoffs killing your team's bandwidth. Custom-built on n8n, Python, and your existing stack — not locked into a SaaS platform.",
+    outcome: "20+ hrs/week reclaimed per team",
+    tags: ["n8n", "Python RPA", "API Mesh", "Zero Vendor Lock-in"],
+    span: "md:col-span-1",
   },
   {
     num: "03",
-    icon: Database,
-    title: "Real-Time Data Infrastructure",
-    desc: "Convert fragmented data silos into a competitive moat. We implement real-time Kafka and BigQuery pipelines that eliminate gut-feeling decisions and deliver sub-100ms response times for your core metrics.",
-    tags: ["Kafka", "Spark", "BigQuery", "dbt"],
-    metric: "Sub-100ms query response",
-    span: "md:col-span-1 lg:col-span-1",
+    name: "Scale Infrastructure System",
+    desc: "Multi-tenant SaaS architecture engineered for 10× growth without a rewrite. We own the full stack — CI/CD, schema design, multi-AZ resilience — from day one.",
+    outcome: "99.9%+ uptime · 10× scale capacity",
+    tags: ["AWS", "Node.js", "PostgreSQL", "Microservices"],
+    span: "md:col-span-1",
   },
   {
     num: "04",
-    icon: Smartphone,
-    title: "Native Mobile",
-    desc: "Cross-platform iOS and Android apps with native performance and enterprise-grade security. Concept to App Store in under 10 weeks.",
-    tags: ["React Native", "Swift", "Kotlin"],
-    metric: "10-week App Store launch",
-    span: "md:col-span-1 lg:col-span-1",
+    name: "Real-Time Intelligence Hub",
+    desc: "Unified data infrastructure that converts fragmented silos into a live decision engine. Sub-100ms query response across your entire business dataset.",
+    outcome: "Sub-100ms · 100% data visibility",
+    tags: ["Kafka", "BigQuery", "dbt", "Snowflake"],
+    span: "md:col-span-1",
   },
   {
     num: "05",
-    icon: Globe,
-    title: "Web Platforms",
-    desc: "Headless composable frontends built for Core Web Vitals perfection and extreme traffic load. Your platform loads fast, ranks higher, and converts better.",
-    tags: ["Next.js", "Vercel", "Sanity", "Edge"],
-    metric: "Sub-100ms response",
-    span: "md:col-span-1 lg:col-span-1",
+    name: "AI-First Mobile Platform",
+    desc: "Native iOS and Android apps with embedded AI features — in-app agents, personalization layers, and predictive UX built in from the architecture level.",
+    outcome: "App Store launch in 10 weeks",
+    tags: ["React Native", "Swift", "On-device AI", "Edge"],
+    span: "md:col-span-1",
   },
   {
     num: "06",
-    icon: Zap,
-    title: "Operational Autonomy via RPA",
-    desc: "Reclaim 20+ hours of executive and engineering time per week. We install zero-latency workflows using n8n and custom scripts that eliminate operational friction at the source and free your team for high-leverage work.",
-    tags: ["UiPath", "n8n", "Python", "Custom"],
-    metric: "20+ hrs/week reclaimed",
-    span: "md:col-span-2 lg:col-span-3",
-    wide: true,
+    name: "Conversion Web Platform",
+    desc: "Headless, composable web platforms optimised for Core Web Vitals and AI search engine discovery. Structured for AEO, GEO, and programmatic SEO at scale.",
+    outcome: "Conversion rates doubled through performance",
+    tags: ["Next.js", "Vercel Edge", "AEO/GEO", "Headless CMS"],
+    span: "md:col-span-2",
   },
 ];
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="py-28 bg-black border-t border-white/[0.06] relative z-10">
+    <section
+      id="services"
+      className="py-28 relative z-10"
+      style={{ borderTop: "1px solid var(--graphite-600)" }}
+    >
       <div className="max-w-6xl mx-auto px-6">
 
+        {/* Section header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <motion.span
+            <motion.p
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-block text-primary font-semibold text-xs tracking-widest uppercase mb-4"
+              className="eyebrow mb-5"
             >
               What We Build
-            </motion.span>
+            </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.08 }}
-              className="text-4xl md:text-[52px] font-display font-bold text-white tracking-tight leading-[1.05]"
+              className="font-display font-bold leading-tight"
+              style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", letterSpacing: "-0.03em", color: "var(--pearl)" }}
             >
-              Capabilities Built
-              <br />
-              <span className="text-gradient">for Scale.</span>
+              Six systems.{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
+              >
+                One objective.
+              </span>
             </motion.h2>
           </div>
+
           <motion.div
             initial={{ opacity: 0, x: 16 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -96,63 +99,126 @@ const ServicesSection = () => {
           >
             <Link
               to="/services"
-              className="group inline-flex items-center gap-2 text-white/60 hover:text-white text-sm font-medium transition-colors duration-200 border border-white/10 hover:border-white/25 rounded-lg px-5 py-2.5"
+              className="group inline-flex items-center gap-2 text-sm font-body font-medium transition-all duration-200 px-5 py-2.5 rounded-xl"
+              style={{
+                border: "1px solid var(--graphite-600)",
+                color: "var(--graphite-300)",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = "rgba(124,92,255,0.5)";
+                e.currentTarget.style.color = "var(--pearl)";
+                e.currentTarget.style.background = "rgba(124,92,255,0.06)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = "var(--graphite-600)";
+                e.currentTarget.style.color = "var(--graphite-300)";
+                e.currentTarget.style.background = "transparent";
+              }}
             >
-              View All Capabilities <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+              Full System Catalogue
+              <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
             </Link>
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {services.map((s, i) => (
+        {/* Products grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px" style={{ background: "var(--graphite-600)" }}>
+          {products.map((p, i) => (
             <motion.div
-              key={s.title}
+              key={p.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.07, duration: 0.45, ease: "easeOut" }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className={`group flex flex-col p-7 bg-[#080810] border border-white/[0.08] rounded-2xl
-                hover:border-primary/30 hover:bg-[#0d0d18]
-                hover:shadow-[0_12px_48px_-12px_hsl(222_74%_48%/0.3)]
-                transition-colors duration-300 cursor-pointer ${s.span} ${s.featured ? "relative overflow-hidden" : ""}`}
+              transition={{ delay: i * 0.06, duration: 0.45 }}
+              className={`flex flex-col p-8 group transition-colors duration-300 ${p.span}`}
+              style={{ background: "var(--obsidian)" }}
+              onMouseEnter={e => (e.currentTarget.style.background = "var(--ink)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "var(--obsidian)")}
             >
+              {/* Number */}
               <div className="flex items-start justify-between mb-6">
-                <div className="w-10 h-10 rounded-xl bg-white/[0.04] flex items-center justify-center border border-white/[0.07] group-hover:bg-primary/15 group-hover:border-primary/25 transition-all duration-300">
-                  <s.icon size={18} className="text-white/60 group-hover:text-primary transition-colors duration-300" />
-                </div>
-                <span className="font-mono text-[11px] text-white/20 group-hover:text-white/40 transition-colors">
-                  {s.num}
+                <span className="font-mono text-[0.55rem] tracking-[0.3em] uppercase" style={{ color: "var(--nexus-violet)" }}>
+                  {p.num}
                 </span>
               </div>
 
-              <div className="mt-auto">
-                <h3 className="font-display font-bold text-white text-xl tracking-tight mb-2 group-hover:text-white transition-colors">
-                  {s.title}
-                </h3>
-                <p className="text-white/70 text-[14px] leading-relaxed mb-5">{s.desc}</p>
+              <h3
+                className="font-display font-semibold text-xl leading-snug mb-3"
+                style={{ letterSpacing: "-0.015em", color: "var(--pearl)" }}
+              >
+                {p.name}
+              </h3>
+              <p className="font-body text-sm leading-relaxed flex-1 mb-6" style={{ color: "var(--graphite-400)" }}>
+                {p.desc}
+              </p>
 
-                {/* Outcome metric */}
-                <div className="flex items-center gap-2 mb-5">
-                  <span className="w-2 h-2 rounded-full bg-secondary inline-block shrink-0 shadow-[0_0_6px_rgba(63,189,139,0.7)]" />
-                  <span className="text-secondary text-xs font-bold tracking-wide">{s.metric}</span>
-                </div>
+              {/* Outcome metric */}
+              <div
+                className="flex items-center gap-2 mb-5"
+                style={{ borderTop: "1px solid var(--graphite-600)", paddingTop: "1.25rem" }}
+              >
+                <span className="font-mono text-[0.55rem] tracking-widest uppercase" style={{ color: "var(--ion-cyan)" }}>
+                  Outcome
+                </span>
+                <span className="w-px h-3" style={{ background: "var(--graphite-600)" }} />
+                <span className="font-mono text-sm font-medium" style={{ color: "var(--quantum-lime)" }}>
+                  {p.outcome}
+                </span>
+              </div>
 
-                {/* Tech tags */}
-                <div className="flex flex-wrap gap-1.5">
-                  {s.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[11px] px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.12] text-white/55 font-medium"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+              {/* Tech tags */}
+              <div className="flex flex-wrap gap-1.5">
+                {p.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="font-mono text-[0.6rem] px-2 py-0.5 tracking-wide rounded"
+                    style={{
+                      background: "rgba(124,92,255,0.06)",
+                      border: "1px solid rgba(124,92,255,0.2)",
+                      color: "var(--graphite-300)",
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Bottom signal */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 px-8 py-6 rounded-xl"
+          style={{ border: "1px solid var(--graphite-600)", background: "var(--ink)" }}
+        >
+          <p className="font-body text-base italic" style={{ color: "var(--graphite-300)" }}>
+            All systems are built on open standards — you own 100% of the IP, code, and workflow logic.
+          </p>
+          <a
+            href="/#rns-scheduler"
+            className="group inline-flex items-center gap-2 font-body font-semibold text-sm px-6 py-3 shrink-0 transition-all duration-200 rounded-xl"
+            style={{
+              background: "var(--nexus-violet)",
+              color: "#fff",
+              boxShadow: "0 8px 32px -4px rgba(124,92,255,0.4)",
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = "var(--violet-hover)";
+              e.currentTarget.style.transform = "translateY(-1px)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = "var(--nexus-violet)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
+          >
+            Audit My Stack
+            <ArrowUpRight size={14} />
+          </a>
+        </motion.div>
 
       </div>
     </section>

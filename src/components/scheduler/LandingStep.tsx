@@ -32,10 +32,20 @@ const WHO_ITS_FOR = [
 
 export default function LandingStep({ onApply }: Props) {
   return (
-    <section id="rns-scheduler" className="relative py-24 px-4 overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#1f56d4]/8 blur-[120px] rounded-full pointer-events-none" />
+    <section className="relative py-24 px-4 overflow-hidden">
+      {/* Grid texture */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(to right, rgba(124,92,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(124,92,255,0.04) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+        }}
+      />
+      {/* Violet glow */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] rounded-full pointer-events-none"
+        style={{ background: 'rgba(124,92,255,0.07)', filter: 'blur(100px)' }}
+      />
 
       <div className="relative max-w-5xl mx-auto">
 
@@ -46,7 +56,14 @@ export default function LandingStep({ onApply }: Props) {
           viewport={{ once: true }}
           className="flex justify-center mb-8"
         >
-          <span className="inline-flex items-center gap-2 bg-[#1f56d4]/10 border border-[#1f56d4]/30 text-[#1f56d4] rounded-full px-5 py-2 text-sm font-semibold tracking-wide uppercase">
+          <span
+            className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold tracking-wide uppercase"
+            style={{
+              background: 'rgba(124,92,255,0.1)',
+              border: '1px solid rgba(124,92,255,0.3)',
+              color: 'var(--nexus-violet)',
+            }}
+          >
             <Lock className="w-3.5 h-3.5" />
             Qualification Required · Not Free · Not for Everyone
           </span>
@@ -58,10 +75,16 @@ export default function LandingStep({ onApply }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.05 }}
-          className="text-center text-4xl md:text-6xl font-extrabold tracking-tight text-foreground leading-[1.1] mb-6"
+          className="text-center font-display font-bold tracking-tight leading-[1.06] mb-6"
+          style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', letterSpacing: '-0.035em', color: 'var(--pearl)' }}
         >
-          You Don't Need Another Call.<br />
-          <span className="text-[#1f56d4]">You Need a Diagnosis.</span>
+          You Don&apos;t Need Another Call.<br />
+          <span
+            className="bg-clip-text text-transparent"
+            style={{ backgroundImage: 'linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)' }}
+          >
+            You Need a Diagnosis.
+          </span>
         </motion.h2>
 
         <motion.p
@@ -69,10 +92,11 @@ export default function LandingStep({ onApply }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-center text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-14 leading-relaxed"
+          className="text-center text-lg md:text-xl max-w-2xl mx-auto mb-14 leading-relaxed"
+          style={{ color: 'var(--graphite-300)' }}
         >
           Most founders waste months talking to agencies who pitch before they understand.
-          We qualify first. We charge to confirm you're serious. Then we spend 60 minutes
+          We qualify first. We charge to confirm you&apos;re serious. Then we spend 60 minutes
           finding exactly where your business is leaking — and what to build to stop it.
         </motion.p>
 
@@ -85,12 +109,27 @@ export default function LandingStep({ onApply }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.07 }}
-              className="relative bg-card/60 border border-border rounded-2xl p-6 hover:border-[#1f56d4]/50 transition-colors group"
+              className="relative rounded-2xl p-6 group transition-all duration-200"
+              style={{
+                background: 'var(--ink)',
+                border: '1px solid var(--graphite-600)',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(124,92,255,0.4)')}
+              onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--graphite-600)')}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1f56d4]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="text-4xl font-black text-[#1f56d4] mb-1">{o.metric}</div>
-              <div className="text-sm font-semibold text-[#3FBD8B] uppercase tracking-wider mb-3">{o.label}</div>
-              <div className="text-sm text-muted-foreground leading-relaxed">{o.detail}</div>
+              <div
+                className="text-4xl font-black mb-1"
+                style={{ color: 'var(--nexus-violet)' }}
+              >
+                {o.metric}
+              </div>
+              <div
+                className="text-sm font-semibold uppercase tracking-wider mb-3"
+                style={{ color: 'var(--quantum-lime)' }}
+              >
+                {o.label}
+              </div>
+              <div className="text-sm leading-relaxed" style={{ color: 'var(--graphite-400)' }}>{o.detail}</div>
             </motion.div>
           ))}
         </div>
@@ -100,17 +139,21 @@ export default function LandingStep({ onApply }: Props) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-card/40 border border-border rounded-2xl p-8 mb-12"
+          className="rounded-2xl p-8 mb-12"
+          style={{ background: 'var(--ink)', border: '1px solid var(--graphite-600)' }}
         >
-          <h3 className="text-lg font-bold text-foreground mb-5 flex items-center gap-2">
-            <Users className="w-5 h-5 text-[#1f56d4]" />
+          <h3
+            className="text-lg font-bold mb-5 flex items-center gap-2"
+            style={{ color: 'var(--pearl)' }}
+          >
+            <Users className="w-5 h-5" style={{ color: 'var(--nexus-violet)' }} />
             Who This Consultation Is For
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {WHO_ITS_FOR.map((item) => (
               <div key={item} className="flex items-start gap-3">
-                <CheckCircle className="w-4 h-4 text-[#3FBD8B] mt-0.5 shrink-0" />
-                <span className="text-sm text-muted-foreground">{item}</span>
+                <CheckCircle className="w-4 h-4 mt-0.5 shrink-0" style={{ color: 'var(--quantum-lime)' }} />
+                <span className="text-sm" style={{ color: 'var(--graphite-400)' }}>{item}</span>
               </div>
             ))}
           </div>
@@ -121,7 +164,8 @@ export default function LandingStep({ onApply }: Props) {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-8 text-muted-foreground text-sm mb-14"
+          className="flex flex-wrap justify-center gap-8 text-sm mb-14"
+          style={{ color: 'var(--graphite-400)' }}
         >
           {[
             { icon: <Globe2 className="w-4 h-4" />, label: '18+ countries served' },
@@ -130,7 +174,7 @@ export default function LandingStep({ onApply }: Props) {
             { icon: <TrendingUp className="w-4 h-4" />, label: '$50M+ outcomes generated' },
           ].map(({ icon, label }) => (
             <div key={label} className="flex items-center gap-2">
-              <span className="text-[#1f56d4]">{icon}</span>
+              <span style={{ color: 'var(--nexus-violet)' }}>{icon}</span>
               {label}
             </div>
           ))}
@@ -145,12 +189,25 @@ export default function LandingStep({ onApply }: Props) {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={onApply}
-            className="group flex items-center gap-3 bg-[#1f56d4] hover:bg-[#1a47b8] text-white font-bold text-lg px-10 py-5 rounded-2xl transition-all duration-200 shadow-lg shadow-[#1f56d4]/20"
+            className="group flex items-center gap-3 font-bold text-lg px-10 py-5 rounded-2xl transition-all duration-200"
+            style={{
+              background: 'var(--nexus-violet)',
+              color: '#fff',
+              boxShadow: '0 8px 32px -4px rgba(124,92,255,0.45)',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = 'var(--violet-hover)';
+              e.currentTarget.style.boxShadow = '0 12px 40px -4px rgba(124,92,255,0.55)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'var(--nexus-violet)';
+              e.currentTarget.style.boxShadow = '0 8px 32px -4px rgba(124,92,255,0.45)';
+            }}
           >
             Show Me If I Qualify
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </motion.button>
-          <p className="text-xs text-muted-foreground text-center max-w-sm">
+          <p className="text-xs text-center max-w-sm" style={{ color: 'var(--graphite-400)' }}>
             2 minutes · Instant decision · Only qualified operators proceed to booking
           </p>
         </div>

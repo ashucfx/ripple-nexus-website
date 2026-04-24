@@ -27,9 +27,6 @@ import PaymentStep       from './PaymentStep';
 import BookingStep       from './BookingStep';
 import ConfirmationStep  from './ConfirmationStep';
 
-// ── Session persistence (survives page refresh) ───────────────────────────
-// Saves the minimum data needed to recover a paid-but-not-yet-booked session.
-
 const SESSION_KEY = 'rns_booking_session';
 
 interface SessionPayload {
@@ -47,7 +44,6 @@ function loadSession(): SessionPayload | null {
     const raw = sessionStorage.getItem(SESSION_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as SessionPayload;
-    // Only restore if we have a completed payment with a valid applicantId
     if (
       parsed?.paymentData?.status === 'completed' &&
       parsed?.paymentData?.dbPaymentId &&
@@ -60,8 +56,6 @@ function loadSession(): SessionPayload | null {
 function clearSession() {
   try { sessionStorage.removeItem(SESSION_KEY); } catch {}
 }
-
-// ── Progress indicator ────────────────────────────────────────────────────
 
 const STEPS: { key: SchedulerStep; label: string }[] = [
   { key: 'qualification', label: 'Apply' },
@@ -80,23 +74,24 @@ function ProgressBar({ step }: { step: SchedulerStep }) {
 
   return (
     <div className="max-w-2xl mx-auto px-4 pt-8">
-      {/* Step labels */}
       <div className="flex justify-between mb-2">
         {STEPS.map((s, i) => (
           <span
             key={s.key}
-            className={`text-xs font-semibold ${
-              i <= idx ? 'text-[#1f56d4]' : 'text-muted-foreground/40'
-            }`}
+            className="text-xs font-semibold"
+            style={{ color: i <= idx ? 'var(--nexus-violet)' : 'var(--graphite-500)' }}
           >
             {s.label}
           </span>
         ))}
       </div>
-      {/* Bar */}
-      <div className="h-1.5 bg-border rounded-full overflow-hidden">
+      <div
+        className="h-1 rounded-full overflow-hidden"
+        style={{ background: 'var(--graphite-600)' }}
+      >
         <motion.div
-          className="h-full bg-[#1f56d4] rounded-full"
+          className="h-full rounded-full"
+          style={{ background: 'linear-gradient(90deg, #7C5CFF 0%, #22D3EE 100%)' }}
           initial={{ width: 0 }}
           animate={{ width: `${pct}%` }}
           transition={{ duration: 0.5, ease: 'easeInOut' }}
@@ -105,8 +100,6 @@ function ProgressBar({ step }: { step: SchedulerStep }) {
     </div>
   );
 }
-
-// ── Reducer ───────────────────────────────────────────────────────────────
 
 type Action =
   | { type: 'SET_COUNTRY';      country: CountryInfo }
@@ -122,49 +115,28 @@ function reducer(state: SchedulerState, action: Action): SchedulerState {
   switch (action.type) {
     case 'SET_COUNTRY':
       return { ...state, country: action.country };
-
     case 'GOTO_QUALIFY':
       return { ...state, step: 'qualification' };
-
     case 'QUALIFIED':
-      return {
-        ...state,
-        step: 'pricing',
-        applicantData: action.data,
-        applicantId: action.applicantId,
-      };
-
+      return { ...state, step: 'pricing', applicantData: action.data, applicantId: action.applicantId };
     case 'REJECTED':
-      return {
-        ...state,
-        step: 'rejection',
-        applicantData: action.data,
-        rejectionReason: action.reason,
-        qualificationScore: action.score,
-      };
-
+      return { ...state, step: 'rejection', applicantData: action.data, rejectionReason: action.reason, qualificationScore: action.score };
     case 'GOTO_PAYMENT':
       return { ...state, step: 'payment' };
-
     case 'PAYMENT_SUCCESS':
       return { ...state, step: 'booking', paymentData: action.payment };
-
     case 'BOOKED':
       return { ...state, step: 'confirmation', bookingData: action.booking };
-
     case 'BACK':
       if (state.step === 'qualification') return { ...state, step: 'landing' };
       if (state.step === 'pricing')       return { ...state, step: 'qualification' };
       if (state.step === 'payment')       return { ...state, step: 'pricing' };
       if (state.step === 'rejection')     return { ...state, step: 'qualification' };
       return state;
-
     default:
       return state;
   }
 }
-
-// ── Initial state — restore from sessionStorage if available ──────────────
 
 function buildInitialState(): SchedulerState {
   const saved = loadSession();
@@ -179,16 +151,10 @@ function buildInitialState(): SchedulerState {
   return { step: 'landing' };
 }
 
-// ── Main Component ────────────────────────────────────────────────────────
-
 export default function RNSScheduler() {
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  // Initializer reads sessionStorage synchronously so the first render is correct
   const [state, dispatch] = useReducer(reducer, undefined, buildInitialState);
 
-  // Detect country on mount (also needed after session recovery — BookingStep
-  // doesn't use country, but it may already be past payment so it's harmless)
   useEffect(() => {
     fetch('/api/scheduler/detect-country')
       .then((r) => r.json())
@@ -201,8 +167,6 @@ export default function RNSScheduler() {
       });
   }, []);
 
-  // Persist paid-but-not-yet-booked state to sessionStorage so users can
-  // recover their booking slot after a page refresh or accidental tab close.
   useEffect(() => {
     if (
       state.step === 'booking' &&
@@ -217,14 +181,9 @@ export default function RNSScheduler() {
         paymentData: state.paymentData,
       });
     }
-
-    // Clear session once booking is confirmed — no longer needed
-    if (state.step === 'confirmation') {
-      clearSession();
-    }
+    if (state.step === 'confirmation') clearSession();
   }, [state.step, state.paymentData, state.applicantId, state.applicantData]);
 
-  // Scroll to top of section on step change (except landing)
   useEffect(() => {
     if (state.step !== 'landing' && sectionRef.current) {
       sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -237,37 +196,50 @@ export default function RNSScheduler() {
     <section
       ref={sectionRef}
       id="rns-scheduler"
-      className="relative min-h-screen bg-background border-t border-border"
+      className="relative min-h-screen"
+      style={{
+        background: 'var(--obsidian)',
+        borderTop: '1px solid var(--graphite-600)',
+      }}
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1f56d4]/3 via-transparent to-transparent pointer-events-none" />
+      {/* Background glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(60% 40% at 50% 0%, rgba(124,92,255,0.07) 0%, transparent 100%)',
+        }}
+      />
 
       {/* Session recovery banner */}
       {state.step === 'booking' && (() => {
         const saved = loadSession();
         return saved ? (
           <div className="max-w-2xl mx-auto px-4 pt-6">
-            <div className="flex items-center gap-3 bg-[#3FBD8B]/10 border border-[#3FBD8B]/30 rounded-xl px-4 py-3 text-sm text-[#3FBD8B]">
+            <div
+              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm"
+              style={{
+                background: 'rgba(163,230,53,0.08)',
+                border: '1px solid rgba(163,230,53,0.25)',
+                color: 'var(--quantum-lime)',
+              }}
+            >
               <span className="font-semibold">Payment confirmed.</span>
-              <span className="text-foreground/60">Your session was recovered — please select a booking slot below.</span>
+              <span style={{ color: 'var(--graphite-300)' }}>Your session was recovered — please select a booking slot below.</span>
             </div>
           </div>
         ) : null;
       })()}
 
-      {/* Progress bar (shown for funnel steps) */}
       {state.step !== 'landing' && state.step !== 'rejection' && (
         <ProgressBar step={state.step} />
       )}
 
-      {/* Step renderer */}
       <AnimatePresence mode="wait">
         {state.step === 'landing' && (
           <motion.div key="landing">
             <LandingStep onApply={() => dispatch({ type: 'GOTO_QUALIFY' })} />
           </motion.div>
         )}
-
         {state.step === 'qualification' && (
           <motion.div key="qualification">
             <QualificationStep
@@ -278,7 +250,6 @@ export default function RNSScheduler() {
             />
           </motion.div>
         )}
-
         {state.step === 'rejection' && (
           <motion.div key="rejection">
             <RejectionStep
@@ -288,7 +259,6 @@ export default function RNSScheduler() {
             />
           </motion.div>
         )}
-
         {state.step === 'pricing' && (
           <motion.div key="pricing">
             <PricingStep
@@ -299,7 +269,6 @@ export default function RNSScheduler() {
             />
           </motion.div>
         )}
-
         {state.step === 'payment' && (
           <motion.div key="payment">
             <PaymentStep
@@ -312,7 +281,6 @@ export default function RNSScheduler() {
             />
           </motion.div>
         )}
-
         {state.step === 'booking' && state.paymentData && state.applicantId && (
           <motion.div key="booking">
             <BookingStep
@@ -324,7 +292,6 @@ export default function RNSScheduler() {
             />
           </motion.div>
         )}
-
         {state.step === 'confirmation' && state.bookingData && state.applicantData && (
           <motion.div key="confirmation">
             <ConfirmationStep
