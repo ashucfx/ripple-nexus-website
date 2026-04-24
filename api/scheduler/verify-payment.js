@@ -101,7 +101,7 @@ export default async function handler(req, res) {
 
     // Fetch expected fee from settings for amount validation
     const feeUsd = Number(await getSetting('consultation_fee_usd', 199));
-    const feeInr = Number(await getSetting('consultation_fee_inr', 4999));
+    const feeInr = Number(await getSetting('consultation_fee_inr', 1999));
     const expectedAmount = provider === 'razorpay' ? feeInr : feeUsd;
     const tolerance      = expectedAmount * 0.01; // 1% tolerance for rounding
 

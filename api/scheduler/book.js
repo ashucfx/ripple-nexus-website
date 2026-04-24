@@ -134,16 +134,16 @@ async function sendConfirmationEmail({ fullName, email, slotDate, startTime, end
 <head><meta charset="utf-8"><style>
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8fafc;margin:0;padding:40px 20px;color:#0f172a}
   .wrap{max-width:600px;margin:0 auto;background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e2e8f0}
-  .hdr{background:#020610;padding:36px;text-align:center;border-bottom:4px solid #1f56d4}
+  .hdr{background:#020610;padding:36px;text-align:center;border-bottom:4px solid #7C5CFF}
   .hdr h1{color:#fff;margin:0;font-size:22px;font-weight:700}
   .hdr p{color:#94a3b8;margin:6px 0 0;font-size:13px;letter-spacing:1px;text-transform:uppercase}
   .body{padding:40px}
   .hi{font-size:18px;font-weight:600;color:#1e293b;margin-bottom:8px}
   .sub{color:#64748b;margin-bottom:32px;line-height:1.6}
-  .card{background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #1f56d4;border-radius:12px;padding:20px;margin-bottom:14px}
+  .card{background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #7C5CFF;border-radius:12px;padding:20px;margin-bottom:14px}
   .label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;font-weight:700;margin-bottom:6px}
   .value{font-size:15px;font-weight:600;color:#0f172a}
-  .meet-btn{display:inline-block;background:#1f56d4;color:#fff;text-decoration:none;padding:14px 28px;border-radius:8px;font-weight:700;font-size:15px;margin:20px 0}
+  .meet-btn{display:inline-block;background:#7C5CFF;color:#fff;text-decoration:none;padding:14px 28px;border-radius:8px;font-weight:700;font-size:15px;margin:20px 0}
   .footer{background:#f1f5f9;padding:20px;text-align:center;font-size:12px;color:#64748b;border-top:1px solid #e2e8f0}
 </style></head>
 <body><div class="wrap">
@@ -154,7 +154,7 @@ async function sendConfirmationEmail({ fullName, email, slotDate, startTime, end
     <div class="card"><div class="label">Date</div><div class="value">${escapeHtml(dateLabel)}</div></div>
     <div class="card"><div class="label">Time (IST)</div><div class="value">${escapeHtml(startTime)} – ${escapeHtml(endTime)} IST &nbsp;·&nbsp; Your timezone: ${safeTimezone}</div></div>
     ${safeMeet
-      ? `<div class="card" style="border-left-color:#3FBD8B"><div class="label">Google Meet</div><div class="value"><a href="${safeMeet}" style="color:#1f56d4">${safeMeet}</a></div></div><a href="${safeMeet}" class="meet-btn">Join Google Meet</a>`
+      ? `<div class="card" style="border-left-color:#3FBD8B"><div class="label">Google Meet</div><div class="value"><a href="${safeMeet}" style="color:#7C5CFF">${safeMeet}</a></div></div><a href="${safeMeet}" class="meet-btn">Join Google Meet</a>`
       : `<div class="card" style="border-left-color:#f59e0b"><div class="label">Meeting Link</div><div class="value">Will be emailed 24 hours before the session</div></div>`}
     <p style="color:#64748b;font-size:13px;margin-top:28px">Need to reschedule? Reply to this email at least 24 hours in advance.</p>
   </div>

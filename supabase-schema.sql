@@ -108,7 +108,7 @@ INSERT INTO rns_settings (key, value) VALUES
   ('budget_threshold_usd',      '1000'),
   ('budget_threshold_inr',      '75000'),
   ('consultation_fee_usd',      '199'),
-  ('consultation_fee_inr',      '4999'),
+  ('consultation_fee_inr',      '1999'),
   ('min_description_length',    '60'),
   ('session_duration_minutes',  '60')
 ON CONFLICT (key) DO NOTHING;

@@ -140,7 +140,7 @@ export default async function handler(req, res) {
 
     // Fetch fee from settings
     const feeUsd = Number(await getSetting('consultation_fee_usd', 199));
-    const feeInr = Number(await getSetting('consultation_fee_inr', 4999));
+    const feeInr = Number(await getSetting('consultation_fee_inr', 1999));
 
     let orderData;
 

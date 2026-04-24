@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ChatBot from "@/components/ChatBot";
@@ -10,6 +10,7 @@ const TrustSection = lazy(() => import("@/components/TrustSection"));
 // Below-fold sections — lazy loaded
 const ProblemSolutionSection = lazy(() => import("@/components/ProblemSolutionSection"));
 const ServicesSection = lazy(() => import("@/components/ServicesSection"));
+const PricingSection = lazy(() => import("@/components/PricingSection"));
 const ProcessSection = lazy(() => import("@/components/ProcessSection"));
 const RealStoriesSection = lazy(() => import("@/components/RealStoriesSection"));
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
@@ -45,7 +46,6 @@ const schemaMarkup = {
       },
       sameAs: [
         "https://www.linkedin.com/company/ripple-nexus",
-        "https://www.facebook.com/ripplenexusglobal/",
         "https://x.com/ripplenexus",
         "https://www.instagram.com/ripplenexus/",
       ],
@@ -152,6 +152,20 @@ const schemaMarkup = {
  * Proof → Testimonials → Global → Diagnostic → Statement → CTA → Form → Footer
  */
 const Index = () => {
+  useEffect(() => {
+    if (window.location.hash !== "#rns-scheduler") return;
+    let attempts = 0;
+    const tryScroll = () => {
+      const el = document.getElementById("rns-scheduler");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (attempts++ < 30) {
+        setTimeout(tryScroll, 150);
+      }
+    };
+    tryScroll();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background scroll-smooth">
       <SEOHead
@@ -170,10 +184,13 @@ const Index = () => {
         {/* 2. Problem → Solution: reframe from service provider to systems partner */}
         <ProblemSolutionSection />
 
-        {/* 3. Capabilities: what we build with outcomes */}
+        {/* 3. Capabilities: productized AI systems */}
         <ServicesSection />
 
-        {/* 4. Process: how we work — removes risk objection */}
+        {/* 4. Pricing: Agent Licensing Model */}
+        <PricingSection />
+
+        {/* 5. Process: how we work — removes risk objection */}
         <ProcessSection />
 
         {/* 5. Proof: real case study metrics */}
