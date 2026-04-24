@@ -174,10 +174,15 @@ const ChatBot = () => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setOpen(true)}
-            className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-white text-black shadow-[0_0_30px_rgba(255,255,255,0.15)] flex items-center justify-center hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-all duration-300"
+            className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center hover:scale-105 transition-all duration-300"
+            style={{
+              background: "var(--nexus-violet)",
+              color: "#fff",
+              boxShadow: "0 0 30px rgba(124,92,255,0.4)",
+            }}
             aria-label="Open routing agent"
           >
-            <MessageSquare size={22} className="fill-black" />
+            <MessageSquare size={22} className="fill-white" />
           </motion.button>
         )}
       </AnimatePresence>
@@ -189,41 +194,50 @@ const ChatBot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] h-[550px] max-h-[calc(100vh-6rem)] bg-[#050A15] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] h-[550px] max-h-[calc(100vh-6rem)] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)" }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 bg-[#020610]">
+            <div className="flex items-center justify-between px-6 py-5" style={{ borderBottom: "1px solid var(--graphite-600)", background: "var(--obsidian)" }}>
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center relative">
-                  <Bot size={18} className="text-white" />
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-[#020610] rounded-full"></span>
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center relative"
+                  style={{ background: "rgba(124,92,255,0.1)", border: "1px solid rgba(124,92,255,0.25)" }}
+                >
+                  <Bot size={18} style={{ color: "var(--nexus-violet)" }} />
+                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full" style={{ border: "2px solid var(--obsidian)" }}></span>
                 </div>
                 <div>
                   <p className="text-[15px] font-semibold text-white tracking-wide">Navik AI</p>
-                  <p className="text-[12px] font-medium text-white/40 tracking-wider uppercase mt-0.5">System Online</p>
+                  <p className="text-[12px] font-medium tracking-wider uppercase mt-0.5" style={{ color: "var(--graphite-400)" }}>System Online</p>
                 </div>
               </div>
-              <button onClick={() => setOpen(false)} className="text-white/40 hover:text-white transition-colors">
+              <button onClick={() => setOpen(false)} className="hover:text-white transition-colors" style={{ color: "var(--graphite-400)" }}>
                 <X size={20} />
               </button>
             </div>
 
             {/* Messages Area */}
-            <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 py-6 space-y-6 bg-gradient-to-b from-[#050A15] to-[#020610]">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 py-6 space-y-6" style={{ background: "var(--ink)" }}>
               {messages.map((msg, i) => (
                 <div key={i} className={`flex gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                   {msg.role === "assistant" && (
-                     <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 mt-1">
-                      <Bot size={14} className="text-white/70" />
+                     <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style={{ background: "rgba(124,92,255,0.1)", border: "1px solid rgba(124,92,255,0.2)" }}>
+                      <Bot size={14} style={{ color: "var(--nexus-violet)" }} />
                     </div>
                   )}
                   <div className="flex flex-col gap-2 max-w-[80%]">
                     <div
-                      className={`px-4 py-3 text-[14px] leading-relaxed shadow-sm ${
+                      className={`px-4 py-3 text-[14px] leading-relaxed shadow-sm rounded-2xl ${
                         msg.role === "user"
-                          ? "bg-white text-black rounded-2xl rounded-tr-sm font-medium"
-                          : "bg-white/5 border border-white/5 text-white/90 rounded-2xl rounded-tl-sm font-light"
+                          ? "rounded-tr-sm font-medium"
+                          : "rounded-tl-sm font-light"
                       }`}
+                      style={
+                        msg.role === "user"
+                          ? { background: "var(--nexus-violet)", color: "#fff" }
+                          : { background: "rgba(124,92,255,0.06)", border: "1px solid rgba(124,92,255,0.15)", color: "var(--graphite-200, var(--pearl))" }
+                      }
                     >
                       {msg.content}
                     </div>
@@ -244,14 +258,14 @@ const ChatBot = () => {
               
               {loading && (
                 <div className="flex gap-3 items-center">
-                  <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
-                    <Bot size={14} className="text-white/70" />
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "rgba(124,92,255,0.1)", border: "1px solid rgba(124,92,255,0.2)" }}>
+                    <Bot size={14} style={{ color: "var(--nexus-violet)" }} />
                   </div>
-                  <div className="bg-white/5 border border-white/5 px-5 py-4 rounded-2xl rounded-tl-sm">
+                  <div className="px-5 py-4 rounded-2xl rounded-tl-sm" style={{ background: "rgba(124,92,255,0.06)", border: "1px solid rgba(124,92,255,0.15)" }}>
                     <div className="flex gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-pulse" style={{ animationDelay: "0ms" }} />
-                      <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-pulse" style={{ animationDelay: "150ms" }} />
-                      <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-pulse" style={{ animationDelay: "300ms" }} />
+                      <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--graphite-400)", animationDelay: "0ms" }} />
+                      <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--graphite-400)", animationDelay: "150ms" }} />
+                      <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--graphite-400)", animationDelay: "300ms" }} />
                     </div>
                   </div>
                 </div>
@@ -259,7 +273,7 @@ const ChatBot = () => {
             </div>
 
             {/* Input Form */}
-            <div className="p-4 bg-[#020610] border-t border-white/10">
+            <div className="p-4" style={{ background: "var(--obsidian)", borderTop: "1px solid var(--graphite-600)" }}>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -272,13 +286,21 @@ const ChatBot = () => {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask me anything..."
-                  className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-[14px] text-white placeholder:text-white/30 focus:outline-none focus:border-primary/50 focus:bg-white/10 transition-all font-light"
+                  className="flex-1 rounded-xl px-4 py-3.5 text-[14px] focus:outline-none transition-all font-light placeholder:text-[var(--graphite-400)]"
+                  style={{
+                    background: "rgba(124,92,255,0.05)",
+                    border: "1px solid var(--graphite-600)",
+                    color: "var(--pearl)",
+                  }}
+                  onFocus={e => { e.currentTarget.style.borderColor = "rgba(124,92,255,0.4)"; e.currentTarget.style.background = "rgba(124,92,255,0.08)"; }}
+                  onBlur={e => { e.currentTarget.style.borderColor = "var(--graphite-600)"; e.currentTarget.style.background = "rgba(124,92,255,0.05)"; }}
                   maxLength={150}
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || loading}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg bg-white text-black flex items-center justify-center hover:scale-105 transition-all disabled:opacity-0"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg flex items-center justify-center hover:scale-105 transition-all disabled:opacity-0"
+                  style={{ background: "var(--nexus-violet)", color: "#fff" }}
                 >
                   <Send size={16} />
                 </button>

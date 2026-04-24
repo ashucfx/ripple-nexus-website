@@ -7,7 +7,10 @@ const RealStoriesSection = () => {
   const topStories = caseStudies.slice(0, 3);
 
   return (
-    <section className="py-32 bg-black border-t border-white/5 relative z-10">
+    <section
+      className="py-32 relative z-10"
+      style={{ background: "var(--obsidian)", borderTop: "1px solid var(--graphite-600)" }}
+    >
       <div className="max-w-6xl mx-auto px-6">
         
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
@@ -15,9 +18,9 @@ const RealStoriesSection = () => {
             <h2 className="font-display font-medium text-4xl md:text-5xl text-white tracking-tight mb-4">
               Proven Architecture.
             </h2>
-            <p className="text-white/65 text-xl">Real metrics from real deployments.</p>
+            <p className="text-xl" style={{ color: "var(--graphite-300)" }}>Real metrics from real deployments.</p>
           </div>
-          <Link to="/case-studies" className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm font-medium">
+          <Link to="/case-studies" className="inline-flex items-center gap-2 text-sm font-medium transition-colors" style={{ color: "var(--graphite-300)" }}>
             Read all Engineering Cases <ArrowRight size={16} />
           </Link>
         </div>
@@ -31,27 +34,39 @@ const RealStoriesSection = () => {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group flex flex-col h-full bg-[#0a0a0a] border border-white/10 p-8 rounded-2xl
-                hover:border-primary/30 hover:bg-[#0d0d16]
-                hover:shadow-[0_8px_40px_-12px_hsl(222_74%_48%/0.25)]
-                transition-colors duration-300"
+              className="group flex flex-col h-full p-8 rounded-2xl transition-all duration-300"
+              style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)" }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = "rgba(124,92,255,0.3)";
+                e.currentTarget.style.boxShadow = "0 8px 40px -12px rgba(124,92,255,0.25)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = "var(--graphite-600)";
+                e.currentTarget.style.boxShadow = "none";
+              }}
             >
                <div className="flex justify-between items-start mb-10">
-                 <div className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center border border-white/5 group-hover:bg-primary/15 group-hover:border-primary/20 transition-all duration-300">
-                   <story.icon size={16} className="text-white/50 group-hover:text-primary transition-colors duration-300" />
+                 <div
+                   className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300"
+                   style={{ background: "rgba(124,92,255,0.08)", border: "1px solid rgba(124,92,255,0.2)" }}
+                 >
+                   <story.icon size={16} style={{ color: "var(--nexus-violet)" }} />
                  </div>
-                 <span className="text-[10px] uppercase tracking-widest font-mono text-white/50 bg-white/5 px-2 py-1 rounded-full">{story.industry}</span>
+                 <span
+                   className="text-[10px] uppercase tracking-widest font-mono px-2 py-1 rounded-full"
+                   style={{ background: "rgba(124,92,255,0.06)", border: "1px solid rgba(124,92,255,0.15)", color: "var(--graphite-300)" }}
+                 >{story.industry}</span>
                </div>
 
                <h3 className="text-xl font-semibold text-white mb-2 leading-snug">{story.title}</h3>
-               <p className="text-xs text-white/60 mb-8">{story.client}</p>
+               <p className="text-xs mb-8" style={{ color: "var(--graphite-400)" }}>{story.client}</p>
 
                <div className="flex-1 mt-auto">
-                 <div className="space-y-3 pt-5 border-t border-white/10">
+                 <div className="space-y-3 pt-5" style={{ borderTop: "1px solid var(--graphite-600)" }}>
                    {story.outcomes.slice(0, 2).map((outcome, idx) => (
                      <div key={idx} className="flex gap-2.5 items-start">
-                       <CheckCircle2 size={15} className="text-secondary mt-0.5 shrink-0 drop-shadow-[0_0_4px_rgba(63,189,139,0.5)]" />
-                       <span className="text-sm text-white/85 leading-relaxed font-medium">{outcome}</span>
+                       <CheckCircle2 size={15} className="mt-0.5 shrink-0" style={{ color: "var(--quantum-lime)" }} />
+                       <span className="text-sm leading-relaxed font-medium" style={{ color: "var(--graphite-200, var(--pearl))" }}>{outcome}</span>
                      </div>
                    ))}
                  </div>

@@ -31,8 +31,12 @@ const signals = [
 
 const QuestionsSection = () => {
   return (
-    <section id="questions" className="py-28 bg-black border-t border-white/[0.06] relative z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_0%_50%,rgba(31,86,212,0.04)_0%,transparent_70%)] pointer-events-none" />
+    <section
+      id="questions"
+      className="py-28 relative z-10 overflow-hidden"
+      style={{ background: "var(--obsidian)", borderTop: "1px solid var(--graphite-600)" }}
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_0%_50%,rgba(124,92,255,0.05)_0%,transparent_70%)] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-16 items-start">
@@ -65,7 +69,8 @@ const QuestionsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.14 }}
-              className="text-white/55 text-[15px] leading-relaxed mb-10"
+              className="text-[15px] leading-relaxed mb-10"
+              style={{ color: "var(--graphite-300)" }}
             >
               Every signal below represents a compounding loss to your business. The longer
               you wait, the wider the gap between you and a competitor who already fixed it.
@@ -78,7 +83,20 @@ const QuestionsSection = () => {
             >
               <a
                 href="#lead-form"
-                className="group inline-flex items-center gap-2.5 bg-primary text-white px-7 py-3.5 rounded-lg font-semibold text-sm hover:bg-primary/90 hover:shadow-[0_0_32px_hsl(222_74%_48%/0.35)] transition-all duration-200"
+                className="group inline-flex items-center gap-2.5 font-body font-semibold text-sm px-7 py-3.5 rounded-lg transition-all duration-200"
+                style={{
+                  background: "var(--nexus-violet)",
+                  color: "#fff",
+                  boxShadow: "0 8px 32px -4px rgba(124,92,255,0.4)",
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = "var(--violet-hover)";
+                  e.currentTarget.style.boxShadow = "0 8px 40px -4px rgba(124,92,255,0.55)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = "var(--nexus-violet)";
+                  e.currentTarget.style.boxShadow = "0 8px 32px -4px rgba(124,92,255,0.4)";
+                }}
               >
                 Get My Free Diagnostic
                 <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
@@ -96,18 +114,28 @@ const QuestionsSection = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.45, ease: "easeOut" }}
                 whileHover={{ x: 4, transition: { duration: 0.2 } }}
-                className="group flex gap-5 p-6 rounded-2xl border border-white/[0.07] bg-white/[0.02]
-                  hover:border-primary/25 hover:bg-primary/[0.03]
-                  transition-all duration-300"
+                className="group flex gap-5 p-6 rounded-2xl transition-all duration-300"
+                style={{ background: "rgba(124,92,255,0.02)", border: "1px solid var(--graphite-600)" }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = "rgba(124,92,255,0.3)";
+                  e.currentTarget.style.background = "rgba(124,92,255,0.04)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = "var(--graphite-600)";
+                  e.currentTarget.style.background = "rgba(124,92,255,0.02)";
+                }}
               >
-                <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center shrink-0 group-hover:bg-primary/15 group-hover:border-primary/25 transition-all duration-300">
-                  <s.icon size={18} className="text-white/40 group-hover:text-primary transition-colors duration-300" />
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300"
+                  style={{ background: "rgba(124,92,255,0.06)", border: "1px solid rgba(124,92,255,0.15)" }}
+                >
+                  <s.icon size={18} style={{ color: "var(--nexus-violet)" }} />
                 </div>
                 <div>
-                  <p className="text-white/80 text-[15px] font-medium leading-snug mb-2 group-hover:text-white transition-colors duration-200">
+                  <p className="text-[15px] font-medium leading-snug mb-2" style={{ color: "var(--graphite-200, var(--pearl))" }}>
                     {s.question}
                   </p>
-                  <p className="text-white/35 text-xs group-hover:text-primary/70 transition-colors duration-200">
+                  <p className="text-xs" style={{ color: "var(--graphite-400)" }}>
                     {s.cost}
                   </p>
                 </div>

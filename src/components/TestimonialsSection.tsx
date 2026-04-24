@@ -4,7 +4,7 @@ import { useState } from "react";
 
 // Avatar helper — DiceBear lorelei style, consistent per seed
 const avatar = (seed: string) =>
-  `https://api.dicebear.com/7.x/lorelei/svg?seed=${encodeURIComponent(seed)}&backgroundColor=0d1117`;
+  `https://api.dicebear.com/7.x/lorelei/svg?seed=${encodeURIComponent(seed)}&backgroundColor=0A0B14`;
 
 const testimonials = [
   { quote: "Ripple Nexus didn't just build our platform — they understood our business first. The CRM they delivered cut our response time by 68%.", name: "Arjun M.", role: "Operations Lead", company: "FMCG Distribution", rating: 5, avatar: avatar("Arjun") },
@@ -134,14 +134,15 @@ const TestimonialsSection = () => {
               </div>
               <div className="mb-4">
                 <span className="text-4xl font-display font-bold text-gradient">{fp.metric}</span>
-                <span className="ml-2 text-xs uppercase tracking-widest text-white/50 font-medium">{fp.metricLabel}</span>
+                <span className="ml-2 text-xs uppercase tracking-widest font-medium" style={{ color: "var(--graphite-400)" }}>{fp.metricLabel}</span>
               </div>
-              <p className="text-white/75 text-sm leading-relaxed mb-5">"{fp.quote}"</p>
-              <div className="flex items-center gap-3 border-t border-white/10 pt-4">
+              <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--graphite-300)" }}>"{fp.quote}"</p>
+              <div className="flex items-center gap-3 pt-4" style={{ borderTop: "1px solid var(--graphite-600)" }}>
                 <img
                   src={fp.avatar}
                   alt={fp.name}
-                  className="w-9 h-9 rounded-full border border-white/15 bg-[#0d1117] object-cover shrink-0"
+                  className="w-9 h-9 rounded-full object-cover shrink-0"
+                  style={{ border: "1px solid var(--graphite-600)", background: "var(--ink)" }}
                   loading="lazy"
                   onError={(e) => {
                     const el = e.currentTarget as HTMLImageElement;
@@ -150,14 +151,14 @@ const TestimonialsSection = () => {
                   }}
                 />
                 <div
-                  className="w-9 h-9 rounded-full bg-gradient-to-br from-primary/40 to-secondary/20 items-center justify-center text-white font-semibold text-xs border border-white/10 shrink-0"
-                  style={{ display: "none" }}
+                  className="w-9 h-9 rounded-full items-center justify-center font-semibold text-xs shrink-0"
+                  style={{ display: "none", background: "rgba(124,92,255,0.2)", border: "1px solid rgba(124,92,255,0.3)", color: "var(--pearl)" }}
                 >
                   {fp.name.charAt(0)}
                 </div>
                 <div>
-                  <p className="text-white text-xs font-semibold">{fp.name}</p>
-                  <p className="text-white/45 text-[11px]">{fp.role} · {fp.company}</p>
+                  <p className="text-xs font-semibold" style={{ color: "var(--pearl)" }}>{fp.name}</p>
+                  <p className="text-[11px]" style={{ color: "var(--graphite-400)" }}>{fp.role} · {fp.company}</p>
                 </div>
               </div>
             </motion.div>
@@ -173,7 +174,16 @@ const TestimonialsSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05 * i, duration: 0.35, ease: "easeOut" }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="card-elevated p-6 group hover:border-primary/25 hover:shadow-[0_8px_32px_-8px_hsl(222_74%_48%/0.2)] transition-all duration-300"
+              className="p-6 group rounded-2xl transition-all duration-300"
+              style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)" }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = "rgba(124,92,255,0.3)";
+                e.currentTarget.style.boxShadow = "0 8px 32px -8px rgba(124,92,255,0.2)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = "var(--graphite-600)";
+                e.currentTarget.style.boxShadow = "none";
+              }}
             >
               {/* Stars */}
               <div className="flex gap-0.5 mb-4">
@@ -181,7 +191,8 @@ const TestimonialsSection = () => {
                   <Star
                     key={s}
                     size={13}
-                    className={s < t.rating ? "fill-accent text-accent" : "fill-white/10 text-white/10"}
+                    className={s < t.rating ? "fill-accent text-accent" : ""}
+                    style={s < t.rating ? {} : { fill: "var(--graphite-600)", color: "var(--graphite-600)" }}
                   />
                 ))}
               </div>
@@ -191,7 +202,8 @@ const TestimonialsSection = () => {
                   <img
                     src={t.avatar}
                     alt={t.name}
-                    className="w-10 h-10 rounded-full border border-white/15 bg-[#0d1117] object-cover"
+                    className="w-10 h-10 rounded-full object-cover"
+                    style={{ border: "1px solid var(--graphite-600)", background: "var(--ink)" }}
                     loading="lazy"
                     onError={(e) => {
                       const el = e.currentTarget as HTMLImageElement;
@@ -200,8 +212,8 @@ const TestimonialsSection = () => {
                     }}
                   />
                   <div
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-secondary/20 items-center justify-center text-white font-semibold text-sm border border-white/10"
-                    style={{ display: "none" }}
+                    className="w-10 h-10 rounded-full items-center justify-center font-semibold text-sm"
+                    style={{ display: "none", background: "rgba(124,92,255,0.2)", border: "1px solid rgba(124,92,255,0.3)", color: "var(--pearl)" }}
                   >
                     {t.name.charAt(0)}
                   </div>
@@ -211,7 +223,7 @@ const TestimonialsSection = () => {
                     <p className="text-foreground text-sm font-semibold truncate">{t.name}</p>
                     <BadgeCheck size={13} className="text-primary flex-shrink-0" />
                   </div>
-                  <p className="text-white/50 text-xs truncate">{t.role} · {t.company}</p>
+                  <p className="text-xs truncate" style={{ color: "var(--graphite-400)" }}>{t.role} · {t.company}</p>
                 </div>
               </div>
             </motion.div>

@@ -29,7 +29,14 @@ const FloatingCTA = () => {
         {/* Glow behind */}
         <div className="absolute inset-0 bg-primary/40 blur-xl rounded-full scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
-        <div className="glass-panel flex items-center bg-card/80 border border-primary/20 backdrop-blur-xl p-1.5 rounded-full pr-4 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+        <div
+          className="flex items-center backdrop-blur-xl p-1.5 rounded-full pr-4"
+          style={{
+            background: "rgba(18,20,31,0.9)",
+            border: "1px solid rgba(124,92,255,0.25)",
+            boxShadow: "0 10px 40px rgba(0,0,0,0.5)",
+          }}
+        >
           <a
             href="/#rns-scheduler"
             className="flex items-center gap-3 group/btn"
@@ -43,7 +50,7 @@ const FloatingCTA = () => {
             </div>
           </a>
           
-          <div className="w-px h-8 bg-white/10 mx-3" />
+          <div className="w-px h-8 mx-3" style={{ background: "var(--graphite-600)" }} />
           
           <button 
             onClick={() => {

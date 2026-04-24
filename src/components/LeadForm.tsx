@@ -136,14 +136,15 @@ const LeadForm = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="card-elevated p-10 text-center max-w-lg mx-auto"
+            className="p-10 text-center max-w-lg mx-auto rounded-2xl"
+            style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)" }}
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
             >
-              <CheckCircle size={56} className="text-secondary mx-auto mb-5" />
+              <CheckCircle size={56} className="mx-auto mb-5" style={{ color: "var(--quantum-lime)" }} />
             </motion.div>
             <h3 className="font-display font-bold text-2xl text-foreground mb-3">Thank You!</h3>
             <p className="text-muted-foreground text-base leading-relaxed">
@@ -193,7 +194,8 @@ const LeadForm = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="card-elevated p-6 sm:p-8 space-y-5"
+          className="p-6 sm:p-8 space-y-5 rounded-2xl"
+          style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)" }}
         >
           {/* Honeypot */}
           <div className="hidden" aria-hidden="true">
@@ -357,7 +359,7 @@ const LeadForm = () => {
             />
             <div className="flex justify-between mt-1">
               {errors.project_description ? <p className="text-destructive text-xs">{errors.project_description}</p> : <span />}
-              <span className={`text-xs ${formData.project_description.length >= 50 ? "text-secondary" : "text-muted-foreground"}`}>
+              <span className="text-xs" style={{ color: formData.project_description.length >= 50 ? "var(--quantum-lime)" : "var(--graphite-400)" }}>
                 {formData.project_description.length}/50 min
               </span>
             </div>

@@ -44,7 +44,7 @@ const ProcessSection = () => {
   return (
     <section id="process" className="py-28 relative z-10 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(31,86,212,0.06)_0%,transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(124,92,255,0.06)_0%,transparent_70%)] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6">
 
@@ -73,7 +73,8 @@ const ProcessSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.14 }}
-            className="text-white/55 text-lg max-w-xl mx-auto leading-relaxed"
+            className="text-lg max-w-xl mx-auto leading-relaxed"
+            style={{ color: "var(--graphite-300)" }}
           >
             A repeatable, transparent process that has delivered 200+ systems across 18 countries.
             No agency chaos. No scope creep. No surprises.
@@ -94,37 +95,49 @@ const ProcessSection = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="group relative flex flex-col p-6 rounded-2xl bg-[#080810] border border-white/[0.08]
-                  hover:border-primary/25 hover:bg-[#0d0d18]
-                  hover:shadow-[0_12px_40px_-12px_hsl(222_74%_48%/0.25)]
-                  transition-all duration-300"
+                className="group relative flex flex-col p-6 rounded-2xl transition-all duration-300"
+                style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)" }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = "rgba(124,92,255,0.3)";
+                  e.currentTarget.style.boxShadow = "0 12px 40px -12px rgba(124,92,255,0.25)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = "var(--graphite-600)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
               >
                 {/* Step icon */}
                 <div className="relative mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center group-hover:bg-primary/15 group-hover:border-primary/25 transition-all duration-300">
-                    <step.icon size={20} className="text-white/50 group-hover:text-primary transition-colors duration-300" />
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300"
+                    style={{ background: "rgba(124,92,255,0.06)", border: "1px solid rgba(124,92,255,0.15)" }}
+                  >
+                    <step.icon size={20} style={{ color: "var(--nexus-violet)" }} />
                   </div>
-                  <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#080810] border border-white/10 flex items-center justify-center text-[9px] font-bold text-white/30 font-mono group-hover:border-primary/25 group-hover:text-primary/60 transition-all duration-300">
+                  <span
+                    className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold font-mono"
+                    style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)", color: "var(--graphite-400)" }}
+                  >
                     {i + 1}
                   </span>
                 </div>
 
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="text-[10px] font-mono text-white/25 tracking-widest">{step.num}</span>
-                  <span className="text-xs text-white/20">·</span>
-                  <span className="text-[10px] text-white/30 uppercase tracking-wider">{step.duration}</span>
+                  <span className="text-[10px] font-mono tracking-widest" style={{ color: "var(--graphite-400)" }}>{step.num}</span>
+                  <span className="text-xs" style={{ color: "var(--graphite-600)" }}>·</span>
+                  <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--graphite-400)" }}>{step.duration}</span>
                 </div>
 
                 <h3 className="font-display font-bold text-white text-xl mb-2 group-hover:text-gradient transition-all duration-300">
                   {step.title}
                 </h3>
-                <p className="text-primary/80 text-xs font-semibold mb-3 leading-snug">{step.headline}</p>
-                <p className="text-white/50 text-[13px] leading-relaxed mb-6 flex-1">{step.desc}</p>
+                <p className="text-xs font-semibold mb-3 leading-snug" style={{ color: "rgba(124,92,255,0.85)" }}>{step.headline}</p>
+                <p className="text-[13px] leading-relaxed mb-6 flex-1" style={{ color: "var(--graphite-300)" }}>{step.desc}</p>
 
                 {/* Deliverable */}
-                <div className="mt-auto pt-4 border-t border-white/[0.06] flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
-                  <span className="text-[11px] text-white/45 font-medium">{step.deliverable}</span>
+                <div className="mt-auto pt-4 flex items-center gap-2" style={{ borderTop: "1px solid var(--graphite-600)" }}>
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--nexus-violet)" }} />
+                  <span className="text-[11px] font-medium" style={{ color: "var(--graphite-400)" }}>{step.deliverable}</span>
                 </div>
               </motion.div>
             ))}
@@ -141,12 +154,25 @@ const ProcessSection = () => {
         >
           <a
             href="#lead-form"
-            className="group inline-flex items-center gap-2.5 bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-white/20 text-white/80 hover:text-white px-8 py-4 rounded-xl font-semibold text-[15px] transition-all duration-200"
+            className="group inline-flex items-center gap-2.5 font-body font-semibold text-sm px-8 py-4 rounded-xl transition-all duration-200"
+            style={{
+              background: "var(--nexus-violet)",
+              color: "#fff",
+              boxShadow: "0 8px 32px -4px rgba(124,92,255,0.4)",
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = "var(--violet-hover)";
+              e.currentTarget.style.boxShadow = "0 8px 40px -4px rgba(124,92,255,0.55)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = "var(--nexus-violet)";
+              e.currentTarget.style.boxShadow = "0 8px 32px -4px rgba(124,92,255,0.4)";
+            }}
           >
             Request an Infrastructure Audit
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
           </a>
-          <p className="text-white/25 text-xs mt-4">No retainer lock-in · Written brief within 48h · Senior engineers, not sales</p>
+          <p className="text-xs mt-4" style={{ color: "var(--graphite-400)" }}>No retainer lock-in · Written brief within 48h · Senior engineers, not sales</p>
         </motion.div>
 
       </div>
