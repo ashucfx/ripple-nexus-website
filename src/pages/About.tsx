@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Target, Users, Globe, Lightbulb, CheckCircle2, ArrowRight } from "lucide-react";
+import { Target, Users, Globe, Lightbulb, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CtaSection from "@/components/CtaSection";
@@ -9,18 +9,35 @@ import SEOHead from "@/components/SEOHead";
 const BASE_URL = "https://www.theripplenexus.com";
 
 const values = [
-  { icon: Target, title: "Clarity First", desc: "We cut through complexity to deliver clear, actionable strategies that drive measurable growth." },
-  { icon: Users, title: "Partnership, Not Vendor", desc: "We embed with your team as growth partners — not just service providers sending invoices." },
-  { icon: Globe, title: "Global Standards, Local Context", desc: "Enterprise-grade solutions built with deep understanding of Indian and international markets." },
-  { icon: Lightbulb, title: "Innovation with Purpose", desc: "Every technology decision is driven by business outcomes, not trends." },
+  {
+    icon: Target,
+    title: "Outcome-First Engineering",
+    desc: "Every architecture decision is anchored to a measurable business outcome — not a technology trend. We build what generates ROI, not what wins awards.",
+  },
+  {
+    icon: Users,
+    title: "Systems Partner, Not Vendor",
+    desc: "We embed with your team as autonomous infrastructure partners. You own 100% of the IP, code, and workflows — from day one.",
+  },
+  {
+    icon: Globe,
+    title: "Open-Standard Architecture",
+    desc: "Built on Make, n8n, Python, and open APIs. No proprietary black boxes. Walk away with everything, any time, no lock-in.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Information Gain Over Generics",
+    desc: "We build systems on your proprietary data — customer behaviour, operational history, domain context. Competitive advantages that can't be bought off the shelf.",
+  },
 ];
 
 const milestones = [
-  "50+ businesses transformed across 12+ countries",
-  "99.9% uptime across all managed infrastructure",
+  "200+ AI systems deployed across 18+ countries",
+  "99.97% uptime SLA across all managed infrastructure",
   "Zero data breaches since inception",
-  "ISO 27001 aligned security practices",
-  "Dual compliance: Indian IT Act + GDPR",
+  "100% IP ownership transferred on every engagement",
+  "ISO 27001-aligned security practices · Dual compliance: Indian IT Act + GDPR",
+  "60–90 day production deployment — no 6-month strategy decks",
 ];
 
 const About = () => {
@@ -31,83 +48,250 @@ const About = () => {
       "@type": "Organization",
       name: "Ripple Nexus",
       url: BASE_URL,
-      description: "Enterprise engineering partner for SaaS architecture, agentic AI pipelines, data infrastructure, and operational automation across 18+ countries.",
+      description: "Automation-first AI systems for founders and enterprises. 200+ deployments across 18+ countries.",
     },
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: "var(--obsidian)" }}>
       <SEOHead
-        title="Ripple Nexus: Enterprise Engineering Partner for SaaS and AI Architecture"
-        description="Ripple Nexus engineers the technical backbone of growing businesses. 200+ deployments across 18+ countries. Zero data breaches, 99.9% uptime, GDPR-aligned security."
+        title="About Ripple Nexus — Automation-First AI Systems Partner"
+        description="Ripple Nexus builds proprietary AI automation systems on your data. 200+ deployments across 18+ countries. 100% IP ownership. Production in 60–90 days."
         canonical={`${BASE_URL}/about`}
         schemaMarkup={schema}
       />
       <Navbar />
 
-      <main className="pt-24 pb-20">
-        {/* Hero with illustration */}
-        <section className="section-padding max-w-7xl mx-auto mb-20">
-          <div className="max-w-2xl text-center mx-auto">
-            <span className="text-primary font-semibold text-sm tracking-wider uppercase mb-4 block">Our Story</span>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mt-3 mb-6">
-              Engineered for <span className="text-gradient">Scale</span>
-            </h1>
-            <p className="text-muted-foreground text-lg md:text-xl leading-relaxed">
-              Ripple Nexus was founded on a simple premise: technology should accelerate business, not hinder it. We build robust, scalable systems that solve complex problems.
-            </p>
+      <main>
+        {/* Hero */}
+        <section
+          className="relative pt-40 pb-28 overflow-hidden"
+          style={{ borderBottom: "1px solid var(--graphite-600)" }}
+        >
+          <div
+            className="absolute top-0 right-0 w-1/2 h-full pointer-events-none"
+            style={{
+              background: "radial-gradient(50% 50% at 80% 30%, rgba(124,92,255,0.14) 0%, rgba(10,11,20,0) 100%)",
+            }}
+          />
+          <div className="max-w-5xl mx-auto px-6 relative z-10">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <p className="eyebrow mb-6">Our Story</p>
+              <div
+                className="w-12 h-px mb-10"
+                style={{ background: "linear-gradient(90deg, #7C5CFF 0%, #22D3EE 100%)" }}
+              />
+              <h1
+                className="font-display font-bold leading-tight mb-6"
+                style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", letterSpacing: "-0.04em", color: "var(--pearl)" }}
+              >
+                Built to install{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
+                >
+                  autonomous growth.
+                </span>
+              </h1>
+              <p className="font-body text-xl leading-relaxed max-w-2xl" style={{ color: "var(--graphite-300)" }}>
+                Ripple Nexus was founded on one conviction: AI should compound your competitive advantage, not
+                commoditize it. We build proprietary systems on your data — not generic wrappers on someone else's model.
+              </p>
+            </motion.div>
           </div>
         </section>
 
         {/* Values */}
-        <section className="section-padding max-w-6xl mx-auto mb-20">
-          <h2 className="font-display text-3xl font-bold text-foreground text-center mb-12">Our Core Values</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {values.map((v, i) => (
-              <motion.div
-                key={v.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="card-elevated p-6 hover-lift group"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                  <v.icon className="text-primary group-hover:text-primary-foreground transition-colors duration-300" size={24} />
-                </div>
-                <h3 className="font-display font-bold text-foreground text-lg mb-2">{v.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{v.desc}</p>
-              </motion.div>
-            ))}
+        <section
+          className="py-28"
+          style={{ borderBottom: "1px solid var(--graphite-600)" }}
+        >
+          <div className="max-w-6xl mx-auto px-6">
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="eyebrow mb-6"
+            >
+              Core Principles
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.08 }}
+              className="font-display font-bold leading-tight mb-16"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)", letterSpacing: "-0.03em", color: "var(--pearl)" }}
+            >
+              How we think about building.
+            </motion.h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-px" style={{ background: "var(--graphite-600)" }}>
+              {values.map((v, i) => (
+                <motion.div
+                  key={v.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="p-8 flex gap-5 transition-colors duration-300"
+                  style={{ background: "var(--obsidian)" }}
+                  onMouseEnter={e => (e.currentTarget.style.background = "var(--ink)")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "var(--obsidian)")}
+                >
+                  <div
+                    className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ background: "rgba(124,92,255,0.1)", border: "1px solid rgba(124,92,255,0.2)" }}
+                  >
+                    <v.icon size={20} style={{ color: "var(--nexus-violet)" }} />
+                  </div>
+                  <div>
+                    <h3
+                      className="font-display font-bold text-base mb-2"
+                      style={{ color: "var(--pearl)", letterSpacing: "-0.015em" }}
+                    >
+                      {v.title}
+                    </h3>
+                    <p className="font-body text-sm leading-relaxed" style={{ color: "var(--graphite-400)" }}>
+                      {v.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* Milestones */}
-        <section className="section-padding max-w-4xl mx-auto mb-20">
-          <h2 className="font-display text-3xl font-bold text-foreground text-center mb-10">Track Record</h2>
-          <div className="card-elevated p-8">
-            <ul className="space-y-4">
-              {milestones.map((m) => (
-                <li key={m} className="flex items-start gap-3 text-muted-foreground">
-                  <CheckCircle2 size={18} className="text-secondary mt-0.5 flex-shrink-0" />
-                  <span>{m}</span>
-                </li>
-              ))}
-            </ul>
+        {/* Track Record */}
+        <section
+          className="py-28"
+          style={{ borderBottom: "1px solid var(--graphite-600)" }}
+        >
+          <div className="max-w-6xl mx-auto px-6">
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="eyebrow mb-6"
+            >
+              Verifiable Track Record
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.08 }}
+              className="font-display font-bold leading-tight mb-14"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)", letterSpacing: "-0.03em", color: "var(--pearl)" }}
+            >
+              Numbers we stand behind.
+            </motion.h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="rounded-xl p-8"
+              style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)" }}
+            >
+              <ul className="space-y-5">
+                {milestones.map((m, i) => (
+                  <motion.li
+                    key={m}
+                    initial={{ opacity: 0, x: -12 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.07 }}
+                    className="flex items-start gap-4"
+                  >
+                    <span
+                      className="font-mono text-xs shrink-0 mt-0.5"
+                      style={{ color: "var(--quantum-lime)" }}
+                    >
+                      ✓
+                    </span>
+                    <span className="font-body text-sm leading-relaxed" style={{ color: "var(--graphite-300)" }}>
+                      {m}
+                    </span>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
           </div>
         </section>
 
         {/* CTA */}
-        <section className="section-padding max-w-3xl mx-auto text-center">
-          <h2 className="font-display text-2xl font-bold text-foreground mb-4">Ready to simplify your growth?</h2>
-          <p className="text-muted-foreground mb-8">Let's discuss how we can help your business scale without the chaos.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact" className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-7 py-3.5 rounded-xl font-semibold hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5 transition-all">
-              Get in Touch <ArrowRight size={16} />
-            </Link>
-            <Link to="/case-studies" className="inline-flex items-center justify-center gap-2 border border-border text-foreground px-7 py-3.5 rounded-xl font-medium hover:bg-muted transition-all">
-              View Our Work
-            </Link>
+        <section className="py-28">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="font-display font-bold leading-tight mb-5"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)", letterSpacing: "-0.03em", color: "var(--pearl)" }}
+            >
+              Ready to install your first{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
+              >
+                autonomous growth system?
+              </span>
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="font-body text-lg leading-relaxed mb-10 max-w-xl mx-auto"
+              style={{ color: "var(--graphite-300)" }}
+            >
+              A 45-minute AI Systems Audit surfaces exactly what to automate, in what order,
+              and the provable ROI before you commit.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.18 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <a
+                href="/#rns-scheduler"
+                className="inline-flex items-center justify-center gap-2 font-body font-semibold text-sm px-8 py-4 rounded-xl transition-all duration-200"
+                style={{
+                  background: "var(--nexus-violet)",
+                  color: "#fff",
+                  boxShadow: "0 8px 32px -4px rgba(124,92,255,0.45)",
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = "var(--violet-hover)";
+                  e.currentTarget.style.transform = "translateY(-1px)";
+                  e.currentTarget.style.boxShadow = "0 12px 40px -4px rgba(124,92,255,0.55)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = "var(--nexus-violet)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "0 8px 32px -4px rgba(124,92,255,0.45)";
+                }}
+              >
+                Request AI Systems Audit <ArrowRight size={15} />
+              </a>
+              <Link
+                to="/case-studies"
+                className="inline-flex items-center justify-center gap-2 font-body font-medium text-sm px-8 py-4 rounded-xl transition-all duration-200"
+                style={{ border: "1px solid var(--graphite-600)", color: "var(--pearl)" }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = "rgba(124,92,255,0.5)";
+                  e.currentTarget.style.background = "rgba(124,92,255,0.06)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = "var(--graphite-600)";
+                  e.currentTarget.style.background = "transparent";
+                }}
+              >
+                See Verified Results
+              </Link>
+            </motion.div>
           </div>
         </section>
       </main>

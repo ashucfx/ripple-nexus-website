@@ -1,12 +1,12 @@
 {
   "name": "Ripple Nexus",
   "short_name": "Ripple Nexus",
-  "description": "Growth partner for modern businesses.",
+  "description": "Automation-first AI systems for founders and enterprises. 200+ deployments across 18+ countries.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "background_color": "#0A0B14",
+  "theme_color": "#7C5CFF",
   "icons": [
     {
       "src": "/favicon-32.png?v=3",

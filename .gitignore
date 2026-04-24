@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Internal brand/strategy documents — never push to GitHub
+*.pdf
+*.md
+!README.md
+/docs/
+/internal/
+/reports/
