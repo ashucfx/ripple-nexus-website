@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useGeoCountry } from "../hooks/use-geo-country";
 
 const tiers = [
   {
@@ -63,6 +64,9 @@ const tiers = [
 ];
 
 const PricingSection = () => {
+  const { countryInfo } = useGeoCountry();
+  const isIndia = countryInfo?.isIndia ?? false;
+
   return (
     <section
       className="py-28 relative z-10"
@@ -151,8 +155,12 @@ const PricingSection = () => {
 
               {/* Price */}
               <div style={{ borderTop: "1px solid var(--graphite-600)", paddingTop: "1rem" }}>
-                <p className="font-display font-bold text-2xl" style={{ color: "var(--pearl)" }}>{tier.price}</p>
-                <p className="font-body text-sm italic mt-0.5" style={{ color: "var(--graphite-400)" }}>{tier.priceINR}</p>
+                <p className="font-display font-bold text-2xl" style={{ color: "var(--pearl)" }}>
+                  {isIndia ? tier.priceINR : tier.price}
+                </p>
+                <p className="font-body text-sm italic mt-0.5" style={{ color: "var(--graphite-400)" }}>
+                  {isIndia ? tier.price : tier.priceINR}
+                </p>
                 <p className="font-body text-xs leading-relaxed mt-3" style={{ color: "var(--graphite-400)" }}>{tier.anchor}</p>
               </div>
 

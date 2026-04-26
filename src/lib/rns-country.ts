@@ -1,7 +1,7 @@
 // Pricing + budget options per country
 import type { CountryInfo } from './scheduler-types';
 
-const INR_BUDGET_OPTIONS = [
+export const INR_BUDGET_OPTIONS = [
   { label: 'Under ₹50,000',               value: 'under_50k',    numericValue: 25000   },
   { label: '₹50,000 – ₹1,50,000',         value: '50k_150k',     numericValue: 100000  },
   { label: '₹1,50,000 – ₹5,00,000',       value: '150k_500k',    numericValue: 325000  },
@@ -9,7 +9,7 @@ const INR_BUDGET_OPTIONS = [
   { label: '₹15,00,000+',                 value: 'above_1500k',  numericValue: 1500001 },
 ];
 
-const USD_BUDGET_OPTIONS = [
+export const USD_BUDGET_OPTIONS = [
   { label: 'Under $1,000',                value: 'under_1k',     numericValue: 999  },
   { label: '$1,000 – $5,000',             value: '1k_5k',        numericValue: 2500 },
   { label: '$5,000 – $20,000',            value: '5k_20k',       numericValue: 10000 },

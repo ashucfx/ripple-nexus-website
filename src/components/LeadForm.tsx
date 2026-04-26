@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { useGeoCountry } from "../hooks/use-geo-country";
+import { INR_BUDGET_OPTIONS, USD_BUDGET_OPTIONS } from "../lib/rns-country";
 
 const challengeOptions = [
   "Website & Digital Presence",
@@ -12,22 +14,10 @@ const challengeOptions = [
   "Other",
 ];
 
-const USD_BUDGET_OPTIONS = [
-  "$5,000 – $10,000",
-  "$10,000 – $25,000",
-  "$25,000 – $50,000",
-  "$50,000+",
-];
-
-const INR_BUDGET_OPTIONS = [
-  "₹50,000 – ₹1,00,000",
-  "₹1,00,000 – ₹3,00,000",
-  "₹3,00,000 – ₹8,00,000",
-  "₹8,00,000 – ₹20,00,000",
-  "₹20,00,000+",
-];
-
 const LeadForm = () => {
+  const { countryInfo } = useGeoCountry();
+  const geoApplied = useRef(false);
+
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
@@ -44,6 +34,13 @@ const LeadForm = () => {
   });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    if (!geoApplied.current && countryInfo?.isIndia) {
+      geoApplied.current = true;
+      setFormData(prev => ({ ...prev, phone_code: "+91", budget_range: "" }));
+    }
+  }, [countryInfo]);
 
   const validate = () => {
     const errs: Record<string, string> = {};
@@ -329,7 +326,7 @@ const LeadForm = () => {
               <label className="block text-sm font-medium text-foreground mb-1.5">Budget Range *</label>
               <select className={inputClass("budget_range")} value={formData.budget_range} onChange={(e) => handleChange("budget_range", e.target.value)}>
                 <option value="">Select budget</option>
-                {budgetOptions.map((opt) => (<option key={opt} value={opt}>{opt}</option>))}
+                {budgetOptions.map((opt) => (<option key={opt.value} value={opt.label}>{opt.label}</option>))}
               </select>
               {errors.budget_range && <p className="text-destructive text-xs mt-1">{errors.budget_range}</p>}
             </div>
