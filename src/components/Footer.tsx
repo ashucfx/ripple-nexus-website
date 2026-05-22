@@ -36,13 +36,7 @@ const Footer = () => {
                 className="font-display font-bold text-xl tracking-tight"
                 style={{ letterSpacing: "-0.03em", color: "var(--pearl)" }}
               >
-                Ripple{" "}
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
-                >
-                  Nexus
-                </span>
+                Ripple <span style={{ color: "var(--graphite-300)" }}>Nexus</span>
               </span>
             </Link>
             <p className="font-body text-[15px] leading-relaxed mb-5" style={{ color: "var(--graphite-400)" }}>
@@ -95,28 +89,27 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Navigation */}
-          <div className="lg:col-span-2 lg:ml-10">
+          {/* Infrastructure Column */}
+          <div className="lg:col-span-2">
             <h4
               className="font-body font-bold text-sm tracking-wider uppercase mb-7"
               style={{ color: "var(--pearl)" }}
             >
-              Company
+              Infrastructure
             </h4>
             <nav className="flex flex-col gap-4 text-[15px]">
               {[
-                { to: "/", label: "Home" },
-                { to: "/about", label: "Our Approach" },
-                { to: "/services", label: "Capabilities" },
-                { to: "/case-studies", label: "Case Studies" },
-                { to: "/contact", label: "Contact" },
+                { to: "/reliability", label: "System Status" },
+                { to: "/reliability", label: "Reliability" },
+                { to: "/reliability", label: "Uptime SLA" },
+                { to: "/reliability", label: "Global SRE" },
               ].map(({ to, label }) => (
                 <Link
                   key={label}
                   to={to}
                   className="transition-colors duration-200"
                   style={{ color: "var(--graphite-400)" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--nexus-violet)")}
+                  onMouseEnter={e => (e.currentTarget.style.color = "var(--pearl)")}
                   onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-400)")}
                 >
                   {label}
@@ -125,52 +118,88 @@ const Footer = () => {
             </nav>
           </div>
 
-          {/* Contact */}
-          <div className="lg:col-span-3">
+          {/* Developers Column */}
+          <div className="lg:col-span-2">
             <h4
               className="font-body font-bold text-sm tracking-wider uppercase mb-7"
               style={{ color: "var(--pearl)" }}
             >
-              Reach Out
+              Developers
             </h4>
-            <nav className="flex flex-col gap-5 text-[15px]">
-              <a
-                href="mailto:info@theripplenexus.com"
-                className="flex items-center gap-3 transition-colors duration-200"
-                style={{ color: "var(--graphite-400)" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "var(--nexus-violet)")}
-                onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-400)")}
-              >
-                <Mail size={17} style={{ color: "var(--nexus-violet)", opacity: 0.7 }} />
-                info@theripplenexus.com
-              </a>
-              <a
-                href="tel:+917599756826"
-                className="flex items-center gap-3 transition-colors duration-200"
-                style={{ color: "var(--graphite-400)" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "var(--nexus-violet)")}
-                onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-400)")}
-              >
-                <Phone size={17} style={{ color: "var(--nexus-violet)", opacity: 0.7 }} />
-                +91 7599 756 826
-              </a>
-              <a
-                href="https://wa.me/917599756826"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 transition-colors duration-200"
-                style={{ color: "var(--graphite-400)" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "var(--nexus-violet)")}
-                onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-400)")}
-              >
-                <MessageCircle size={17} style={{ color: "var(--nexus-violet)", opacity: 0.7 }} />
-                WhatsApp Support
-              </a>
+            <nav className="flex flex-col gap-4 text-[15px]">
+              {[
+                { to: "/docs", label: "Documentation" },
+                { to: "/docs", label: "API Reference" },
+                { to: "/changelog", label: "Changelog" },
+                { to: "/docs", label: "Architecture" },
+              ].map(({ to, label }) => (
+                <Link
+                  key={label}
+                  to={to}
+                  className="transition-colors duration-200"
+                  style={{ color: "var(--graphite-400)" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "var(--pearl)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-400)")}
+                >
+                  {label}
+                </Link>
+              ))}
             </nav>
           </div>
 
-          {/* Office */}
-          <div className="lg:col-span-3">
+          {/* Security & Company Column */}
+          <div className="lg:col-span-2">
+            <h4
+              className="font-body font-bold text-sm tracking-wider uppercase mb-7"
+              style={{ color: "var(--pearl)" }}
+            >
+              Security
+            </h4>
+            <nav className="flex flex-col gap-4 text-[15px] mb-8">
+              {[
+                { to: "/security", label: "Security Center" },
+                { to: "/security", label: "Compliance" },
+                { to: "/security", label: "Enterprise Governance" },
+              ].map(({ to, label }) => (
+                <Link
+                  key={label}
+                  to={to}
+                  className="transition-colors duration-200"
+                  style={{ color: "var(--graphite-400)" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "var(--pearl)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-400)")}
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+            <h4
+              className="font-body font-bold text-sm tracking-wider uppercase mb-5"
+              style={{ color: "var(--pearl)" }}
+            >
+              Company
+            </h4>
+            <nav className="flex flex-col gap-4 text-[15px]">
+              {[
+                { to: "/about", label: "About Us" },
+                { to: "/contact", label: "Contact" },
+              ].map(({ to, label }) => (
+                <Link
+                  key={label}
+                  to={to}
+                  className="transition-colors duration-200"
+                  style={{ color: "var(--graphite-400)" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "var(--pearl)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-400)")}
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Office (Compact) */}
+          <div className="lg:col-span-2">
             <h4
               className="font-body font-bold text-sm tracking-wider uppercase mb-7"
               style={{ color: "var(--pearl)" }}
@@ -178,37 +207,13 @@ const Footer = () => {
               Office
             </h4>
             <address
-              className="font-body text-[14px] not-italic leading-relaxed flex items-start gap-3 mb-5"
+              className="font-body text-[13px] not-italic leading-relaxed flex flex-col gap-2 mb-5"
               style={{ color: "var(--graphite-400)" }}
             >
-              <MapPin size={19} className="shrink-0 mt-0.5" style={{ color: "var(--nexus-violet)" }} />
-              <span>
-                Cospazes, A-116<br />
-                Urbtech Trade Centre<br />
-                Sec-132, Noida — 201304, India
-              </span>
+              <span>Cospazes, A-116<br />Urbtech Trade Centre<br />Sec-132, Noida — 201304, India</span>
+              <a href="mailto:info@theripplenexus.com" className="mt-2 hover:text-white transition-colors">info@theripplenexus.com</a>
+              <a href="tel:+917599756826" className="hover:text-white transition-colors">+91 7599 756 826</a>
             </address>
-
-            <div
-              className="w-full h-36 rounded-xl overflow-hidden transition-all duration-300"
-              style={{
-                border: "1px solid var(--graphite-600)",
-                background: "var(--ink)",
-              }}
-              onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(124,92,255,0.4)")}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = "var(--graphite-600)")}
-            >
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.9282427581543!2d77.37541287508688!3d28.51180657573095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce72d5d23fd2d%3A0xccad56c7a364950a!2sRipple%20Nexus!5e0!3m2!1sen!2sin!4v1772174925570!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: 0, filter: "invert(0.85) hue-rotate(185deg)" }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Ripple Nexus Office"
-              />
-            </div>
           </div>
         </div>
 
