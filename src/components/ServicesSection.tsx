@@ -49,7 +49,7 @@ const products = [
     desc: "Headless, composable web platforms optimised for Core Web Vitals and AI search engine discovery. Structured for AEO, GEO, and programmatic SEO at scale.",
     outcome: "Conversion rates doubled through performance",
     tags: ["Next.js", "Vercel Edge", "AEO/GEO", "Headless CMS"],
-    span: "md:col-span-2",
+    span: "md:col-span-3",
   },
 ];
 
