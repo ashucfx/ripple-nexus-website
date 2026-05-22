@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import logoMark from "@/assets/logo-icon-mark.svg";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Case Studies", href: "/case-studies" },
+  { label: "Platform", href: "/platform" },
+  { label: "Deployments", href: "/case-studies" },
+  { label: "Developers", href: "/docs" },
+  { label: "Company", href: "/about" },
 ];
 
 const Navbar = () => {
@@ -51,10 +51,7 @@ const Navbar = () => {
             style={{ letterSpacing: "-0.03em", color: "var(--pearl)" }}
           >
             Ripple{" "}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
-            >
+            <span style={{ color: "var(--graphite-300)" }}>
               Nexus
             </span>
           </span>
@@ -82,35 +79,35 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Desktop CTA */}
-        <div className="hidden md:flex items-center gap-5">
+        {/* Desktop CTA & Auth */}
+        <div className="hidden md:flex items-center gap-6">
           <Link
-            to="/contact"
+            to="/login"
             className="font-body text-[13px] font-medium tracking-wide transition-colors duration-200"
-            style={{ color: isActive("/contact") ? "var(--pearl)" : "var(--graphite-300)" }}
+            style={{ color: "var(--graphite-300)" }}
             onMouseEnter={e => (e.currentTarget.style.color = "var(--pearl)")}
-            onMouseLeave={e => (e.currentTarget.style.color = isActive("/contact") ? "var(--pearl)" : "var(--graphite-300)")}
+            onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-300)")}
           >
-            Contact
+            Sign In
           </Link>
           <a
-            href="/#rns-scheduler"
-            className="font-body font-semibold text-[13px] px-5 py-2 rounded-full transition-all duration-200"
+            href="/#lead-form"
+            className="font-body font-semibold text-[13px] px-6 py-2.5 rounded-md transition-all duration-300"
             style={{
-              background: "var(--nexus-violet)",
-              color: "#fff",
-              boxShadow: "0 4px 16px -2px rgba(124,92,255,0.4)",
+              background: "var(--pearl)",
+              color: "var(--obsidian)",
+              boxShadow: "0 4px 14px 0 rgba(255,255,255,0.1)",
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.background = "var(--violet-hover)";
-              e.currentTarget.style.boxShadow = "0 8px 24px -2px rgba(124,92,255,0.5)";
+              e.currentTarget.style.background = "#ffffff";
+              e.currentTarget.style.boxShadow = "0 6px 20px 0 rgba(255,255,255,0.15)";
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.background = "var(--nexus-violet)";
-              e.currentTarget.style.boxShadow = "0 4px 16px -2px rgba(124,92,255,0.4)";
+              e.currentTarget.style.background = "var(--pearl)";
+              e.currentTarget.style.boxShadow = "0 4px 14px 0 rgba(255,255,255,0.1)";
             }}
           >
-            See If You Qualify
+            Initialize
           </a>
         </div>
 
@@ -152,17 +149,24 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="/#rns-scheduler"
+              <Link
+                to="/login"
                 onClick={() => setMobileOpen(false)}
-                className="font-body font-semibold text-sm px-4 py-3 mt-2 rounded-xl text-center w-full transition-all duration-200"
+                className="font-body text-sm font-medium transition-colors duration-200 py-2 border-t mt-2"
+                style={{ color: "var(--graphite-300)", borderColor: "var(--graphite-600)" }}
+              >
+                Sign In
+              </Link>
+              <a
+                href="/#lead-form"
+                onClick={() => setMobileOpen(false)}
+                className="font-body font-semibold text-sm px-4 py-3 mt-2 rounded-md text-center w-full transition-all duration-300"
                 style={{
-                  background: "var(--nexus-violet)",
-                  color: "#fff",
-                  boxShadow: "0 4px 16px -2px rgba(124,92,255,0.4)",
+                  background: "var(--pearl)",
+                  color: "var(--obsidian)",
                 }}
               >
-                See If You Qualify
+                Initialize
               </a>
             </div>
           </motion.div>
