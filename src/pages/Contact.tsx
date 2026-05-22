@@ -181,7 +181,7 @@ const Contact = () => {
                 Qualify in 2 minutes. A senior architect leads your session.
               </p>
               <a
-                href="/#rns-scheduler"
+                href="/#lead-form"
                 className="inline-flex items-center justify-between w-full font-body font-semibold text-sm px-6 py-3.5 rounded-xl transition-all duration-200"
                 style={{
                   background: "var(--nexus-violet)",
