@@ -355,7 +355,7 @@ const CaseStudies = () => {
               and the provable ROI before you commit a rupee to implementation.
             </p>
             <a
-              href="/#rns-scheduler"
+              href="/#lead-form"
               className="group inline-flex items-center gap-2.5 font-body font-semibold text-sm px-9 py-4 rounded-xl transition-all duration-200"
               style={{
                 background: "var(--nexus-violet)",
