@@ -7,7 +7,7 @@ export const categories: Category[] = ["CRM & Sales", "Cloud & DevOps", "ERP & O
 export const caseStudies = [
   {
     title: "Enterprise CRM Overhaul",
-    client: "Leading FMCG Distributor",
+    client: "Confidential FMCG Enterprise (NDA)",
     industry: "FMCG / Distribution",
     category: "CRM & Sales" as Category,
     icon: Users,
@@ -19,7 +19,7 @@ export const caseStudies = [
   },
   {
     title: "Cloud Migration & Infrastructure Modernization",
-    client: "Mid-size Fintech Startup",
+    client: "Series B FinTech (Name withheld by request)",
     industry: "Financial Services",
     category: "Cloud & DevOps" as Category,
     icon: Cloud,
@@ -31,7 +31,7 @@ export const caseStudies = [
   },
   {
     title: "ERP Implementation for Manufacturing",
-    client: "Auto Components Manufacturer",
+    client: "Tier-1 Auto Components Manufacturer (NDA)",
     industry: "Manufacturing",
     category: "ERP & Ops" as Category,
     icon: Factory,
@@ -43,7 +43,7 @@ export const caseStudies = [
   },
   {
     title: "Cybersecurity Assessment & SOC Setup",
-    client: "Healthcare SaaS Platform",
+    client: "US Healthcare SaaS (HIPAA Confidential)",
     industry: "Healthcare",
     category: "Cybersecurity" as Category,
     icon: Shield,
@@ -67,7 +67,7 @@ export const caseStudies = [
   },
   {
     title: "API Gateway & Microservices Architecture",
-    client: "Logistics Aggregator",
+    client: "Global Logistics Aggregator (NDA)",
     industry: "Logistics",
     category: "Custom Software" as Category,
     icon: Database,
@@ -79,7 +79,7 @@ export const caseStudies = [
   },
   {
     title: "Compliance Automation Platform",
-    client: "Multi-national Insurance Firm",
+    client: "Multi-national Insurance Firm (Confidential)",
     industry: "Insurance",
     category: "Cybersecurity" as Category,
     icon: Lock,
