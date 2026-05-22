@@ -38,7 +38,7 @@ const FloatingCTA = () => {
           }}
         >
           <a
-            href="/#rns-scheduler"
+            href="/#lead-form"
             className="flex items-center gap-3 group/btn"
           >
             <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-inner group-hover/btn:scale-105 transition-transform duration-300">
@@ -46,7 +46,7 @@ const FloatingCTA = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-[10px] font-bold text-primary uppercase tracking-wider leading-tight">Architecture Audit</span>
-              <span className="text-sm font-semibold text-white leading-none">See If You Qualify</span>
+              <span className="text-sm font-semibold text-white leading-none">Begin Assessment</span>
             </div>
           </a>
           
