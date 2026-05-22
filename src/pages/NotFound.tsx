@@ -122,7 +122,7 @@ const NotFound = () => {
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-200" />
             </a>
             <a
-              href="/#rns-scheduler"
+              href="/#lead-form"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 font-body font-medium text-sm transition-all duration-200 w-full sm:w-auto rounded-xl"
               style={{ border: "1px solid var(--graphite-600)", color: "var(--pearl)" }}
               onMouseEnter={e => {
