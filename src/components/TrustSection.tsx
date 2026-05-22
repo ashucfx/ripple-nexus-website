@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
+import { Shield, FileText, Lock } from "lucide-react";
 
 const trustStats = [
-  { value: "200+", label: "Companies Automated" },
+  { value: "200+", label: "Systems Deployed" },
   { value: "18+",  label: "Countries" },
   { value: "4.9",  label: "Client Rating" },
-  { value: "< 4h", label: "First Response" },
+  { value: "48h",  label: "Written Brief" },
 ];
 
 const industries = [
@@ -14,9 +15,16 @@ const industries = [
 ];
 
 const differentiators = [
-  { metric: "100%", label: "IP ownership — all code, all workflows, all data stay yours" },
-  { metric: "0",    label: "Vendor lock-in — built on open standards only" },
-  { metric: "48h",  label: "Written architecture brief delivered after intake call" },
+  { metric: "100%", label: "IP ownership — all code, all workflows, all data transferred to you" },
+  { metric: "0",    label: "Vendor lock-in — built on open standards only, never proprietary platforms" },
+  { metric: "48h",  label: "Written architecture brief delivered after every intake call" },
+];
+
+const compliance = [
+  { icon: Shield, label: "ISO 27001-Aligned", sub: "Security practices" },
+  { icon: Lock,   label: "GDPR Compliant",    sub: "Data handling" },
+  { icon: FileText, label: "Indian IT Act",   sub: "Dual compliance" },
+  { icon: Shield, label: "Zero Breaches",     sub: "Since inception" },
 ];
 
 const TrustSection = () => {
@@ -70,7 +78,7 @@ const TrustSection = () => {
             >
               <span
                 className="font-mono text-xl font-bold shrink-0"
-                style={{ color: "var(--quantum-lime)" }}
+                style={{ color: "var(--nexus-violet)" }}
               >
                 {d.metric}
               </span>
@@ -80,10 +88,35 @@ const TrustSection = () => {
         </div>
       </div>
 
-      {/* Row 3: Industry ticker */}
+      {/* Row 3: Compliance signals */}
+      <div className="max-w-6xl mx-auto px-6 py-8" style={{ borderBottom: "1px solid var(--graphite-600)" }}>
+        <div className="flex flex-wrap items-center justify-between gap-6">
+          <p className="eyebrow">Security & Compliance</p>
+          <div className="flex flex-wrap gap-8">
+            {compliance.map((c, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06 }}
+                className="flex items-center gap-2"
+              >
+                <c.icon size={13} style={{ color: "var(--nexus-violet)" }} />
+                <div>
+                  <p className="font-body text-xs font-semibold" style={{ color: "var(--graphite-300)" }}>{c.label}</p>
+                  <p className="font-mono text-[0.55rem] tracking-wide" style={{ color: "var(--graphite-400)" }}>{c.sub}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Row 4: Industry ticker */}
       <div className="py-8">
         <div className="max-w-6xl mx-auto px-6 mb-5">
-          <p className="eyebrow text-center">Industries we&apos;ve automated</p>
+          <p className="eyebrow text-center">Industries we&apos;ve deployed across</p>
         </div>
         <div className="overflow-hidden flex items-center [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
           <motion.div
