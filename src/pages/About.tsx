@@ -36,7 +36,7 @@ const milestones = [
   "99.97% uptime SLA across all managed infrastructure",
   "Zero data breaches since inception",
   "100% IP ownership transferred on every engagement",
-  "ISO 27001-aligned security practices · Dual compliance: Indian IT Act + GDPR",
+  "Zero-Trust Architecture & Enterprise-Grade Data Governance · Dual compliance: Indian IT Act + GDPR",
   "60–90 day production deployment — no 6-month strategy decks",
 ];
 
@@ -94,7 +94,19 @@ const About = () => {
                 </span>
               </h1>
               <p className="font-body text-xl leading-relaxed max-w-2xl" style={{ color: "var(--graphite-300)" }}>
-                Ripple Nexus was founded on one conviction: AI should compound your competitive advantage, not
+                Ripple Nexus was founded by{" "}
+                <a
+                  href="https://www.linkedin.com/in/ashutosh-shuklaa/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors duration-200"
+                  style={{ color: "var(--pearl)", borderBottom: "1px solid rgba(124,92,255,0.4)" }}
+                  onMouseEnter={e => (e.currentTarget.style.borderBottomColor = "var(--nexus-violet)")}
+                  onMouseLeave={e => (e.currentTarget.style.borderBottomColor = "rgba(124,92,255,0.4)")}
+                >
+                  Ashutosh Shukla
+                </a>{" "}
+                on one conviction: AI should compound your competitive advantage, not
                 commoditize it. We build proprietary systems on your data — not generic wrappers on someone else's model.
               </p>
             </motion.div>
@@ -157,6 +169,86 @@ const About = () => {
                   </div>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* The Information Gain Manifesto */}
+        <section
+          className="py-28 relative"
+          style={{ borderBottom: "1px solid var(--graphite-600)", background: "var(--ink)" }}
+        >
+          <div className="absolute top-0 left-0 w-1/3 h-full pointer-events-none" style={{ background: "radial-gradient(100% 100% at 0% 50%, rgba(124,92,255,0.04) 0%, transparent 100%)" }} />
+          <div className="max-w-4xl mx-auto px-6 relative z-10">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <p className="eyebrow mb-6">The Founder's Thesis</p>
+              <h2
+                className="font-display font-bold leading-tight mb-10"
+                style={{ fontSize: "clamp(2rem, 4vw, 3rem)", letterSpacing: "-0.03em", color: "var(--pearl)" }}
+              >
+                The End of Generic AI:<br/>
+                Why Information Gain is the Only Defensible Moat.
+              </h2>
+              <div className="space-y-6 font-body text-[1.05rem] leading-relaxed" style={{ color: "var(--graphite-300)" }}>
+                <p>
+                  We are entering an era where access to intelligence is commoditized. If you deploy a generic ChatGPT wrapper, your competitor can deploy the exact same wrapper tomorrow. The technology itself is no longer a moat.
+                </p>
+                <p>
+                  So what separates market leaders from everyone else? <strong style={{ color: "var(--pearl)" }}>Information Gain.</strong>
+                </p>
+                <p>
+                  Information Gain is the proprietary delta between what a public foundational model knows, and what your private organizational data reveals. It is the hidden context in your CRM, the historical decisions of your top performers, and the unique telemetry of your operations.
+                </p>
+                <p>
+                  At Ripple Nexus, we do not build wrappers. We build <strong style={{ color: "var(--pearl)" }}>Information Gain Infrastructure</strong>. We architect systems that continuously ingest your private data, reason over it, and execute workflows autonomously. The system we build for you will make decisions that your competitors cannot replicate, because they do not have your data.
+                </p>
+                <p className="pt-6 font-display font-bold text-lg" style={{ color: "var(--pearl)" }}>
+                  Ashutosh Shukla<br/>
+                  <span className="font-body text-sm font-normal" style={{ color: "var(--graphite-400)" }}>Founder & Lead Architect</span>
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Operational Redundancy (Solving Founder Dependency) */}
+        <section
+          className="py-28 relative"
+          style={{ borderBottom: "1px solid var(--graphite-600)" }}
+        >
+          <div className="max-w-6xl mx-auto px-6">
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="eyebrow mb-6"
+            >
+              Institutional Redundancy
+            </motion.p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+              <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                <h2
+                  className="font-display font-bold leading-tight mb-6"
+                  style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)", letterSpacing: "-0.03em", color: "var(--pearl)" }}
+                >
+                  Engineered for permanence.
+                </h2>
+                <p className="font-body text-lg leading-relaxed" style={{ color: "var(--graphite-300)" }}>
+                  Enterprise infrastructure cannot rely on a single architect. Ripple Nexus is structured for permanent redundancy. Every deployment is governed by our Global Reliability Engineering framework, ensuring zero single points of failure across operations, support, and architecture.
+                </p>
+              </motion.div>
+              <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+                <ul className="space-y-6">
+                  <li className="p-6 rounded-xl" style={{ border: "1px solid var(--graphite-600)", background: "var(--ink)" }}>
+                    <h4 className="font-display font-bold text-base mb-2" style={{ color: "var(--pearl)" }}>24/7 Global SRE Coverage</h4>
+                    <p className="font-body text-sm" style={{ color: "var(--graphite-400)" }}>Distributed Site Reliability Engineering squads monitor all deployed primitives, enforcing our 99.97% SLA.</p>
+                  </li>
+                  <li className="p-6 rounded-xl" style={{ border: "1px solid var(--graphite-600)", background: "var(--ink)" }}>
+                    <h4 className="font-display font-bold text-base mb-2" style={{ color: "var(--pearl)" }}>Architectural Review Board</h4>
+                    <p className="font-body text-sm" style={{ color: "var(--graphite-400)" }}>No system ships on a single individual's authority. All topologies pass through our internal architecture governance committee.</p>
+                  </li>
+                </ul>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -229,13 +321,7 @@ const About = () => {
               className="font-display font-bold leading-tight mb-5"
               style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)", letterSpacing: "-0.03em", color: "var(--pearl)" }}
             >
-              Ready to install your first{" "}
-              <span
-                className="bg-clip-text text-transparent"
-                style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
-              >
-                autonomous growth system?
-              </span>
+              Initialize your infrastructure rollout.
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -245,8 +331,7 @@ const About = () => {
               className="font-body text-lg leading-relaxed mb-10 max-w-xl mx-auto"
               style={{ color: "var(--graphite-300)" }}
             >
-              A 45-minute AI Systems Audit surfaces exactly what to automate, in what order,
-              and the provable ROI before you commit.
+              Begin with an Architecture Discovery session. We analyze your bottlenecks and provide a concrete deployment topology.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -256,7 +341,7 @@ const About = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <a
-                href="/#rns-scheduler"
+                href="/#lead-form"
                 className="inline-flex items-center justify-center gap-2 font-body font-semibold text-sm px-8 py-4 rounded-xl transition-all duration-200"
                 style={{
                   background: "var(--nexus-violet)",
