@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/ashut/OneDrive/Desktop/ripple-nexus-web/**)"
+    ]
+  }
+}
