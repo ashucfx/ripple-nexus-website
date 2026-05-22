@@ -147,10 +147,10 @@
     color: var(--ion-cyan);
   }
 
-  /* ── Signature gradient text ────────────────────────────────── */
+  /* ── Signature gradient text (Muted for Enterprise Inevitability) ── */
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%);
+    background-image: linear-gradient(135deg, #FFFFFF 0%, #D4D4D8 100%);
   }
 
   /* ── Hero background glow ───────────────────────────────────── */
@@ -180,31 +180,31 @@
 
   /* ── Button patterns ────────────────────────────────────────── */
   .btn-primary {
-    background-color: var(--nexus-violet);
-    color: #fff;
-    border-radius: 12px;
+    background-color: var(--pearl);
+    color: var(--obsidian);
+    border-radius: 8px; /* Sharper corners for enterprise feel */
     font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    box-shadow: 0 8px 32px -4px rgba(124,92,255,0.45);
-    @apply px-8 py-3.5 transition-all duration-200;
+    font-weight: 500;
+    box-shadow: 0 4px 14px 0 rgba(255,255,255,0.1);
+    @apply px-8 py-3.5 transition-all duration-300;
   }
   .btn-primary:hover {
-    background-color: var(--violet-hover);
-    box-shadow: 0 12px 40px -4px rgba(124,92,255,0.55);
+    background-color: #ffffff;
+    box-shadow: 0 6px 20px 0 rgba(255,255,255,0.15);
     transform: translateY(-1px);
   }
   .btn-ghost {
     background: transparent;
     border: 1px solid var(--graphite-600);
     color: var(--pearl);
-    border-radius: 12px;
+    border-radius: 8px; /* Sharper corners */
     font-family: 'Inter', sans-serif;
     font-weight: 500;
-    @apply px-8 py-3.5 transition-all duration-200;
+    @apply px-8 py-3.5 transition-all duration-300;
   }
   .btn-ghost:hover {
-    border-color: var(--nexus-violet);
-    background: rgba(124,92,255,0.06);
+    border-color: var(--graphite-400);
+    background: rgba(255,255,255,0.03);
   }
 
   /* ── Glow border ────────────────────────────────────────────── */
