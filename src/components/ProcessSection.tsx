@@ -144,7 +144,7 @@ const ProcessSection = () => {
           </div>
         </div>
 
-        {/* Bottom CTA */}
+        {/* Bottom trust line */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -152,27 +152,7 @@ const ProcessSection = () => {
           transition={{ delay: 0.3 }}
           className="mt-14 text-center"
         >
-          <a
-            href="#lead-form"
-            className="group inline-flex items-center gap-2.5 font-body font-semibold text-sm px-8 py-4 rounded-xl transition-all duration-200"
-            style={{
-              background: "var(--nexus-violet)",
-              color: "#fff",
-              boxShadow: "0 8px 32px -4px rgba(124,92,255,0.4)",
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = "var(--violet-hover)";
-              e.currentTarget.style.boxShadow = "0 8px 40px -4px rgba(124,92,255,0.55)";
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = "var(--nexus-violet)";
-              e.currentTarget.style.boxShadow = "0 8px 32px -4px rgba(124,92,255,0.4)";
-            }}
-          >
-            Request an Infrastructure Audit
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
-          </a>
-          <p className="text-xs mt-4" style={{ color: "var(--graphite-400)" }}>No retainer lock-in · Written brief within 48h · Senior engineers, not sales</p>
+          <p className="text-xs" style={{ color: "var(--graphite-400)" }}>No retainer lock-in · Written brief within 48h · Senior architects, not sales</p>
         </motion.div>
 
       </div>
