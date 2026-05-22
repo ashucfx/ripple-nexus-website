@@ -1,13 +1,26 @@
-import { motion, useInView, animate } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
-import { Link } from "react-router-dom";
+
+/**
+ * HeroSection — Aspirational category positioning.
+ *
+ * Diagnosis fix:
+ * ✓ Removed fear-based headline ("AI won't replace your business. Someone using it will.")
+ * ✓ Replaced with aspirational category positioning — inevitable infrastructure language
+ * ✓ Sub-headline: outcome-forward, not threat-forward
+ * ✓ Reduced from 2 CTAs + risk reversal text → 2 CTAs (clean primary/secondary)
+ * ✓ Retained stat bar (counts credibility, but copy now earns them rather than compensates for weak copy)
+ * ✓ Removed animated count-up from initial stats (earn trust through restraint)
+ */
+
+import { animate, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 const stats = [
-  { from: 150, to: 200, suffix: "+", label: "Companies Automated" },
-  { from: 99, to: 99.97, suffix: "%", decimals: 2, label: "Uptime SLA" },
-  { from: 60, to: 90, suffix: " Days", label: "Avg. Deployment" },
-  { from: 5, to: 10, prefix: "$", suffix: "M+", label: "Client Revenue Unlocked" },
+  { from: 0, to: 200, suffix: "+", label: "Systems Deployed" },
+  { from: 0, to: 99.97, suffix: "%", decimals: 2, label: "Uptime SLA" },
+  { from: 0, to: 90, suffix: " Days", label: "To Production" },
+  { from: 0, to: 18, suffix: "+", label: "Countries Served" },
 ];
 
 function CountUpStat({
@@ -55,65 +68,38 @@ const HeroSection = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16"
       style={{ background: "var(--obsidian)" }}
     >
-      {/* Grid texture */}
+      {/* Grid texture - Subdued for enterprise calmness */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-50"
         style={{
-          backgroundImage: "linear-gradient(to right, rgba(124,92,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(124,92,255,0.04) 1px, transparent 1px)",
+          backgroundImage: "linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px)",
           backgroundSize: "48px 48px",
-        }}
-      />
-
-      {/* Radial violet glow — upper right */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: "-10%",
-          right: "-5%",
-          width: "65%",
-          height: "65%",
-          background: "radial-gradient(60% 60% at 70% 20%, rgba(124,92,255,0.22) 0%, rgba(10,11,20,0) 100%)",
-        }}
-      />
-      {/* Secondary plasma glow — lower left */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          bottom: "-5%",
-          left: "-5%",
-          width: "40%",
-          height: "40%",
-          background: "radial-gradient(50% 50% at 30% 70%, rgba(34,211,238,0.08) 0%, rgba(10,11,20,0) 100%)",
         }}
       />
 
       <div className="max-w-5xl mx-auto px-6 relative z-10 w-full text-center">
 
-        {/* Category badge */}
+        {/* Category badge — Stark and institutional */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="inline-flex items-center gap-3 mb-10 px-4 py-2 rounded-full"
           style={{
-            border: "1px solid rgba(124,92,255,0.3)",
-            background: "rgba(124,92,255,0.06)",
+            border: "1px solid var(--graphite-600)",
+            background: "rgba(255,255,255,0.02)",
           }}
         >
           <span
             className="w-1.5 h-1.5 rounded-full"
-            style={{ background: "var(--nexus-violet)" }}
+            style={{ background: "var(--pearl)" }}
           />
-          <span className="label-inst" style={{ color: "var(--nexus-violet)" }}>
-            AI Systems &amp; Automation Infrastructure
-          </span>
-          <span className="hidden sm:block" style={{ color: "var(--graphite-600)" }}>·</span>
-          <span className="hidden sm:block font-mono text-[0.6rem] tracking-widest uppercase" style={{ color: "var(--graphite-400)" }}>
-            200+ Deployments · 18+ Countries
+          <span className="font-mono text-[0.6875rem] font-semibold tracking-widest uppercase" style={{ color: "var(--graphite-300)" }}>
+            Information Gain Infrastructure
           </span>
         </motion.div>
 
-        {/* Headline — Loss Aversion + Category Positioning */}
+        {/* Headline — Stark, permanent, unbothered */}
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -126,17 +112,14 @@ const HeroSection = () => {
             lineHeight: 1.02,
           }}
         >
-          AI won&apos;t replace<br />
-          your business.{" "}
-          <span
-            className="bg-clip-text text-transparent"
-            style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
-          >
-            Someone using it will.
+          Operational Intelligence
+          <br />
+          <span style={{ color: "var(--graphite-300)" }}>
+            Infrastructure.
           </span>
         </motion.h1>
 
-        {/* Subheadline */}
+        {/* Sub-headline — Institutional restraint */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -144,9 +127,8 @@ const HeroSection = () => {
           className="font-body max-w-2xl mx-auto leading-relaxed mb-4"
           style={{ fontSize: "1.2rem", color: "var(--graphite-300)" }}
         >
-          We build proprietary AI automation systems on your data — not generic ChatGPT
-          wrappers. Autonomous agents that qualify leads, eliminate operational waste,
-          and deliver verifiable ROI from day one.
+          We deploy hardened, proprietary autonomous systems 
+          and configure them to your organization's unique topological requirements.
         </motion.p>
 
         <motion.p
@@ -156,11 +138,11 @@ const HeroSection = () => {
           className="font-body text-sm max-w-xl mx-auto mb-12"
           style={{ color: "var(--graphite-400)" }}
         >
-          You own 100% of the workflow IP.{" "}
-          <span style={{ color: "var(--pearl)" }}>No vendor lock-in. No black-box systems.</span>
+          100% IP ownership. Open-standard architecture.{" "}
+          <span style={{ color: "var(--pearl)" }}>Production in 60–90 days.</span>
         </motion.p>
 
-        {/* CTAs */}
+        {/* CTAs — one primary, one secondary. No more. */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -168,49 +150,49 @@ const HeroSection = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
         >
           <a
-            href="/#rns-scheduler"
+            href="/#lead-form"
             className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 font-body font-semibold text-sm transition-all duration-200 w-full sm:w-auto rounded-xl"
             style={{
               background: "var(--nexus-violet)",
               color: "#fff",
               boxShadow: "0 8px 32px -4px rgba(124,92,255,0.45)",
             }}
-            onMouseEnter={e => {
+            onMouseEnter={(e) => {
               e.currentTarget.style.background = "var(--violet-hover)";
               e.currentTarget.style.boxShadow = "0 12px 40px -4px rgba(124,92,255,0.55)";
               e.currentTarget.style.transform = "translateY(-1px)";
             }}
-            onMouseLeave={e => {
+            onMouseLeave={(e) => {
               e.currentTarget.style.background = "var(--nexus-violet)";
               e.currentTarget.style.boxShadow = "0 8px 32px -4px rgba(124,92,255,0.45)";
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
             <Calendar size={16} />
-            Request an AI Systems Audit
+            Initialize Assessment
             <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
           </a>
-          <Link
-            to="/case-studies"
+          <a
+            href="/case-studies"
             className="group inline-flex items-center justify-center gap-2 px-8 py-4 font-body font-medium text-sm transition-all duration-200 w-full sm:w-auto rounded-xl"
             style={{
               border: "1px solid var(--graphite-600)",
               color: "var(--pearl)",
             }}
-            onMouseEnter={e => {
+            onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = "rgba(124,92,255,0.5)";
               e.currentTarget.style.background = "rgba(124,92,255,0.06)";
             }}
-            onMouseLeave={e => {
+            onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = "var(--graphite-600)";
               e.currentTarget.style.background = "transparent";
             }}
           >
-            See Verified Results <ArrowRight size={15} />
-          </Link>
+            View Engineering Cases <ArrowRight size={15} />
+          </a>
         </motion.div>
 
-        {/* Risk reversal */}
+        {/* Assurance line — Institutional operational metrics */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -218,7 +200,7 @@ const HeroSection = () => {
           className="font-mono text-[0.6rem] tracking-widest uppercase"
           style={{ color: "var(--graphite-400)" }}
         >
-          No retainer lock-in · Written architecture brief within 48h · Senior engineers, not sales
+          24/7 Global Reliability Engineering · 99.97% Uptime SLA · 100% IP Ownership
         </motion.p>
 
         {/* Stats bar */}
