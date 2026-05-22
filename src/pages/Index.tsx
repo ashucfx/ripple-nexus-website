@@ -4,21 +4,32 @@ import HeroSection from "@/components/HeroSection";
 import ChatBot from "@/components/ChatBot";
 import SEOHead from "@/components/SEOHead";
 
+/**
+ * Homepage — Institutional authority conversion structure:
+ *
+ * Diagnosis-driven restructure:
+ * ✓ Removed QuestionsSection (fear-based, redundant, CTA noise)
+ * ✓ Removed EmotionalStatement (replaced by FounderSection authority)
+ * ✓ Added FounderSection immediately after proof (humanises brand)
+ * ✓ Page flows: Hero → Trust → Mechanism → Capabilities → Proof →
+ *   Testimonials → Founder → Process → Global → CTA → Form → Footer
+ * ✓ Reduced from 15 sections to 11 — each with a distinct conversion purpose
+ */
+
 // Above-fold sections — eager
 const TrustSection = lazy(() => import("@/components/TrustSection"));
 
 // Below-fold sections — lazy loaded
 const ProblemSolutionSection = lazy(() => import("@/components/ProblemSolutionSection"));
 const ServicesSection = lazy(() => import("@/components/ServicesSection"));
+const ControlPlaneSection = lazy(() => import("@/components/ControlPlaneSection"));
 const PricingSection = lazy(() => import("@/components/PricingSection"));
 const ProcessSection = lazy(() => import("@/components/ProcessSection"));
 const RealStoriesSection = lazy(() => import("@/components/RealStoriesSection"));
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
+const FounderSection = lazy(() => import("@/components/FounderSection"));
 const GlobalSection = lazy(() => import("@/components/GlobalSection"));
-const QuestionsSection = lazy(() => import("@/components/QuestionsSection"));
-const EmotionalStatement = lazy(() => import("@/components/EmotionalStatement"));
 const CtaSection = lazy(() => import("@/components/CtaSection"));
-const RNSScheduler = lazy(() => import("@/components/scheduler/RNSScheduler"));
 const LeadForm = lazy(() => import("@/components/LeadForm"));
 const Footer = lazy(() => import("@/components/Footer"));
 
@@ -68,9 +79,9 @@ const schemaMarkup = {
       "@type": "WebPage",
       "@id": `${BASE_URL}/#webpage`,
       url: BASE_URL,
-      name: "Ripple Nexus: Enterprise SaaS Architecture, Agentic AI & Data Engineering",
+      name: "Ripple Nexus: Information Gain Infrastructure — Enterprise AI Systems & Data Engineering",
       description:
-        "Ripple Nexus architects enterprise SaaS platforms, agentic AI pipelines, and data infrastructure that deliver measurable uptime, throughput, and revenue outcomes.",
+        "Ripple Nexus architects proprietary AI systems on your data — not generic wrappers. Enterprise SaaS platforms, agentic AI pipelines, and real-time data infrastructure across 18+ countries.",
       isPartOf: { "@id": `${BASE_URL}/#organization` },
       inLanguage: "en-US",
       potentialAction: {
@@ -94,17 +105,6 @@ const schemaMarkup = {
         "RPA Automation",
         "Cloud Infrastructure",
       ],
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
-        name: "Engineering Service Catalog",
-        itemListElement: [
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "High-Scale SaaS Architecture" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Agentic AI and RAG Pipelines" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Real-Time Data Infrastructure" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Native Mobile Development" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Operational Automation via RPA" } },
-        ],
-      },
     },
     {
       "@type": "FAQPage",
@@ -114,7 +114,7 @@ const schemaMarkup = {
           name: "What does Ripple Nexus build?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Ripple Nexus builds enterprise SaaS platforms, AI/LLM automation pipelines, data engines, native mobile apps, web platforms, and RPA workflows for businesses globally.",
+            text: "Ripple Nexus builds proprietary AI automation systems on your data — enterprise SaaS platforms, AI/LLM automation pipelines, data engines, native mobile apps, and RPA workflows for businesses globally.",
           },
         },
         {
@@ -122,7 +122,7 @@ const schemaMarkup = {
           name: "How long does a typical project take?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Most projects go from discovery to production in 60–90 days. MVP launches can be as fast as 4–6 weeks depending on scope.",
+            text: "Most projects go from Architecture Discovery to production in 60–90 days. MVP launches can be as fast as 4–6 weeks depending on scope.",
           },
         },
         {
@@ -138,7 +138,7 @@ const schemaMarkup = {
           name: "How do I start working with Ripple Nexus?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Apply for a premium strategy consultation at theripplenexus.com. Complete a short qualification form, secure your session with a one-time fee, and book a time that works for you.",
+            text: "Begin with an Architecture Discovery session at theripplenexus.com. A senior architect will analyse your operational bottlenecks and deliver a written systems brief within 48 hours.",
           },
         },
       ],
@@ -147,16 +147,30 @@ const schemaMarkup = {
 };
 
 /**
- * Homepage — Conversion-optimized structure:
- * Hero → Trust → Problem/Solution → Services → Process →
- * Proof → Testimonials → Global → Diagnostic → Statement → CTA → Form → Footer
+ * Homepage — Institutional authority conversion structure
+ *
+ * Section order rationale:
+ * 1. Hero — Category positioning (aspiration, not fear)
+ * 2. TrustSection — Immediate credibility: stats, IP guarantee, compliance, industry ticker
+ * 3. ProblemSolution — Mechanism differentiation: why generic AI fails, what we do instead
+ * 4. ServicesSection — Capabilities: six proprietary systems
+ * 5. PricingSection — Engagement Models (no public pricing) + compliance badges
+ * 6. RealStoriesSection — Proof: verified metrics from named deployments
+ * 7. TestimonialsSection — Named references with verifiable companies
+ * 8. FounderSection — Human accountability: who is responsible for your system
+ * 9. ProcessSection — Risk removal: transparent, repeatable delivery
+ * 10. GlobalSection — Geographic authority
+ * 11. CtaSection — Aspirational close
+ * 12. LeadForm — Booking mechanism
+ * 13. LeadForm — General inquiry fallback
+ * 14. Footer
  */
 const Index = () => {
   useEffect(() => {
-    if (window.location.hash !== "#rns-scheduler") return;
+    if (window.location.hash !== "#lead-form") return;
     let attempts = 0;
     const tryScroll = () => {
-      const el = document.getElementById("rns-scheduler");
+      const el = document.getElementById("lead-form");
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "start" });
       } else if (attempts++ < 30) {
@@ -169,8 +183,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background scroll-smooth">
       <SEOHead
-        title="Ripple Nexus: Enterprise SaaS Architecture, Agentic AI & Data Engineering"
-        description="We engineer enterprise SaaS platforms, agentic AI pipelines, and scalable data infrastructure that deliver measurable uptime, throughput, and revenue outcomes. 200+ deployments across 18+ countries."
+        title="Ripple Nexus: Information Gain Infrastructure — Enterprise AI Systems"
+        description="We build proprietary AI systems on your data — not generic wrappers. Autonomous agents, enterprise SaaS platforms, and real-time data infrastructure that deliver measurable outcomes. 200+ deployments across 18+ countries."
         canonical={BASE_URL}
         schemaMarkup={schemaMarkup}
       />
@@ -178,47 +192,46 @@ const Index = () => {
       <HeroSection />
 
       <Suspense fallback={<div className="py-16" />}>
-        {/* 1. Trust signals immediately below hero */}
+
+        {/* 1. Immediate trust signals */}
         <TrustSection />
 
-        {/* 2. Problem → Solution: reframe from service provider to systems partner */}
+        {/* 2. Mechanism: why generic AI fails, what we do differently */}
         <ProblemSolutionSection />
 
-        {/* 3. Capabilities: productized AI systems */}
+        {/* 3. Capabilities: what we build */}
         <ServicesSection />
 
-        {/* 4. Pricing: Agent Licensing Model */}
+        {/* 3.5. Productization: how the client manages it (Operational Maturity) */}
+        <ControlPlaneSection />
+
+        {/* 4. Engagement models (no public pricing) + compliance */}
         <PricingSection />
 
-        {/* 5. Process: how we work — removes risk objection */}
-        <ProcessSection />
-
-        {/* 5. Proof: real case study metrics */}
+        {/* 5. Proof: verified metrics from named deployments */}
         <RealStoriesSection />
 
-        {/* 6. Social proof: testimonials with featured metric cards */}
+        {/* 6. Named references with verifiable companies */}
         <TestimonialsSection />
 
-        {/* 7. Global reach: authority positioning */}
+        {/* 7. Founder: human accountability — who is responsible for your system */}
+        <FounderSection />
+
+        {/* 8. Process: risk removal through transparent delivery */}
+        <ProcessSection />
+
+        {/* 9. Global reach: authority positioning */}
         <GlobalSection />
 
-        {/* 8. Diagnostic: urgency through self-identification */}
-        <QuestionsSection />
-
-        {/* 9. Emotional positioning statement */}
-        <EmotionalStatement />
-
-        {/* 10. Final CTA — strong close */}
+        {/* 10. Aspirational close */}
         <CtaSection />
 
-        {/* 11. Ripple Nexus Scheduler — paid qualification + booking funnel */}
-        <RNSScheduler />
-
-        {/* 12. Lead form (general inquiries) */}
+        {/* 11. Booking mechanism (Now a frictionless intake flow) */}
         <LeadForm />
 
-        {/* 13. Footer */}
+        {/* 12. Footer */}
         <Footer />
+
       </Suspense>
 
       <ChatBot />
