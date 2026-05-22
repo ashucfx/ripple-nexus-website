@@ -57,7 +57,7 @@ const EmotionalStatement = () => {
         </p>
 
         <a
-          href="/#rns-scheduler"
+          href="/#lead-form"
           className="inline-flex items-center justify-center gap-2 font-body font-semibold text-sm px-8 py-4 transition-all duration-200 rounded-xl"
           style={{
             background: "var(--nexus-violet)",
