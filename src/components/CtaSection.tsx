@@ -1,10 +1,21 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
 
+/**
+ * CtaSection — Aspirational close. Not fear-based urgency.
+ *
+ * Diagnosis fix:
+ * ✓ Removed fear headline ("Every week without autonomous infrastructure, competitors close the gap")
+ * ✓ Replaced with vision-forward positioning — what the company BECOMES
+ * ✓ Removed the public ₹1,999 / $199 pricing display from CTA section
+ * ✓ Reduced to 2 CTAs maximum (was 2 visible + several hidden above)
+ * ✓ Trust guarantees remain — institutional, not defensive
+ */
+
 const guarantees = [
-  "Senior architects on every call — not a sales handoff",
-  "Written system brief within 48 hours",
-  "Qualification takes under 2 minutes",
+  "Senior architects on every engagement — no sales handoff",
+  "Written system brief within 48 hours of first call",
+  "Reference introductions available for qualified engagements",
 ];
 
 const CtaSection = () => {
@@ -17,7 +28,8 @@ const CtaSection = () => {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(60% 60% at 50% 100%, rgba(124,92,255,0.1) 0%, rgba(10,11,20,0) 100%)",
+          background:
+            "radial-gradient(60% 60% at 50% 100%, rgba(124,92,255,0.08) 0%, rgba(10,11,20,0) 100%)",
         }}
       />
 
@@ -29,7 +41,7 @@ const CtaSection = () => {
           viewport={{ once: true }}
           className="eyebrow mb-8"
         >
-          AI Systems Audit
+          Begin the Conversation
         </motion.p>
 
         <motion.div
@@ -47,15 +59,23 @@ const CtaSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.1 }}
           className="font-display font-bold leading-none mb-6"
-          style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", letterSpacing: "-0.04em", color: "var(--pearl)" }}
+          style={{
+            fontSize: "clamp(2.5rem, 6vw, 5rem)",
+            letterSpacing: "-0.04em",
+            color: "var(--pearl)",
+          }}
         >
-          Every week without<br />
-          autonomous infrastructure,
+          Build the system your
+          <br />
+          competitors{" "}
           <span
-            className="block bg-clip-text text-transparent"
-            style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
+            className="bg-clip-text text-transparent"
+            style={{
+              backgroundImage:
+                "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)",
+            }}
           >
-            your competitors close the gap.
+            cannot replicate.
           </span>
         </motion.h2>
 
@@ -64,67 +84,53 @@ const CtaSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.18 }}
-          className="font-body text-xl leading-relaxed max-w-2xl mb-6"
+          className="font-body text-xl leading-relaxed max-w-2xl mb-12"
           style={{ color: "var(--graphite-300)" }}
         >
-          A 45-minute AI Systems Audit surfaces exactly what to automate, in what order,
-          and the provable ROI before you commit a rupee to implementation.
+          A 45-minute Architecture Discovery surfaces exactly what to automate, in what order,
+          and maps the provable ROI before you commit to implementation.
         </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.24 }}
-          className="font-mono text-sm tracking-wide mb-12"
-          style={{ color: "var(--ion-cyan)" }}
-        >
-          AI Systems Audit — ₹1,999 (India) · $199 (Global).{" "}
-          <span style={{ color: "var(--graphite-400)" }}>
-            Cost of inaction: ₹10L+/year · $50K+/year in recoverable overhead.
-          </span>
-        </motion.p>
-
-        {/* CTAs */}
+        {/* CTAs — 2 only */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.28 }}
-          className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-10"
+          className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12"
         >
           <a
-            href="/#rns-scheduler"
+            href="/#lead-form"
             className="group inline-flex items-center justify-center gap-2.5 px-9 py-4 font-body font-semibold text-sm transition-all duration-200 w-full sm:w-auto rounded-xl"
             style={{
               background: "var(--nexus-violet)",
               color: "#fff",
               boxShadow: "0 8px 32px -4px rgba(124,92,255,0.45)",
             }}
-            onMouseEnter={e => {
+            onMouseEnter={(e) => {
               e.currentTarget.style.background = "var(--violet-hover)";
               e.currentTarget.style.boxShadow = "0 12px 40px -4px rgba(124,92,255,0.55)";
               e.currentTarget.style.transform = "translateY(-1px)";
             }}
-            onMouseLeave={e => {
+            onMouseLeave={(e) => {
               e.currentTarget.style.background = "var(--nexus-violet)";
               e.currentTarget.style.boxShadow = "0 8px 32px -4px rgba(124,92,255,0.45)";
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
             <Calendar size={16} />
-            Request an AI Systems Audit
+            Begin Architecture Discovery
             <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
           </a>
           <a
-            href="#lead-form"
+            href="/contact"
             className="inline-flex items-center justify-center gap-2 px-9 py-4 font-body font-medium text-sm transition-all duration-200 w-full sm:w-auto rounded-xl"
             style={{ border: "1px solid var(--graphite-600)", color: "var(--pearl)" }}
-            onMouseEnter={e => {
+            onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = "rgba(124,92,255,0.5)";
               e.currentTarget.style.background = "rgba(124,92,255,0.06)";
             }}
-            onMouseLeave={e => {
+            onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = "var(--graphite-600)";
               e.currentTarget.style.background = "transparent";
             }}
@@ -133,7 +139,7 @@ const CtaSection = () => {
           </a>
         </motion.div>
 
-        {/* Trust guarantees */}
+        {/* Trust guarantees — institutional, not defensive */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -142,7 +148,11 @@ const CtaSection = () => {
           className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-8"
         >
           {guarantees.map((g) => (
-            <div key={g} className="flex items-center gap-2 font-mono text-[0.6rem] tracking-widest uppercase" style={{ color: "var(--graphite-400)" }}>
+            <div
+              key={g}
+              className="flex items-center gap-2 font-mono text-[0.6rem] tracking-widest uppercase"
+              style={{ color: "var(--graphite-400)" }}
+            >
               <span style={{ color: "var(--nexus-violet)" }}>—</span>
               {g}
             </div>
