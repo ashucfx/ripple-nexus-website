@@ -65,7 +65,7 @@ const ProblemSolutionSection = () => {
             viewport={{ once: true }}
             className="eyebrow mb-6"
           >
-            The Market Reality
+            The Differentiation
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
@@ -169,32 +169,12 @@ const ProblemSolutionSection = () => {
         >
           <div>
             <p className="font-mono text-[0.6rem] tracking-widest uppercase mb-2" style={{ color: "var(--nexus-violet)" }}>
-              Value-Based Pricing Formula
+              Value-Based Engagement
             </p>
             <p className="font-body text-base italic" style={{ color: "var(--pearl)" }}>
-              Project Price = Annual Value Created × Value Capture Rate (10–25%)
+              Every price is anchored against provable automation ROI — not the cost of our time.
             </p>
           </div>
-          <a
-            href="#lead-form"
-            className="group inline-flex items-center gap-2 font-body font-semibold text-sm px-6 py-3 shrink-0 transition-all duration-200 rounded-xl"
-            style={{
-              background: "var(--nexus-violet)",
-              color: "#fff",
-              boxShadow: "0 8px 32px -4px rgba(124,92,255,0.4)",
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = "var(--violet-hover)";
-              e.currentTarget.style.transform = "translateY(-1px)";
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = "var(--nexus-violet)";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
-          >
-            Map My ROI Opportunity
-            <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
-          </a>
         </motion.div>
 
       </div>
