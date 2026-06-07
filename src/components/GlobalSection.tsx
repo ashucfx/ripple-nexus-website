@@ -14,8 +14,8 @@ const regions = [
 const globalStats = [
   { value: "18+", label: "Countries" },
   { value: "6", label: "Continents" },
-  { value: "200+", label: "Clients" },
-  { value: "24/7", label: "Support" },
+  { value: "200+", label: "Projects Delivered" },
+  { value: "48h", label: "Written Brief" },
 ];
 
 const GlobalSection = () => {
@@ -61,9 +61,9 @@ const GlobalSection = () => {
               className="text-lg leading-relaxed mb-10"
               style={{ color: "var(--graphite-300)" }}
             >
-              From Lagos to London to Los Angeles — Ripple Nexus delivers enterprise-grade
-              infrastructure to founders and operators who demand the same quality their
-              Silicon Valley counterparts take for granted.
+              Ripple Nexus works with founders and engineering leaders across 18+ countries. 
+              Every engagement is delivered in English and managed remotely — 
+              with the same standard of architecture and documentation regardless of geography.
             </motion.p>
 
             {/* Global stats */}

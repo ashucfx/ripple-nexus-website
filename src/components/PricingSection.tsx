@@ -72,12 +72,12 @@ const engagementModels = [
 const complianceBadges = [
   {
     icon: ShieldCheck,
-    label: "Zero-Trust Architecture",
-    sub: "Security practices",
+    label: "Security-First",
+    sub: "Engineering practices",
   },
   {
     icon: Shield,
-    label: "GDPR Compliant",
+    label: "GDPR-Aligned",
     sub: "Data handling",
   },
   {
@@ -139,14 +139,13 @@ const PricingSection = () => {
                 className="font-body text-base mb-2"
                 style={{ color: "var(--graphite-400)" }}
               >
-                Every engagement is scoped to your specific situation. Pricing is
-                aligned to the value created, not the time billed.
+                Enterprise engineering requires predictable burn rates. We operate exclusively on fixed-scope architecture briefs or dedicated engineering pods.
               </p>
               <p
                 className="font-body text-sm italic"
                 style={{ color: "var(--pearl)" }}
               >
-                Integration Architecture engagements begin at $15,000 and scale with program scope.
+                No "value-capture" percentages. No open-ended billing. You pay for execution complexity.
               </p>
             </motion.div>
           </div>

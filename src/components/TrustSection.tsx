@@ -21,10 +21,8 @@ const differentiators = [
 ];
 
 const compliance = [
-  { icon: Shield, label: "ISO 27001-Aligned", sub: "Security practices" },
-  { icon: Lock,   label: "GDPR Compliant",    sub: "Data handling" },
-  { icon: FileText, label: "Indian IT Act",   sub: "Dual compliance" },
-  { icon: Shield, label: "Zero Breaches",     sub: "Since inception" },
+  { icon: Lock,   label: "GDPR Compliant",    sub: "Data handling practices" },
+  { icon: FileText, label: "Indian IT Act",   sub: "Jurisdiction compliance" },
 ];
 
 const TrustSection = () => {
@@ -122,7 +120,7 @@ const TrustSection = () => {
           <motion.div
             className="flex gap-14 whitespace-nowrap"
             animate={{ x: ["0%", "-50%"] }}
-            transition={{ repeat: Infinity, ease: "linear", duration: 32 }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 60 }}
           >
             {[...industries, ...industries].map((industry, i) => (
               <div

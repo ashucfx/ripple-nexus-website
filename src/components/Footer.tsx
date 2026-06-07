@@ -44,7 +44,7 @@ const Footer = () => {
               operate below their potential. Trusted by 200+ companies across 18+ countries.
             </p>
             <div className="flex flex-wrap gap-2 mb-8">
-              {["SOC 2 Ready", "99.97% SLA", "18+ Countries"].map((badge) => (
+              {["Security-First", "100% IP Ownership", "18+ Countries"].map((badge) => (
                 <span
                   key={badge}
                   className="font-mono text-[11px] rounded-full px-2.5 py-0.5 font-medium"
@@ -89,98 +89,18 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Infrastructure Column */}
-          <div className="lg:col-span-2">
+          {/* Explore Column */}
+          <div className="lg:col-span-3 lg:col-start-7">
             <h4
               className="font-body font-bold text-sm tracking-wider uppercase mb-7"
               style={{ color: "var(--pearl)" }}
             >
-              Infrastructure
+              Explore
             </h4>
             <nav className="flex flex-col gap-4 text-[15px]">
               {[
-                { to: "/reliability", label: "System Status" },
-                { to: "/reliability", label: "Reliability" },
-                { to: "/reliability", label: "Uptime SLA" },
-                { to: "/reliability", label: "Global SRE" },
-              ].map(({ to, label }) => (
-                <Link
-                  key={label}
-                  to={to}
-                  className="transition-colors duration-200"
-                  style={{ color: "var(--graphite-400)" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--pearl)")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-400)")}
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Developers Column */}
-          <div className="lg:col-span-2">
-            <h4
-              className="font-body font-bold text-sm tracking-wider uppercase mb-7"
-              style={{ color: "var(--pearl)" }}
-            >
-              Developers
-            </h4>
-            <nav className="flex flex-col gap-4 text-[15px]">
-              {[
-                { to: "/docs", label: "Documentation" },
-                { to: "/docs", label: "API Reference" },
-                { to: "/changelog", label: "Changelog" },
-                { to: "/docs", label: "Architecture" },
-              ].map(({ to, label }) => (
-                <Link
-                  key={label}
-                  to={to}
-                  className="transition-colors duration-200"
-                  style={{ color: "var(--graphite-400)" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--pearl)")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-400)")}
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Security & Company Column */}
-          <div className="lg:col-span-2">
-            <h4
-              className="font-body font-bold text-sm tracking-wider uppercase mb-7"
-              style={{ color: "var(--pearl)" }}
-            >
-              Security
-            </h4>
-            <nav className="flex flex-col gap-4 text-[15px] mb-8">
-              {[
-                { to: "/security", label: "Security Center" },
-                { to: "/security", label: "Compliance" },
-                { to: "/security", label: "Enterprise Governance" },
-              ].map(({ to, label }) => (
-                <Link
-                  key={label}
-                  to={to}
-                  className="transition-colors duration-200"
-                  style={{ color: "var(--graphite-400)" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--pearl)")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-400)")}
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
-            <h4
-              className="font-body font-bold text-sm tracking-wider uppercase mb-5"
-              style={{ color: "var(--pearl)" }}
-            >
-              Company
-            </h4>
-            <nav className="flex flex-col gap-4 text-[15px]">
-              {[
+                { to: "/platform", label: "Capabilities" },
+                { to: "/case-studies", label: "Case Studies" },
                 { to: "/about", label: "About Us" },
                 { to: "/contact", label: "Contact" },
               ].map(({ to, label }) => (
@@ -199,7 +119,7 @@ const Footer = () => {
           </div>
 
           {/* Office (Compact) */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <h4
               className="font-body font-bold text-sm tracking-wider uppercase mb-7"
               style={{ color: "var(--pearl)" }}

@@ -59,7 +59,20 @@ const RealStoriesSection = () => {
                </div>
 
                <h3 className="text-xl font-semibold text-white mb-2 leading-snug">{story.title}</h3>
-               <p className="text-xs mb-8" style={{ color: "var(--graphite-400)" }}>{story.client}</p>
+               <p className="text-xs mb-6" style={{ color: "var(--graphite-400)" }}>{story.client}</p>
+
+               {/* Architecture Stack Proof */}
+               <div className="mb-6 pt-5" style={{ borderTop: "1px solid var(--graphite-600)" }}>
+                 <p className="font-mono text-[0.55rem] tracking-widest uppercase mb-3 text-[var(--nexus-violet)]">Architecture Stack</p>
+                 <div className="flex flex-wrap items-center gap-1.5 font-mono text-[0.6rem] text-[var(--graphite-300)]">
+                   {story.tags.slice(0, 3).map((tag, idx) => (
+                     <div key={idx} className="flex items-center gap-1.5">
+                       <span className="px-1.5 py-0.5 rounded border border-white/10 bg-[#0c0d12] shadow-sm">{tag}</span>
+                       {idx < 2 && idx < story.tags.length - 1 && <span className="text-white/20 font-bold">→</span>}
+                     </div>
+                   ))}
+                 </div>
+               </div>
 
                <div className="flex-1 mt-auto">
                  <div className="space-y-3 pt-5" style={{ borderTop: "1px solid var(--graphite-600)" }}>

@@ -32,12 +32,12 @@ const values = [
 ];
 
 const milestones = [
-  "200+ AI systems deployed across 18+ countries",
-  "99.97% uptime SLA across all managed infrastructure",
+  "200+ AI systems and automation workflows delivered across 18+ countries",
   "Zero data breaches since inception",
-  "100% IP ownership transferred on every engagement",
-  "Zero-Trust Architecture & Enterprise-Grade Data Governance · Dual compliance: Indian IT Act + GDPR",
+  "100% IP ownership transferred on every engagement — all code, workflows, and data",
+  "Security-first engineering: RBAC, encryption at rest and in transit, audit logging",
   "60–90 day production deployment — no 6-month strategy decks",
+  "Every engagement led directly by the founding architect, not an account manager",
 ];
 
 const About = () => {
@@ -211,7 +211,7 @@ const About = () => {
           </div>
         </section>
 
-        {/* Operational Redundancy (Solving Founder Dependency) */}
+        {/* How we work — honest founder-led framing */}
         <section
           className="py-28 relative"
           style={{ borderBottom: "1px solid var(--graphite-600)" }}
@@ -223,7 +223,7 @@ const About = () => {
               viewport={{ once: true }}
               className="eyebrow mb-6"
             >
-              Institutional Redundancy
+              How We Work
             </motion.p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
               <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -231,21 +231,21 @@ const About = () => {
                   className="font-display font-bold leading-tight mb-6"
                   style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)", letterSpacing: "-0.03em", color: "var(--pearl)" }}
                 >
-                  Engineered for permanence.
+                  Direct access to the engineer building your system.
                 </h2>
                 <p className="font-body text-lg leading-relaxed" style={{ color: "var(--graphite-300)" }}>
-                  Enterprise infrastructure cannot rely on a single architect. Ripple Nexus is structured for permanent redundancy. Every deployment is governed by our Global Reliability Engineering framework, ensuring zero single points of failure across operations, support, and architecture.
+                  There is no project manager between you and the architect. No account rep translating requirements. Every engagement is led directly by the same senior engineer from scoping through to production handover.
                 </p>
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
                 <ul className="space-y-6">
                   <li className="p-6 rounded-xl" style={{ border: "1px solid var(--graphite-600)", background: "var(--ink)" }}>
-                    <h4 className="font-display font-bold text-base mb-2" style={{ color: "var(--pearl)" }}>24/7 Global SRE Coverage</h4>
-                    <p className="font-body text-sm" style={{ color: "var(--graphite-400)" }}>Distributed Site Reliability Engineering squads monitor all deployed primitives, enforcing our 99.97% SLA.</p>
+                    <h4 className="font-display font-bold text-base mb-2" style={{ color: "var(--pearl)" }}>Written brief in 48 hours</h4>
+                    <p className="font-body text-sm" style={{ color: "var(--graphite-400)" }}>After every intake call we deliver a written architecture brief — scope, effort estimates, and technical approach. If we can't articulate it in writing, we don't build it.</p>
                   </li>
                   <li className="p-6 rounded-xl" style={{ border: "1px solid var(--graphite-600)", background: "var(--ink)" }}>
-                    <h4 className="font-display font-bold text-base mb-2" style={{ color: "var(--pearl)" }}>Architectural Review Board</h4>
-                    <p className="font-body text-sm" style={{ color: "var(--graphite-400)" }}>No system ships on a single individual's authority. All topologies pass through our internal architecture governance committee.</p>
+                    <h4 className="font-display font-bold text-base mb-2" style={{ color: "var(--pearl)" }}>No lock-in, ever</h4>
+                    <p className="font-body text-sm" style={{ color: "var(--graphite-400)" }}>Every system is built on open standards (Python, n8n, open-source LLM frameworks) and transferred to you on delivery. You can operate, extend, or migrate it without our involvement.</p>
                   </li>
                 </ul>
               </motion.div>

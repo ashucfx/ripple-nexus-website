@@ -18,11 +18,6 @@ import CancellationPolicy from "./pages/CancellationPolicy";
 import ServiceSilo from "./pages/ServiceSilo";
 import GeoService from "./pages/GeoService";
 import AdminPanel from "./pages/AdminPanel";
-import SecurityCenter from "./pages/SecurityCenter";
-import Reliability from "./pages/Reliability";
-import DeveloperHub from "./pages/DeveloperHub";
-import LoginGateway from "./pages/LoginGateway";
-import Changelog from "./pages/Changelog";
 
 const queryClient = new QueryClient();
 
@@ -38,20 +33,23 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
+          {/* /platform kept as canonical; also accessible at /services */}
           <Route path="/platform" element={<Platform />} />
+          <Route path="/services" element={<Platform />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/security" element={<SecurityCenter />} />
-          <Route path="/reliability" element={<Reliability />} />
-          <Route path="/docs" element={<DeveloperHub />} />
-          <Route path="/changelog" element={<Changelog />} />
-          <Route path="/login" element={<LoginGateway />} />
           <Route path="/services/:slug" element={<ServiceSilo />} />
           <Route path="/locations/:country/:service" element={<GeoService />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/cancellation-policy" element={<CancellationPolicy />} />
           <Route path="/admin" element={<AdminPanel />} />
+          {/* Redirect old fake URLs to homepage */}
+          <Route path="/login" element={<Index />} />
+          <Route path="/docs" element={<Index />} />
+          <Route path="/changelog" element={<Index />} />
+          <Route path="/reliability" element={<Index />} />
+          <Route path="/security" element={<Index />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

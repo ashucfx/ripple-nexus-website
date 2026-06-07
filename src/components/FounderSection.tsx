@@ -60,22 +60,33 @@ const FounderSection = () => {
               <img 
                 src="/ashutosh-shukla.jpg" 
                 alt="Ashutosh Shukla" 
-                className="w-20 h-20 rounded-2xl object-cover absolute inset-0 z-10"
+                className="w-24 h-24 rounded-2xl object-cover absolute inset-0 z-20 shadow-xl"
                 style={{ border: "1px solid rgba(124,92,255,0.3)" }}
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                 }}
               />
+              {/* Premium Typographic Fallback with Video Hook */}
               <div
-                className="w-20 h-20 rounded-2xl flex items-center justify-center font-display font-bold text-2xl absolute inset-0 z-0"
+                className="w-24 h-24 rounded-2xl flex items-center justify-center font-display font-bold text-3xl absolute inset-0 z-10 overflow-hidden group cursor-pointer"
                 style={{
-                  background: "rgba(124,92,255,0.12)",
-                  border: "1px solid rgba(124,92,255,0.3)",
-                  color: "var(--plasma)",
+                  background: "linear-gradient(135deg, rgba(124,92,255,0.2) 0%, rgba(34,211,238,0.1) 100%)",
+                  border: "1px solid rgba(124,92,255,0.4)",
+                  color: "var(--pearl)",
                   letterSpacing: "-0.04em",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)",
                 }}
+                onClick={() => window.open("https://www.linkedin.com/in/ashutosh-shuklaa/", "_blank")}
               >
-                AS
+                <div className="absolute inset-0 backdrop-blur-md bg-black/30 group-hover:bg-black/10 transition-colors duration-300" />
+                <span className="relative z-10 drop-shadow-md group-hover:opacity-0 transition-opacity duration-300">AS</span>
+                
+                {/* Play Button Overlay */}
+                <div className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-10 h-10 rounded-full bg-[var(--nexus-violet)] flex items-center justify-center shadow-[0_0_20px_rgba(124,92,255,0.6)]">
+                    <svg className="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                  </div>
+                </div>
               </div>
             </motion.div>
 

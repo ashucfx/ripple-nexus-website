@@ -11,7 +11,7 @@ const BASE_URL = "https://www.theripplenexus.com";
 const products = [
   {
     num: "01",
-    name: "Nexus Flow",
+    name: "Autonomous Lead Flow",
     tagline: "Turn your ICP into an autonomous pipeline.",
     desc: "Proprietary lead qualification agents trained on your ideal customer profile. Integrates with your CRM to score, route, and engage high-intent accounts 24/7 — before a human sales rep touches them.",
     how: "RAG pipelines + intent scoring models + CRM API mesh",
@@ -21,7 +21,7 @@ const products = [
   },
   {
     num: "02",
-    name: "Nexus Command",
+    name: "Workflow Automation",
     tagline: "Eliminate 20+ hours of manual work per team per week.",
     desc: "End-to-end workflow automation built on open standards — n8n, Python, and your existing stack. No proprietary platform lock-in. Every workflow you own, forever.",
     how: "Custom n8n orchestration + Python RPA + API mesh integrations",
@@ -31,7 +31,7 @@ const products = [
   },
   {
     num: "03",
-    name: "Nexus Core",
+    name: "SaaS Architecture Core",
     tagline: "99.9%+ uptime. 10× traffic. Zero rewrites.",
     desc: "Multi-tenant SaaS architecture engineered for scale from day one. We own the full stack — microservices, CI/CD, multi-AZ resilience, schema design — and you own 100% of the IP on delivery.",
     how: "Microservices architecture + multi-AZ deployment + predictive DevSecOps",
@@ -41,7 +41,7 @@ const products = [
   },
   {
     num: "04",
-    name: "Nexus Intelligence",
+    name: "Real-Time Intelligence",
     tagline: "Convert data silos into a live competitive moat.",
     desc: "Unified data infrastructure that eliminates gut-feeling decisions. Custom ETL pipelines, real-time streaming, and BI layers that deliver sub-100ms query response across your entire dataset.",
     how: "Kafka streaming + BigQuery/Snowflake + dbt transformation layers",
@@ -51,7 +51,7 @@ const products = [
   },
   {
     num: "05",
-    name: "Nexus Edge",
+    name: "AI-First Mobile Edge",
     tagline: "Native performance. Embedded intelligence.",
     desc: "iOS and Android applications with AI features built into the architecture level — in-app agents, personalisation layers, predictive UX. Concept to App Store in under 10 weeks.",
     how: "React Native + Swift/Kotlin + on-device AI models + Edge inference",
@@ -61,7 +61,7 @@ const products = [
   },
   {
     num: "06",
-    name: "Nexus Web",
+    name: "High-Performance Web",
     tagline: "Built to rank in AI search. Built to convert.",
     desc: "Headless, composable web platforms optimised for Core Web Vitals and AI search engine discovery. Structured for AEO, GEO, and programmatic SEO — the 2026 standard for B2B visibility.",
     how: "Next.js + Vercel Edge + headless CMS + structured AEO/GEO schema",
@@ -326,7 +326,7 @@ const Platform = () => {
                 e.currentTarget.style.boxShadow = "0 4px 14px 0 rgba(255,255,255,0.1)";
               }}
             >
-              Initialize Integration Planning
+              Book a Strategy Call
               <ArrowRight size={15} />
             </Link>
           </div>

@@ -5,10 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import logoMark from "@/assets/logo-icon-mark.svg";
 
 const navLinks = [
-  { label: "Platform", href: "/platform" },
-  { label: "Deployments", href: "/case-studies" },
-  { label: "Developers", href: "/docs" },
-  { label: "Company", href: "/about" },
+  { label: "Services", href: "/platform" },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "About", href: "/about" },
 ];
 
 const Navbar = () => {
@@ -38,7 +37,7 @@ const Navbar = () => {
     >
       <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between relative">
 
-        {/* Logo — icon mark + wordmark in HTML so Satoshi Variable loads correctly */}
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
           <img
             src={logoMark}
@@ -79,35 +78,37 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Desktop CTA & Auth */}
-        <div className="hidden md:flex items-center gap-6">
+        {/* Desktop CTA */}
+        <div className="hidden md:flex items-center gap-4">
           <Link
-            to="/login"
+            to="/contact"
             className="font-body text-[13px] font-medium tracking-wide transition-colors duration-200"
             style={{ color: "var(--graphite-300)" }}
             onMouseEnter={e => (e.currentTarget.style.color = "var(--pearl)")}
             onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-300)")}
           >
-            Sign In
+            Contact
           </Link>
           <a
             href="/#lead-form"
             className="font-body font-semibold text-[13px] px-6 py-2.5 rounded-md transition-all duration-300"
             style={{
-              background: "var(--pearl)",
-              color: "var(--obsidian)",
-              boxShadow: "0 4px 14px 0 rgba(255,255,255,0.1)",
+              background: "var(--nexus-violet)",
+              color: "#fff",
+              boxShadow: "0 4px 14px 0 rgba(124,92,255,0.35)",
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.background = "#ffffff";
-              e.currentTarget.style.boxShadow = "0 6px 20px 0 rgba(255,255,255,0.15)";
+              e.currentTarget.style.background = "var(--violet-hover)";
+              e.currentTarget.style.boxShadow = "0 6px 20px 0 rgba(124,92,255,0.5)";
+              e.currentTarget.style.transform = "translateY(-1px)";
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.background = "var(--pearl)";
-              e.currentTarget.style.boxShadow = "0 4px 14px 0 rgba(255,255,255,0.1)";
+              e.currentTarget.style.background = "var(--nexus-violet)";
+              e.currentTarget.style.boxShadow = "0 4px 14px 0 rgba(124,92,255,0.35)";
+              e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            Initialize
+            Book a Call
           </a>
         </div>
 
@@ -149,24 +150,16 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-              <Link
-                to="/login"
-                onClick={() => setMobileOpen(false)}
-                className="font-body text-sm font-medium transition-colors duration-200 py-2 border-t mt-2"
-                style={{ color: "var(--graphite-300)", borderColor: "var(--graphite-600)" }}
-              >
-                Sign In
-              </Link>
               <a
                 href="/#lead-form"
                 onClick={() => setMobileOpen(false)}
                 className="font-body font-semibold text-sm px-4 py-3 mt-2 rounded-md text-center w-full transition-all duration-300"
                 style={{
-                  background: "var(--pearl)",
-                  color: "var(--obsidian)",
+                  background: "var(--nexus-violet)",
+                  color: "#fff",
                 }}
               >
-                Initialize
+                Book a Call
               </a>
             </div>
           </motion.div>

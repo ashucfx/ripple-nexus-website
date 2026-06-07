@@ -1,7 +1,6 @@
 import { lazy, Suspense, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import ChatBot from "@/components/ChatBot";
 import SEOHead from "@/components/SEOHead";
 
 /**
@@ -22,7 +21,7 @@ const TrustSection = lazy(() => import("@/components/TrustSection"));
 // Below-fold sections — lazy loaded
 const ProblemSolutionSection = lazy(() => import("@/components/ProblemSolutionSection"));
 const ServicesSection = lazy(() => import("@/components/ServicesSection"));
-const ControlPlaneSection = lazy(() => import("@/components/ControlPlaneSection"));
+const DeliverySection = lazy(() => import("@/components/DeliverySection"));
 const PricingSection = lazy(() => import("@/components/PricingSection"));
 const ProcessSection = lazy(() => import("@/components/ProcessSection"));
 const RealStoriesSection = lazy(() => import("@/components/RealStoriesSection"));
@@ -45,7 +44,7 @@ const schemaMarkup = {
       url: BASE_URL,
       logo: `${BASE_URL}/logo-icon.svg`,
       description:
-        "Ripple Nexus architects enterprise SaaS platforms, agentic AI pipelines, data engineering systems, and RPA workflows for companies across 18+ countries.",
+        "Ripple Nexus is an AI engineering studio that builds custom automation systems, data pipelines, and AI-powered software on your data.",
       foundingDate: "2021",
       areaServed: "Worldwide",
       contactPoint: {
@@ -79,9 +78,9 @@ const schemaMarkup = {
       "@type": "WebPage",
       "@id": `${BASE_URL}/#webpage`,
       url: BASE_URL,
-      name: "Ripple Nexus: Information Gain Infrastructure — Enterprise AI Systems & Data Engineering",
+      name: "Ripple Nexus: Enterprise AI Engineering Studio",
       description:
-        "Ripple Nexus architects proprietary AI systems on your data — not generic wrappers. Enterprise SaaS platforms, agentic AI pipelines, and real-time data infrastructure across 18+ countries.",
+        "Ripple Nexus is an AI engineering studio that builds custom autonomous systems on your data — owned by you, deployed in 90 days.",
       isPartOf: { "@id": `${BASE_URL}/#organization` },
       inLanguage: "en-US",
       potentialAction: {
@@ -183,8 +182,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background scroll-smooth">
       <SEOHead
-        title="Ripple Nexus: Information Gain Infrastructure — Enterprise AI Systems"
-        description="We build proprietary AI systems on your data — not generic wrappers. Autonomous agents, enterprise SaaS platforms, and real-time data infrastructure that deliver measurable outcomes. 200+ deployments across 18+ countries."
+        title="Ripple Nexus: Enterprise AI Engineering Studio"
+        description="We build custom automation systems, data pipelines, and AI-powered software on your data. Owned by you, deployed in 90 days."
         canonical={BASE_URL}
         schemaMarkup={schemaMarkup}
       />
@@ -202,8 +201,8 @@ const Index = () => {
         {/* 3. Capabilities: what we build */}
         <ServicesSection />
 
-        {/* 3.5. Productization: how the client manages it (Operational Maturity) */}
-        <ControlPlaneSection />
+        {/* 3.5. What you receive on delivery */}
+        <DeliverySection />
 
         {/* 4. Engagement models (no public pricing) + compliance */}
         <PricingSection />
@@ -234,7 +233,6 @@ const Index = () => {
 
       </Suspense>
 
-      <ChatBot />
     </div>
   );
 };

@@ -25,6 +25,11 @@
     --graphite-200:    #C6CBDD;
     --pearl:           #F4F5FA;
 
+    /* ── Shadow & Depth System ────────────────────────────────── */
+    --shadow-raised: 0 1px 2px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15);
+    --shadow-floating: 0 4px 8px rgba(0,0,0,0.3), 0 12px 40px rgba(0,0,0,0.2);
+    --shadow-elevated: 0 8px 16px rgba(0,0,0,0.4), 0 24px 64px rgba(0,0,0,0.3);
+
     /* ── shadcn/ui semantic tokens → Sovereign Violet ─────────── */
     --background:       234 33% 6%;        /* obsidian  #0A0B14 */
     --foreground:       230 40% 97%;       /* pearl     #F4F5FA */
@@ -217,9 +222,37 @@
     box-shadow: 0 0 0 1px rgba(124,92,255,0.15);
   }
 
-  /* ── Violet glow box shadow ─────────────────────────────────── */
-  .glow-violet { box-shadow: 0 0 0 1px rgba(124,92,255,0.35), 0 8px 32px -4px rgba(124,92,255,0.45); }
-  .glow-violet-sm { box-shadow: 0 4px 16px -2px rgba(124,92,255,0.3); }
+
+
+  /* ── Glassmorphism ──────────────────────────────────────────── */
+  .glass-panel {
+    background: rgba(18, 20, 31, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(124, 92, 255, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.2);
+  }
+
+  .glass-panel-strong {
+    background: rgba(18, 20, 31, 0.75);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ── Gradients ─────────────────────────────────────────────── */
+  .gradient-mesh-hero {
+    background: 
+      radial-gradient(ellipse 60% 50% at 30% 20%, rgba(124,92,255,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 70% 60%, rgba(34,211,238,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 50% at 50% 100%, rgba(124,92,255,0.1) 0%, transparent 40%),
+      var(--obsidian);
+  }
+  
+  .gradient-text-vibrant {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #B794FF 0%, #E2D9F3 100%);
+  }
 }
 
 @layer utilities {
@@ -318,8 +351,4 @@
 @keyframes scroll-x {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
-}
-@keyframes pulse-violet {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(124,92,255,0.4); }
-  50%       { box-shadow: 0 0 0 8px rgba(124,92,255,0); }
 }

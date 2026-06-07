@@ -22,7 +22,7 @@ const marketProblems = [
 
 const ourApproach = [
   {
-    label: "Information Gain Engines",
+    label: "Custom AI on Private Data",
     desc: "Systems built on your proprietary data — customer behaviour, operational history, and domain context that no generic AI can replicate.",
   },
   {
@@ -81,7 +81,7 @@ const ProblemSolutionSection = () => {
               className="bg-clip-text text-transparent"
               style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
             >
-              Grey Goo.
+              Generic Wrappers.
             </span>
           </motion.h2>
           <motion.p
