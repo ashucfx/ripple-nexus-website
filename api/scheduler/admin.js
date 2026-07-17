@@ -54,9 +54,11 @@ export default async function handler(req, res) {
 
     // ── Stats ──────────────────────────────────────────────────────
     if (action === 'stats') {
-      const leads = await sbSelect('rns_leads', { select: 'id,budget_range,created_at,is_decision_maker' });
+      const leads = await sbSelect('rns_leads', { select: 'id,budget_range,created_at,is_decision_maker,is_qualified' });
+      const bookings = await sbSelect('rns_bookings', { select: 'id,status' });
       
       const totalLeads = leads.length;
+      const qualifiedLeads = leads.filter(l => l.is_qualified).length;
       
       const oneWeekAgo = new Date();
       oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
@@ -70,12 +72,15 @@ export default async function handler(req, res) {
       ).length;
       
       const decisionMakers = leads.filter(l => l.is_decision_maker === true || l.is_decision_maker === 'true').length;
+      const upcomingBookings = bookings.filter(b => b.status === 'confirmed').length;
 
       return res.status(200).json({
         totalLeads,
         leadsThisWeek,
         highBudgetLeads,
         decisionMakers,
+        qualifiedLeads,
+        upcomingBookings
       });
     }
 
@@ -93,6 +98,42 @@ export default async function handler(req, res) {
       if (!leadId) return res.status(400).json({ error: 'leadId required' });
       await sbDelete('rns_leads', { id: leadId });
       return res.status(200).json({ success: true });
+    }
+
+    // ── Slots list ─────────────────────────────────────────────────
+    if (action === 'slots') {
+      const rows = await sbSelect('rns_slots', {
+        order: 'slot_date.asc,start_time.asc',
+        limit: '500',
+      });
+      return res.status(200).json({ slots: rows || [] });
+    }
+
+    if (action === 'add-slot') {
+      const { slot_date, start_time, end_time } = body;
+      if (!slot_date || !start_time || !end_time) return res.status(400).json({ error: 'Missing fields' });
+      await sbInsert('rns_slots', { slot_date, start_time, end_time, is_available: true });
+      return res.status(200).json({ success: true });
+    }
+
+    if (action === 'delete-slot') {
+      const { slotId } = body;
+      if (!slotId) return res.status(400).json({ error: 'slotId required' });
+      await sbDelete('rns_slots', { id: slotId });
+      return res.status(200).json({ success: true });
+    }
+
+    // ── Bookings list ──────────────────────────────────────────────
+    if (action === 'bookings') {
+      // Need a custom query if we wanted joins, but sbSelect is basic. 
+      // We will just return rns_bookings and let frontend handle it or do a basic fetch.
+      const SB_URL = process.env.SUPABASE_URL;
+      const SB_KEY = process.env.SUPABASE_SERVICE_KEY;
+      const url = `${SB_URL}/rest/v1/rns_bookings?select=*,rns_leads(full_name,email,company_name)&order=slot_date.desc`;
+      
+      const response = await fetch(url, { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } });
+      const rows = await response.json();
+      return res.status(200).json({ bookings: rows || [] });
     }
 
     return res.status(400).json({ error: `Unknown action: ${action}` });

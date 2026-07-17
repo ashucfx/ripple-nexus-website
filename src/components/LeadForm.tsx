@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { useGeoCountry } from "../hooks/use-geo-country";
 import { INR_BUDGET_OPTIONS, USD_BUDGET_OPTIONS } from "../lib/rns-country";
+import BookingScheduler from "./BookingScheduler";
 
 const challengeOptions = [
   "Deploy AI Agents",
@@ -34,8 +35,9 @@ const LeadForm = () => {
     project_description: "",
     honeypot: "",
   });
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "qualified" | "error">("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [leadId, setLeadId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!geoApplied.current && countryInfo?.isIndia) {
@@ -96,6 +98,7 @@ const LeadForm = () => {
         budget_range: formData.budget_range,
         timeline: formData.timeline,
         project_description: formData.project_description.trim(),
+        is_decision_maker: formData.is_decision_maker
       };
 
       // Natively unified API route for Vercel deployment
@@ -106,8 +109,15 @@ const LeadForm = () => {
       });
 
       if (!response.ok) throw new Error("Failed to send email");
+      const data = await response.json();
       
-      setStatus("success");
+      if (data.is_qualified) {
+        setLeadId(data.leadId);
+        setStatus("qualified");
+      } else {
+        setStatus("success");
+      }
+      
       setTimeout(() => {
         document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
       }, 50);
@@ -128,6 +138,23 @@ const LeadForm = () => {
     `w-full px-4 py-3 rounded-lg border bg-background text-foreground text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 ${
       errors[field] ? "border-destructive" : "border-border"
     }`;
+
+  if (status === "qualified" && leadId) {
+    return (
+      <section id="lead-form" className="section-spacing overflow-hidden min-h-[500px] flex flex-col justify-center">
+        <div className="section-padding max-w-4xl mx-auto w-full">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="rounded-2xl overflow-hidden"
+            style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)" }}
+          >
+            <BookingScheduler leadId={leadId} />
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
 
   if (status === "success") {
     return (

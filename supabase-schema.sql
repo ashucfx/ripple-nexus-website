@@ -194,6 +194,9 @@ CREATE TABLE IF NOT EXISTS rns_leads (
   budget_range        TEXT,
   timeline            TEXT,
   project_description TEXT,
+  priority_score      INTEGER     DEFAULT 0,
+  is_qualified        BOOLEAN     DEFAULT false,
+  is_decision_maker   BOOLEAN     DEFAULT false,
   created_at          TIMESTAMPTZ DEFAULT NOW(),
   updated_at          TIMESTAMPTZ DEFAULT NOW()
 );

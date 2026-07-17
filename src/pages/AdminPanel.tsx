@@ -207,17 +207,24 @@ function OverviewTab({ stats, onRefresh }: { stats: Record<string, number>; onRe
         </button>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
         <StatCard
           label="Total Leads"
           value={stats.totalLeads ?? 0}
           icon={<Users className="w-4 h-4" />}
         />
         <StatCard
-          label="Leads This Week"
-          value={stats.leadsThisWeek ?? 0}
+          label="Qualified Leads"
+          value={stats.qualifiedLeads ?? 0}
+          color="#10b981"
+          icon={<CheckCircle className="w-4 h-4" />}
+          sub="Priority >= 60"
+        />
+        <StatCard
+          label="Upcoming Bookings"
+          value={stats.upcomingBookings ?? 0}
           color="#3FBD8B"
-          icon={<Activity className="w-4 h-4" />}
+          icon={<Calendar className="w-4 h-4" />}
         />
         <StatCard
           label="High Budget Leads"
@@ -229,7 +236,13 @@ function OverviewTab({ stats, onRefresh }: { stats: Record<string, number>; onRe
           label="Decision Makers"
           value={stats.decisionMakers ?? 0}
           color="#f59e0b"
-          icon={<CheckCircle className="w-4 h-4" />}
+          icon={<Shield className="w-4 h-4" />}
+        />
+        <StatCard
+          label="Leads This Week"
+          value={stats.leadsThisWeek ?? 0}
+          color="#06b6d4"
+          icon={<Activity className="w-4 h-4" />}
         />
       </div>
     </div>
@@ -647,9 +660,80 @@ function ClientForgeTab() {
   );
 }
 
+// ── Bookings Tab ──────────────────────────────────────────────────────────
+
+type Booking = {
+  id: string;
+  slot_date: string;
+  slot_start_time: string;
+  status: string;
+  client_timezone: string;
+  meet_link: string;
+  created_at: string;
+  rns_leads?: { full_name: string; email: string; company_name: string };
+};
+
+function BookingsTab() {
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchBookings = useCallback(() => {
+    setLoading(true);
+    adminAction('bookings').then(d => setBookings(d.bookings || [])).finally(() => setLoading(false));
+  }, []);
+
+  useEffect(() => { fetchBookings(); }, [fetchBookings]);
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
+          <Calendar className="w-5 h-5 text-[#3FBD8B]" /> Consultations
+        </h2>
+        <button onClick={fetchBookings} disabled={loading} className="px-3 py-2 bg-card border border-border rounded-xl text-muted-foreground hover:text-foreground transition-colors">
+          <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+        </button>
+      </div>
+
+      {loading ? (
+        <div className="py-12 text-center"><Loader2 className="w-5 h-5 animate-spin mx-auto text-muted-foreground" /></div>
+      ) : bookings.length === 0 ? (
+        <div className="text-center py-12 text-muted-foreground text-sm">No bookings yet.</div>
+      ) : (
+        <div className="space-y-3">
+          {bookings.map(b => (
+            <div key={b.id} className="bg-card border border-border rounded-xl p-4 flex flex-col sm:flex-row justify-between gap-4">
+              <div>
+                <p className="font-bold text-foreground text-sm mb-1">{b.rns_leads?.full_name} <span className="text-muted-foreground font-normal">({b.rns_leads?.company_name})</span></p>
+                <p className="text-xs text-muted-foreground mb-2">{b.rns_leads?.email}</p>
+                <div className="flex gap-2">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1f56d4]/15 text-[#1f56d4]">
+                    {new Date(b.slot_date).toLocaleDateString()} at {b.slot_start_time.substring(0,5)}
+                  </span>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${b.status === 'confirmed' ? 'bg-[#3FBD8B]/15 text-[#3FBD8B]' : 'bg-muted text-muted-foreground'}`}>
+                    {b.status.toUpperCase()}
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-col items-end justify-center gap-2">
+                {b.meet_link ? (
+                  <a href={b.meet_link} target="_blank" rel="noreferrer" className="text-xs text-[#1f56d4] font-semibold hover:underline">Join Google Meet</a>
+                ) : (
+                  <span className="text-xs text-muted-foreground">No Meet Link</span>
+                )}
+                <span className="text-[10px] text-muted-foreground">Timezone: {b.client_timezone}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Main Admin Dashboard ──────────────────────────────────────────────────
 
-type Tab = 'overview' | 'leads' | 'clientforge';
+type Tab = 'overview' | 'leads' | 'slots' | 'bookings' | 'clientforge';
 
 export default function AdminPanel() {
   const [authed, setAuthed] = useState(false);
@@ -719,6 +803,8 @@ export default function AdminPanel() {
   const TABS: { key: Tab; label: string; icon: React.ReactNode; badge?: number; highlight?: boolean }[] = [
     { key: 'overview',     label: 'Overview',      icon: <BarChart3 className="w-4 h-4" /> },
     { key: 'leads',        label: 'Leads',         icon: <Database className="w-4 h-4" />, badge: stats.totalLeads },
+    { key: 'bookings',     label: 'Bookings',      icon: <Calendar className="w-4 h-4" />, badge: stats.upcomingBookings },
+    { key: 'slots',        label: 'Availability',  icon: <Clock className="w-4 h-4" /> },
     { key: 'clientforge',  label: 'Client Forge',  icon: <Briefcase className="w-4 h-4" />, highlight: true },
   ];
 
@@ -810,6 +896,18 @@ export default function AdminPanel() {
                     onRefresh={loadLeads}
                     onDelete={handleDeleteLead}
                   />
+                </motion.div>
+              )}
+
+              {tab === 'bookings' && (
+                <motion.div key="bookings" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                  <BookingsTab />
+                </motion.div>
+              )}
+
+              {tab === 'slots' && (
+                <motion.div key="slots" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                  <SlotsTab />
                 </motion.div>
               )}
             </AnimatePresence>

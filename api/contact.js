@@ -32,8 +32,28 @@ export default async function handler(req, res) {
       primary_challenge, 
       budget_range, 
       timeline, 
-      project_description 
+      project_description,
+      is_decision_maker
     } = req.body;
+
+    // --- Priority Scoring Algorithm ---
+    let priority_score = 0;
+    
+    if (business_stage === '$10M+ (>₹80Cr)') priority_score += 50;
+    else if (business_stage === '$1M-$10M (₹8Cr-₹80Cr)') priority_score += 30;
+    else if (business_stage === '<$1M (<₹8Cr)') priority_score += 10;
+    
+    if (timeline === 'Immediate') priority_score += 20;
+    else if (timeline === '1-3 months') priority_score += 10;
+    
+    if (is_decision_maker) priority_score += 10;
+    
+    const budgetStr = (budget_range || '').toLowerCase();
+    if (budgetStr.includes('500k') || budgetStr.includes('150k') || budgetStr.includes('15,00,000') || budgetStr.includes('above_50k')) priority_score += 40;
+    else if (budgetStr.includes('20k') || budgetStr.includes('5k')) priority_score += 20;
+
+    const is_qualified = priority_score >= 60;
+    // ----------------------------------
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST || 'mail.privateemail.com',
@@ -72,7 +92,10 @@ export default async function handler(req, res) {
             primary_challenge,
             budget_range,
             timeline,
-            project_description
+            project_description,
+            priority_score,
+            is_qualified,
+            is_decision_maker: !!is_decision_maker
           })
         });
       } catch (err) {
@@ -178,7 +201,12 @@ export default async function handler(req, res) {
       html: htmlTemplate,
     });
 
-    res.status(200).json({ success: true, message: 'Email sent successfully!' });
+    res.status(200).json({ 
+      success: true, 
+      message: 'Email sent successfully!',
+      leadId,
+      is_qualified 
+    });
   } catch (error) {
     console.error("Error sending email:", error);
     res.status(500).json({ error: error.message || 'Internal Server Error' });
