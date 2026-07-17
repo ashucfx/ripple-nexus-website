@@ -54,37 +54,29 @@ export default async function handler(req, res) {
 
     // ── Stats ──────────────────────────────────────────────────────
     if (action === 'stats') {
-      const [applicants, payments, bookings] = await Promise.all([
-        sbSelect('rns_applicants', { select: 'id,is_qualified,created_at' }),
-        sbSelect('rns_payments',   { select: 'id,status,amount,currency' }),
-        sbSelect('rns_bookings',   { select: 'id,status' }),
-      ]);
-
-      const totalApplicants   = applicants.length;
-      const qualified         = applicants.filter((a) => a.is_qualified).length;
-      const completedPayments = payments.filter((p) => p.status === 'completed');
-      const revenue           = completedPayments.reduce((s, p) => s + Number(p.amount), 0);
-      const confirmedBookings = bookings.filter((b) => b.status === 'confirmed').length;
+      const leads = await sbSelect('rns_leads', { select: 'id,budget_range,created_at,is_decision_maker' });
+      
+      const totalLeads = leads.length;
+      
+      const oneWeekAgo = new Date();
+      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+      const oneWeekAgoStr = oneWeekAgo.toISOString();
+      const leadsThisWeek = leads.filter(l => l.created_at >= oneWeekAgoStr).length;
+      
+      const highBudgetLeads = leads.filter(l => 
+        l.budget_range && 
+        (l.budget_range.includes('150k') || l.budget_range.includes('500k') || l.budget_range.includes('15,00,000') ||
+         l.budget_range.includes('5k_20k') || l.budget_range.includes('20k_50k') || l.budget_range.includes('above_50k'))
+      ).length;
+      
+      const decisionMakers = leads.filter(l => l.is_decision_maker === true || l.is_decision_maker === 'true').length;
 
       return res.status(200).json({
-        totalApplicants,
-        qualified,
-        rejected:          totalApplicants - qualified,
-        qualificationRate: totalApplicants ? Math.round((qualified / totalApplicants) * 100) : 0,
-        completedPayments: completedPayments.length,
-        revenue,
-        confirmedBookings,
-        conversionRate:    totalApplicants ? Math.round((confirmedBookings / totalApplicants) * 100) : 0,
+        totalLeads,
+        leadsThisWeek,
+        highBudgetLeads,
+        decisionMakers,
       });
-    }
-
-    // ── Applicants list (from flat view) ───────────────────────────
-    if (action === 'applicants') {
-      const rows = await sbSelect('rns_admin_overview', {
-        order: 'created_at.desc',
-        limit: '200',
-      });
-      return res.status(200).json({ applicants: rows || [] });
     }
 
     // ── Leads list ─────────────────────────────────────────────────
@@ -100,101 +92,6 @@ export default async function handler(req, res) {
       const { leadId } = body;
       if (!leadId) return res.status(400).json({ error: 'leadId required' });
       await sbDelete('rns_leads', { id: leadId });
-      return res.status(200).json({ success: true });
-    }
-
-    // ── Settings ───────────────────────────────────────────────────
-    if (action === 'settings') {
-      const rows = await sbSelect('rns_settings', { select: 'key,value' });
-      const settings = {};
-      rows.forEach((r) => { settings[r.key] = r.value; });
-      return res.status(200).json({ settings });
-    }
-
-    if (action === 'update-setting') {
-      const { key, value } = body;
-      if (!key || typeof key !== 'string') {
-        return res.status(400).json({ error: 'key required' });
-      }
-      const numVal = Number(value);
-      if (isNaN(numVal) || numVal < 0) {
-        return res.status(400).json({ error: 'value must be a positive number' });
-      }
-      await sbUpdate('rns_settings', { key }, {
-        value: String(numVal),
-        updated_at: new Date().toISOString(),
-      });
-      return res.status(200).json({ success: true });
-    }
-
-    // ── Slot management ────────────────────────────────────────────
-    if (action === 'slots') {
-      const from = body.from || new Date().toISOString().slice(0, 10);
-      const rows = await sbSelect('rns_slots', {
-        slot_date: `gte.${from}`,
-        order: 'slot_date.asc,start_time.asc',
-      });
-      return res.status(200).json({ slots: rows || [] });
-    }
-
-    if (action === 'add-slot') {
-      const { date, startTime, endTime } = body;
-      if (!date || !startTime || !endTime) {
-        return res.status(400).json({ error: 'date, startTime, endTime required' });
-      }
-      // Validate date is today or future
-      if (date < new Date().toISOString().slice(0, 10)) {
-        return res.status(400).json({ error: 'Cannot add slots in the past' });
-      }
-      // Validate time ordering
-      if (endTime <= startTime) {
-        return res.status(400).json({ error: 'endTime must be after startTime' });
-      }
-      const slot = await sbInsert('rns_slots', {
-        slot_date:        date,
-        start_time:       startTime,
-        end_time:         endTime,
-        duration_minutes: 60,
-        is_available:     true,
-      });
-      return res.status(200).json({ success: true, slot });
-    }
-
-    if (action === 'toggle-slot') {
-      const { slotId, isAvailable } = body;
-      if (!slotId) return res.status(400).json({ error: 'slotId required' });
-      await sbUpdate('rns_slots', { id: slotId }, { is_available: Boolean(isAvailable) });
-      return res.status(200).json({ success: true });
-    }
-
-    if (action === 'delete-slot') {
-      const { slotId } = body;
-      if (!slotId) return res.status(400).json({ error: 'slotId required' });
-      await sbDelete('rns_slots', { id: slotId });
-      return res.status(200).json({ success: true });
-    }
-
-    // ── Delete a single applicant (cascades via FK in Supabase) ───────
-    if (action === 'delete-applicant') {
-      const { applicantId } = body;
-      if (!applicantId) return res.status(400).json({ error: 'applicantId required' });
-      // Delete child records first (payments → bookings → applicant)
-      const payments = await sbSelect('rns_payments', { applicant_id: `eq.${applicantId}`, select: 'id' });
-      for (const p of payments) {
-        await sbDelete('rns_bookings', { payment_id: p.id }).catch(() => {});
-      }
-      for (const p of payments) {
-        await sbDelete('rns_payments', { id: p.id }).catch(() => {});
-      }
-      await sbDelete('rns_applicants', { id: applicantId });
-      return res.status(200).json({ success: true });
-    }
-
-    // ── Purge ALL test data (applicants + payments + bookings) ────────
-    if (action === 'purge-all-records') {
-      await sbTruncate('rns_bookings').catch(() => {});
-      await sbTruncate('rns_payments').catch(() => {});
-      await sbTruncate('rns_applicants').catch(() => {});
       return res.status(200).json({ success: true });
     }
 

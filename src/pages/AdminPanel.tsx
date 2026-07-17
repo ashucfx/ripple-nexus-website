@@ -8,8 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Users, CreditCard, Calendar, Settings, TrendingUp, CheckCircle,
   XCircle, ChevronDown, ChevronUp, Loader2, LogOut, Plus,
-  BarChart3, RefreshCw, Trash2, AlertTriangle, Search, DollarSign,
-  IndianRupee, Clock, Activity, Shield, Briefcase, ExternalLink, Download, Database,
+  BarChart3, RefreshCw, Trash2, AlertTriangle, Search, Clock, Activity, Shield, Briefcase, ExternalLink, Download, Database,
 } from 'lucide-react';
 import type { AdminApplicant } from '@/lib/scheduler-types';
 
@@ -194,14 +193,10 @@ function OverviewTab({ stats, onRefresh }: { stats: Record<string, number>; onRe
     setRefreshing(false);
   };
 
-  const revenueFormatted = stats.revenue
-    ? stats.revenue > 999 ? `₹${(stats.revenue / 1000).toFixed(1)}k / $${(stats.revenue / 100000).toFixed(1)}k` : `${stats.revenue}`
-    : '—';
-
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-bold text-foreground">Overview</h2>
+        <h2 className="text-lg font-bold text-foreground">Leads Overview</h2>
         <button
           onClick={handleRefresh}
           disabled={refreshing}
@@ -212,323 +207,31 @@ function OverviewTab({ stats, onRefresh }: { stats: Record<string, number>; onRe
         </button>
       </div>
 
-      {/* Primary metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
         <StatCard
-          label="Total Applicants"
-          value={stats.totalApplicants ?? 0}
+          label="Total Leads"
+          value={stats.totalLeads ?? 0}
           icon={<Users className="w-4 h-4" />}
         />
         <StatCard
-          label="Qualified"
-          value={stats.qualified ?? 0}
-          sub={`${stats.qualificationRate ?? 0}% pass rate`}
+          label="Leads This Week"
+          value={stats.leadsThisWeek ?? 0}
           color="#3FBD8B"
-          icon={<CheckCircle className="w-4 h-4" />}
-        />
-        <StatCard
-          label="Payments Done"
-          value={stats.completedPayments ?? 0}
-          icon={<CreditCard className="w-4 h-4" />}
-        />
-        <StatCard
-          label="Confirmed Bookings"
-          value={stats.confirmedBookings ?? 0}
-          color="#3FBD8B"
-          icon={<Calendar className="w-4 h-4" />}
-        />
-      </div>
-
-      {/* Secondary metrics */}
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
-        <StatCard
-          label="Revenue Collected"
-          value={revenueFormatted}
-          sub="all completed payments"
-          color="#3FBD8B"
-          icon={<TrendingUp className="w-4 h-4" />}
-        />
-        <StatCard
-          label="Conversion Rate"
-          value={`${stats.conversionRate ?? 0}%`}
-          sub="applicant → booked"
           icon={<Activity className="w-4 h-4" />}
         />
         <StatCard
-          label="Rejected"
-          value={stats.rejected ?? 0}
-          sub={`${stats.totalApplicants ? 100 - (stats.qualificationRate ?? 0) : 0}% of applicants`}
+          label="High Budget Leads"
+          value={stats.highBudgetLeads ?? 0}
+          color="#a855f7"
+          icon={<TrendingUp className="w-4 h-4" />}
+        />
+        <StatCard
+          label="Decision Makers"
+          value={stats.decisionMakers ?? 0}
           color="#f59e0b"
-          icon={<XCircle className="w-4 h-4" />}
+          icon={<CheckCircle className="w-4 h-4" />}
         />
       </div>
-
-      {/* Funnel visual */}
-      {(stats.totalApplicants ?? 0) > 0 && (
-        <div className="mt-6 bg-card border border-border rounded-2xl p-5">
-          <h3 className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
-            <Activity className="w-4 h-4 text-[#1f56d4]" />
-            Conversion Funnel
-          </h3>
-          <div className="space-y-3">
-            {[
-              { label: 'Applied', value: stats.totalApplicants ?? 0, color: '#1f56d4' },
-              { label: 'Qualified', value: stats.qualified ?? 0, color: '#3FBD8B' },
-              { label: 'Paid', value: stats.completedPayments ?? 0, color: '#a855f7' },
-              { label: 'Booked', value: stats.confirmedBookings ?? 0, color: '#f59e0b' },
-            ].map(({ label, value, color }) => {
-              const pct = stats.totalApplicants ? Math.round((value / stats.totalApplicants) * 100) : 0;
-              return (
-                <div key={label} className="flex items-center gap-3">
-                  <div className="w-16 text-xs font-semibold text-muted-foreground text-right shrink-0">{label}</div>
-                  <div className="flex-1 h-6 bg-white/5 rounded-lg overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${Math.max(pct, 2)}%` }}
-                      transition={{ duration: 0.8, ease: 'easeOut' }}
-                      className="h-full rounded-lg flex items-center justify-end pr-2"
-                      style={{ background: color }}
-                    >
-                      <span className="text-[10px] font-bold text-white">{value}</span>
-                    </motion.div>
-                  </div>
-                  <div className="w-9 text-xs text-muted-foreground text-right shrink-0">{pct}%</div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ── Applicants Tab ────────────────────────────────────────────────────────
-
-function ApplicantsTab({
-  applicants, loading, onRefresh, onDelete, onPurgeAll,
-}: {
-  applicants: AdminApplicant[];
-  loading: boolean;
-  onRefresh: () => void;
-  onDelete: (id: string) => Promise<void>;
-  onPurgeAll: () => Promise<void>;
-}) {
-  const [expanded, setExpanded] = useState<string | null>(null);
-  const [filter, setFilter] = useState<'all' | 'qualified' | 'rejected'>('all');
-  const [search, setSearch] = useState('');
-  const [confirm, setConfirm] = useState<{ type: 'single'; id: string } | { type: 'purge' } | null>(null);
-  const [deleting, setDeleting] = useState<string | null>(null);
-
-  const filtered = applicants.filter((a) => {
-    const matchFilter =
-      filter === 'all' ||
-      (filter === 'qualified' && a.is_qualified) ||
-      (filter === 'rejected' && !a.is_qualified);
-    const q = search.toLowerCase();
-    const matchSearch =
-      !q ||
-      a.full_name?.toLowerCase().includes(q) ||
-      a.email?.toLowerCase().includes(q) ||
-      a.company?.toLowerCase().includes(q) ||
-      a.country?.toLowerCase().includes(q);
-    return matchFilter && matchSearch;
-  });
-
-  const handleDelete = async (id: string) => {
-    setDeleting(id);
-    await onDelete(id);
-    setDeleting(null);
-    setConfirm(null);
-    setExpanded(null);
-  };
-
-  const handlePurge = async () => {
-    await onPurgeAll();
-    setConfirm(null);
-  };
-
-  return (
-    <div>
-      {confirm?.type === 'single' && (
-        <ConfirmDialog
-          message="Delete this applicant and all their payment/booking records? This cannot be undone."
-          onConfirm={() => handleDelete(confirm.id)}
-          onCancel={() => setConfirm(null)}
-        />
-      )}
-      {confirm?.type === 'purge' && (
-        <ConfirmDialog
-          message="Delete ALL applicants, payments, and bookings? This wipes the entire database and cannot be undone."
-          onConfirm={handlePurge}
-          onCancel={() => setConfirm(null)}
-        />
-      )}
-
-      {/* Toolbar */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-5">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by name, email, company..."
-            className="w-full bg-background border border-border rounded-xl pl-9 pr-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-[#1f56d4]/40"
-          />
-        </div>
-        <div className="flex gap-2 shrink-0">
-          <button
-            onClick={onRefresh}
-            disabled={loading}
-            className="flex items-center gap-2 px-3 py-2.5 bg-card border border-border rounded-xl text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-          </button>
-          {applicants.length > 0 && (
-            <button
-              onClick={() => setConfirm({ type: 'purge' })}
-              className="flex items-center gap-2 px-3 py-2.5 bg-red-500/10 border border-red-500/20 hover:bg-red-500/20 rounded-xl text-sm text-red-400 font-semibold transition-colors"
-            >
-              <Trash2 className="w-3.5 h-3.5" />
-              Purge All
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Filter tabs */}
-      <div className="flex gap-2 mb-4">
-        {(['all', 'qualified', 'rejected'] as const).map((f) => {
-          const count =
-            f === 'all' ? applicants.length :
-            f === 'qualified' ? applicants.filter((a) => a.is_qualified).length :
-            applicants.filter((a) => !a.is_qualified).length;
-          return (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold capitalize transition-colors ${
-                filter === f
-                  ? 'bg-[#1f56d4] text-white'
-                  : 'bg-card border border-border text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              {f} <span className="opacity-70">({count})</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Table */}
-      {loading ? (
-        <div className="py-16 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto text-muted-foreground" /></div>
-      ) : (
-        <div className="space-y-2">
-          {filtered.map((a) => (
-            <div key={a.id} className="bg-card border border-border rounded-xl overflow-hidden hover:border-white/15 transition-colors">
-              <div
-                className="flex items-center justify-between p-4 cursor-pointer"
-                onClick={() => setExpanded(expanded === a.id ? null : a.id)}
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className={`w-2 h-2 rounded-full shrink-0 ${a.is_qualified ? 'bg-[#3FBD8B]' : 'bg-amber-400'}`} />
-                  <div className="min-w-0">
-                    <p className="font-semibold text-foreground text-sm truncate">{a.full_name}</p>
-                    <p className="text-xs text-muted-foreground truncate">{a.email} · {a.country}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 shrink-0 ml-3">
-                  <span className={`hidden sm:inline px-2 py-0.5 rounded-full text-[11px] font-bold ${
-                    a.is_qualified ? 'bg-[#3FBD8B]/15 text-[#3FBD8B]' : 'bg-amber-400/15 text-amber-400'
-                  }`}>
-                    {a.qualification_score}pts
-                  </span>
-                  {a.payment_status === 'completed' && (
-                    <span className="hidden sm:inline px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#1f56d4]/15 text-[#1f56d4]">Paid</span>
-                  )}
-                  {a.booking_status === 'confirmed' && (
-                    <span className="hidden sm:inline px-2 py-0.5 rounded-full text-[11px] font-bold bg-purple-500/15 text-purple-400">Booked</span>
-                  )}
-                  <button
-                    onClick={(e) => { e.stopPropagation(); setConfirm({ type: 'single', id: a.id }); }}
-                    disabled={deleting === a.id}
-                    className="p-1.5 text-muted-foreground hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10"
-                  >
-                    {deleting === a.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
-                  </button>
-                  {expanded === a.id ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
-                </div>
-              </div>
-
-              <AnimatePresence>
-                {expanded === a.id && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="border-t border-border overflow-hidden"
-                  >
-                    <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Role / Company</p>
-                        <p className="text-foreground">{a.applicant_role || '—'}{a.company ? ` · ${a.company}` : ''}</p>
-                      </div>
-                      <div>
-                        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Budget · Urgency</p>
-                        <p className="text-foreground">{a.budget_range} · {a.urgency}</p>
-                      </div>
-                      <div className="sm:col-span-2">
-                        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Problem Statement</p>
-                        <p className="text-foreground/80 leading-relaxed text-xs">{a.problem}</p>
-                      </div>
-                      {!a.is_qualified && a.rejection_reason && (
-                        <div className="sm:col-span-2 bg-amber-400/8 border border-amber-400/20 rounded-xl p-3">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-amber-400 mb-1">Rejection Reason</p>
-                          <p className="text-foreground/70 text-xs">{a.rejection_reason}</p>
-                        </div>
-                      )}
-                      {a.payment_status === 'completed' && (
-                        <div className="sm:col-span-2 bg-[#3FBD8B]/8 border border-[#3FBD8B]/20 rounded-xl p-3">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-[#3FBD8B] mb-1">Payment</p>
-                          <p className="text-foreground/70 text-xs">
-                            {a.payment_currency} {a.payment_amount} via {a.payment_provider}
-                          </p>
-                        </div>
-                      )}
-                      {a.meet_link && (
-                        <div className="sm:col-span-2">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Meet Link</p>
-                          <a href={a.meet_link} className="text-[#1f56d4] hover:underline text-xs break-all" target="_blank" rel="noreferrer">
-                            {a.meet_link}
-                          </a>
-                        </div>
-                      )}
-                      <div className="sm:col-span-2 flex items-center justify-between">
-                        <div>
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Applied</p>
-                          <p className="text-foreground/70 text-xs">{new Date(a.created_at).toLocaleString()}</p>
-                        </div>
-                        <button
-                          onClick={() => setConfirm({ type: 'single', id: a.id })}
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-red-500/10 border border-red-500/20 hover:bg-red-500/20 rounded-lg text-xs text-red-400 font-semibold transition-colors"
-                        >
-                          <Trash2 className="w-3 h-3" /> Delete Record
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
-          {filtered.length === 0 && (
-            <div className="text-center py-16 text-muted-foreground text-sm">
-              {search ? `No results for "${search}"` : 'No applicants yet'}
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 }
@@ -648,6 +351,7 @@ function LeadsTab({
                   <p className="text-xs text-muted-foreground truncate">{l.email} · {l.company_name}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0 ml-3">
+                  <span className="hidden sm:inline px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#1f56d4]/15 text-[#1f56d4]">L-{l.id.substring(0,8).toUpperCase()}</span>
                   <span className="hidden sm:inline text-xs text-muted-foreground">{new Date(l.created_at).toLocaleDateString()}</span>
                   <button onClick={(e) => { e.stopPropagation(); setConfirm(l.id); }} disabled={deleting === l.id} className="p-1.5 text-muted-foreground hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10">
                     {deleting === l.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
@@ -832,151 +536,7 @@ function SlotsTab() {
   );
 }
 
-// ── Settings Tab ──────────────────────────────────────────────────────────
-
-const SETTING_FIELDS = [
-  {
-    key: 'consultation_fee_inr',
-    label: 'Consultation Fee (India)',
-    prefix: '₹',
-    icon: <IndianRupee className="w-4 h-4" />,
-    description: 'Fee charged to Indian clients (INR) for the strategy session',
-    defaultVal: 1999,
-  },
-  {
-    key: 'consultation_fee_usd',
-    label: 'Consultation Fee (International)',
-    prefix: '$',
-    icon: <DollarSign className="w-4 h-4" />,
-    description: 'Fee charged to international clients (USD)',
-    defaultVal: 199,
-  },
-  {
-    key: 'budget_threshold_inr',
-    label: 'Min Qualifying Budget (India)',
-    prefix: '₹',
-    icon: <IndianRupee className="w-4 h-4" />,
-    description: 'Applicants with a budget below this INR value are auto-rejected',
-    defaultVal: 75000,
-  },
-  {
-    key: 'budget_threshold_usd',
-    label: 'Min Qualifying Budget (International)',
-    prefix: '$',
-    icon: <DollarSign className="w-4 h-4" />,
-    description: 'Applicants with a budget below this USD value are auto-rejected',
-    defaultVal: 1000,
-  },
-  {
-    key: 'session_duration_minutes',
-    label: 'Session Duration',
-    prefix: '',
-    suffix: 'min',
-    icon: <Clock className="w-4 h-4" />,
-    description: 'Length of each consultation session in minutes',
-    defaultVal: 60,
-  },
-];
-
-function SettingsTab() {
-  const [settings, setSettings] = useState<Record<string, number>>({});
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState<string | null>(null);
-  const [saved, setSaved] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    adminAction('settings').then((d) => {
-      const parsed: Record<string, number> = {};
-      Object.entries(d.settings || {}).forEach(([k, v]) => { parsed[k] = Number(v); });
-      // Fill defaults for any missing keys
-      SETTING_FIELDS.forEach(({ key, defaultVal }) => {
-        if (!(key in parsed)) parsed[key] = defaultVal;
-      });
-      setSettings(parsed);
-    }).finally(() => setLoading(false));
-  }, []);
-
-  const save = async (key: string) => {
-    setSaving(key);
-    setError(null);
-    try {
-      await adminAction('update-setting', { key, value: settings[key] });
-      setSaved(key);
-      setTimeout(() => setSaved(null), 2500);
-    } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : 'Save failed');
-    } finally {
-      setSaving(null);
-    }
-  };
-
-  if (loading) return (
-    <div className="py-16 text-center"><Loader2 className="w-5 h-5 animate-spin mx-auto text-muted-foreground" /></div>
-  );
-
-  return (
-    <div>
-      <div className="mb-6 p-4 bg-[#1f56d4]/8 border border-[#1f56d4]/20 rounded-xl text-sm text-foreground/70 flex items-start gap-3">
-        <Activity className="w-4 h-4 text-[#1f56d4] shrink-0 mt-0.5" />
-        <span>Changes take effect immediately for all new visitors. Consultation fee changes are live on the next page load.</span>
-      </div>
-
-      {error && (
-        <div className="mb-4 p-3 bg-red-400/10 border border-red-400/20 rounded-xl text-sm text-red-400 flex items-center gap-2">
-          <XCircle className="w-4 h-4 shrink-0" /> {error}
-        </div>
-      )}
-
-      <div className="space-y-3 max-w-xl">
-        {SETTING_FIELDS.map(({ key, label, prefix, suffix, icon, description, defaultVal }) => (
-          <div key={key} className="bg-card border border-border rounded-xl p-5 hover:border-white/15 transition-colors">
-            <div className="flex items-start justify-between mb-1">
-              <div className="flex items-center gap-2">
-                <span className="text-[#1f56d4]">{icon}</span>
-                <label className="text-sm font-bold text-foreground">{label}</label>
-              </div>
-              <span className="text-[10px] text-muted-foreground/50 font-mono">default: {prefix}{defaultVal}{suffix}</span>
-            </div>
-            <p className="text-xs text-muted-foreground mb-3 ml-6">{description}</p>
-            <div className="flex gap-3 ml-6">
-              <div className="relative flex-1">
-                {prefix && (
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold text-sm">{prefix}</span>
-                )}
-                <input
-                  type="number"
-                  value={settings[key] ?? defaultVal}
-                  onChange={(e) => setSettings((s) => ({ ...s, [key]: Number(e.target.value) }))}
-                  className={`w-full bg-background border border-border rounded-xl py-2.5 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-[#1f56d4]/50 ${prefix ? 'pl-7 pr-4' : 'px-4'}`}
-                />
-                {suffix && (
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs">{suffix}</span>
-                )}
-              </div>
-              <button
-                onClick={() => save(key)}
-                disabled={saving === key}
-                className={`px-4 py-2.5 rounded-xl text-sm font-bold transition-all min-w-[72px] flex items-center justify-center gap-1.5 ${
-                  saved === key
-                    ? 'bg-[#3FBD8B]/20 border border-[#3FBD8B]/30 text-[#3FBD8B]'
-                    : 'bg-[#1f56d4] hover:bg-[#1a47b8] disabled:opacity-50 text-white'
-                }`}
-              >
-                {saving === key
-                  ? <Loader2 className="w-4 h-4 animate-spin" />
-                  : saved === key
-                    ? <><CheckCircle className="w-3.5 h-3.5" /> Saved</>
-                    : 'Save'
-                }
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+// Removed Settings Tab
 
 // ── Client Forge Feature Showcase ────────────────────────────────────────
 
@@ -1089,28 +649,19 @@ function ClientForgeTab() {
 
 // ── Main Admin Dashboard ──────────────────────────────────────────────────
 
-type Tab = 'overview' | 'applicants' | 'leads' | 'slots' | 'settings' | 'clientforge';
+type Tab = 'overview' | 'leads' | 'clientforge';
 
 export default function AdminPanel() {
   const [authed, setAuthed] = useState(false);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<Tab>('overview');
   const [stats, setStats] = useState<Record<string, number>>({});
-  const [applicants, setApplicants] = useState<AdminApplicant[]>([]);
-  const [applicantsLoading, setApplicantsLoading] = useState(false);
   const [leads, setLeads] = useState<Lead[]>([]);
   const [leadsLoading, setLeadsLoading] = useState(false);
 
   const loadStats = useCallback(async () => {
     const d = await adminAction('stats').catch(() => ({}));
     setStats(d);
-  }, []);
-
-  const loadApplicants = useCallback(async () => {
-    setApplicantsLoading(true);
-    const d = await adminAction('applicants').catch(() => ({ applicants: [] }));
-    setApplicants(d.applicants || []);
-    setApplicantsLoading(false);
   }, []);
 
   const loadLeads = useCallback(async () => {
@@ -1135,30 +686,17 @@ export default function AdminPanel() {
   // Load data when tab changes
   useEffect(() => {
     if (!authed) return;
-    if (tab === 'applicants') loadApplicants();
     if (tab === 'leads') loadLeads();
-  }, [authed, tab, loadApplicants, loadLeads]);
+  }, [authed, tab, loadLeads]);
 
   const onLogin = async () => {
     setAuthed(true);
     await loadStats();
   };
 
-  const handleDeleteApplicant = async (id: string) => {
-    await adminAction('delete-applicant', { applicantId: id });
-    setApplicants((a) => a.filter((x) => x.id !== id));
-    await loadStats();
-  };
-
   const handleDeleteLead = async (id: string) => {
     await adminAction('delete-lead', { leadId: id });
     setLeads((l) => l.filter((x) => x.id !== id));
-  };
-
-  const handlePurgeAll = async () => {
-    await adminAction('purge-all-records');
-    setApplicants([]);
-    await loadStats();
   };
 
   if (loading) {
@@ -1180,10 +718,7 @@ export default function AdminPanel() {
 
   const TABS: { key: Tab; label: string; icon: React.ReactNode; badge?: number; highlight?: boolean }[] = [
     { key: 'overview',     label: 'Overview',      icon: <BarChart3 className="w-4 h-4" /> },
-    { key: 'applicants',   label: 'Applicants',    icon: <Users className="w-4 h-4" />, badge: stats.totalApplicants },
-    { key: 'leads',        label: 'Leads',         icon: <Database className="w-4 h-4" /> },
-    { key: 'slots',        label: 'Slots',         icon: <Calendar className="w-4 h-4" /> },
-    { key: 'settings',     label: 'Settings',      icon: <Settings className="w-4 h-4" /> },
+    { key: 'leads',        label: 'Leads',         icon: <Database className="w-4 h-4" />, badge: stats.totalLeads },
     { key: 'clientforge',  label: 'Client Forge',  icon: <Briefcase className="w-4 h-4" />, highlight: true },
   ];
 
@@ -1262,23 +797,6 @@ export default function AdminPanel() {
                 </motion.div>
               )}
 
-              {tab === 'applicants' && (
-                <motion.div key="applicants" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
-                      <Users className="w-5 h-5 text-[#1f56d4]" /> Applicants
-                    </h2>
-                  </div>
-                  <ApplicantsTab
-                    applicants={applicants}
-                    loading={applicantsLoading}
-                    onRefresh={loadApplicants}
-                    onDelete={handleDeleteApplicant}
-                    onPurgeAll={handlePurgeAll}
-                  />
-                </motion.div>
-              )}
-
               {tab === 'leads' && (
                 <motion.div key="leads" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
                   <div className="flex items-center justify-between mb-6">
@@ -1292,24 +810,6 @@ export default function AdminPanel() {
                     onRefresh={loadLeads}
                     onDelete={handleDeleteLead}
                   />
-                </motion.div>
-              )}
-
-              {tab === 'slots' && (
-                <motion.div key="slots" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                  <h2 className="text-lg font-bold text-foreground flex items-center gap-2 mb-6">
-                    <Calendar className="w-5 h-5 text-[#1f56d4]" /> Availability Slots
-                  </h2>
-                  <SlotsTab />
-                </motion.div>
-              )}
-
-              {tab === 'settings' && (
-                <motion.div key="settings" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                  <h2 className="text-lg font-bold text-foreground flex items-center gap-2 mb-6">
-                    <Settings className="w-5 h-5 text-[#1f56d4]" /> Qualification & Pricing Settings
-                  </h2>
-                  <SettingsTab />
                 </motion.div>
               )}
             </AnimatePresence>

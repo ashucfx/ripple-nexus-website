@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import crypto from 'crypto';
 
 export default async function handler(req, res) {
   // CORS Headers for Vercel Serverless
@@ -44,6 +45,9 @@ export default async function handler(req, res) {
       },
     });
 
+    const leadId = crypto.randomUUID();
+    const shortLeadId = `L-${leadId.substring(0, 8).toUpperCase()}`;
+
     // Save lead to Supabase database
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
@@ -58,6 +62,7 @@ export default async function handler(req, res) {
             'Prefer': 'return=minimal'
           },
           body: JSON.stringify({
+            id: leadId,
             full_name,
             email,
             phone,
@@ -82,36 +87,38 @@ export default async function handler(req, res) {
       <head>
         <meta charset="utf-8">
         <style>
-          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f4f5fa; margin: 0; padding: 40px 20px; color: #0a0b14; }
-          .wrapper { max-width: 640px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.06); overflow: hidden; border: 1px solid #e2e8f0; }
-          .header { background: #0a0b14; padding: 40px; text-align: center; border-bottom: 4px solid #7c5cff; }
-          .header h1 { color: #ffffff; margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.5px; text-transform: uppercase; }
-          .header p { color: #9ba2be; font-size: 13px; margin: 8px 0 0 0; text-transform: uppercase; letter-spacing: 1px; }
+          body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #06070a; margin: 0; padding: 40px 20px; color: #fdfdfd; }
+          .wrapper { max-width: 640px; margin: 0 auto; background: #0a0b14; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.4); overflow: hidden; border: 1px solid #1a1c29; }
+          .header { background: #0a0b14; padding: 40px; text-align: center; border-bottom: 2px solid #1a1c29; position: relative; }
+          .header::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #7c5cff, #22d3ee, transparent); }
+          .header h1 { color: #fdfdfd; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+          .header p { color: #7c5cff; font-size: 11px; margin: 8px 0 0 0; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
           
-          .content { padding: 45px 40px; }
-          .greeting { font-size: 17px; color: #2a2e44; line-height: 1.6; margin-bottom: 35px; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; font-weight: 500; }
+          .content { padding: 45px 40px; background: #0a0b14; }
+          .greeting { font-size: 16px; color: #e2e8f0; line-height: 1.6; margin-bottom: 35px; border-bottom: 1px solid #1a1c29; padding-bottom: 20px; }
+          .greeting strong { color: #fdfdfd; }
           
           .grid { display: grid; gap: 20px; }
-          .row { background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; border-left: 4px solid #7c5cff; }
-          .row.highlight { background: #f0fdf4; border-left: 4px solid #10b981; border-color: #bbf7d0; }
+          .row { background: #12141c; padding: 20px; border-radius: 8px; border: 1px solid #1a1c29; border-left: 3px solid #7c5cff; }
+          .row.highlight { background: #12141c; border-left: 3px solid #22d3ee; }
           
-          .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: #64748b; font-weight: 700; margin-bottom: 6px; }
-          .value { font-size: 16px; color: #0f172a; font-weight: 500; word-break: break-word; }
+          .label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #828a9f; font-weight: 700; margin-bottom: 8px; }
+          .value { font-size: 15px; color: #fdfdfd; font-weight: 500; word-break: break-word; }
           .value a { color: #7c5cff; text-decoration: none; font-weight: 600; }
           
-          .box { margin-top: 30px; background: #ffffff; border: 1px solid #e2e8f0; padding: 25px; border-radius: 8px; }
-          .box-label { font-size: 12px; font-weight: 700; color: #0a0b14; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-          .box-text { font-size: 15px; color: #475569; line-height: 1.6; }
+          .box { margin-top: 30px; background: #12141c; border: 1px solid #1a1c29; padding: 25px; border-radius: 8px; }
+          .box-label { font-size: 11px; font-weight: 700; color: #fdfdfd; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+          .box-text { font-size: 14px; color: #a1a8c2; line-height: 1.7; }
           
-          .footer { background: #f8fafc; padding: 25px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0; font-weight: 400; line-height: 1.6; }
-          .footer strong { color: #0a0b14; font-weight: 600; }
+          .footer { background: #06070a; padding: 25px; text-align: center; font-size: 11px; color: #64748b; border-top: 1px solid #1a1c29; font-weight: 400; line-height: 1.6; }
+          .footer strong { color: #fdfdfd; font-weight: 600; }
         </style>
       </head>
       <body>
         <div class="wrapper">
           <div class="header">
             <h1>Architecture Strategy Session</h1>
-            <p>Ripple Nexus Enterprise Systems</p>
+            <p>Lead ID: ${shortLeadId} &nbsp;•&nbsp; Ripple Nexus Enterprise</p>
           </div>
           
           <div class="content">
@@ -124,13 +131,13 @@ export default async function handler(req, res) {
                 <div class="label">Client Identity</div>
                 <div class="value">
                   <a href="mailto:${email || ''}">${email || 'No email provided'}</a><br/>
-                  <a href="tel:${phone ? phone.replace(/\s+/g, '') : ''}" style="color: #475569; font-weight: 500;">${phone || 'No phone provided'}</a>
+                  <span style="color: #a1a8c2; font-size: 14px; display: inline-block; margin-top: 4px;">${phone || 'No phone provided'}</span>
                 </div>
               </div>
               
               <div class="row">
                 <div class="label">Organization Details</div>
-                <div class="value">${company_name || 'N/A'} &nbsp;•&nbsp; ${business_stage || 'N/A'}</div>
+                <div class="value">${company_name || 'N/A'} &nbsp;<span style="color: #64748b;">•</span>&nbsp; ${business_stage || 'N/A'}</div>
               </div>
               
               <div class="row">
@@ -138,15 +145,14 @@ export default async function handler(req, res) {
                 <div class="value">${business_website && business_website !== 'N/A' ? `<a href="${business_website}">${business_website}</a>` : 'No URL Provided'}</div>
               </div>
               
-              <!-- Core Intent Highlights -->
               <div class="row highlight">
-                <div class="label" style="color: #059669;">Primary Objective</div>
-                <div class="value" style="color: #065f46; font-size: 17px; font-weight: 600;">${primary_challenge || 'N/A'}</div>
+                <div class="label" style="color: #22d3ee;">Primary Objective</div>
+                <div class="value" style="color: #fdfdfd; font-size: 16px; font-weight: 600;">${primary_challenge || 'N/A'}</div>
               </div>
               
-              <div class="row highlight" style="border-left-color: #6366f1; background: #eef2ff; border-color: #c7d2fe;">
-                <div class="label" style="color: #4f46e5;">Budget & Timeline</div>
-                <div class="value" style="color: #3730a3; font-size: 17px; font-weight: 600;">${budget_range || 'N/A'} &nbsp;|&nbsp; ${timeline || 'N/A'}</div>
+              <div class="row highlight" style="border-left-color: #3fbd8b;">
+                <div class="label" style="color: #3fbd8b;">Budget & Timeline</div>
+                <div class="value" style="color: #fdfdfd; font-size: 16px; font-weight: 600;">${budget_range || 'N/A'} &nbsp;<span style="color: #64748b;">|</span>&nbsp; ${timeline || 'N/A'}</div>
               </div>
             </div>
             
@@ -168,7 +174,7 @@ export default async function handler(req, res) {
     await transporter.sendMail({
       from: `"Ripple Nexus Notifier" <${process.env.SMTP_USER}>`,
       to: 'info@theripplenexus.com',
-      subject: `New Project Lead: ${full_name} - ${company_name || 'Consultation'}`,
+      subject: `New Lead [${shortLeadId}]: ${full_name} - ${company_name || 'Consultation'}`,
       html: htmlTemplate,
     });
 

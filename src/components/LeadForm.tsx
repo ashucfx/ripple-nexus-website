@@ -27,6 +27,7 @@ const LeadForm = () => {
     company_name: "",
     business_website: "",
     business_stage: "",
+    is_decision_maker: false,
     primary_challenge: "",
     budget_range: "",
     timeline: "",
@@ -63,7 +64,8 @@ const LeadForm = () => {
     if (!formData.business_website.trim()) errs.business_website = "Business website is required";
     else if (!/^https?:\/\/.+\..+/.test(formData.business_website.trim()) && !/^.+\..+/.test(formData.business_website.trim()))
       errs.business_website = "Enter a valid website URL";
-    if (!formData.business_stage) errs.business_stage = "Select your business stage";
+    if (!formData.business_stage) errs.business_stage = "Select your annual revenue tier";
+    if (!formData.is_decision_maker) errs.is_decision_maker = "You must be a decision-maker to proceed";
 
     if (!formData.primary_challenge) errs.primary_challenge = "Select your primary challenge";
     if (!formData.budget_range) errs.budget_range = "Select your budget range";
@@ -307,13 +309,13 @@ const LeadForm = () => {
               {errors.company_name && <p className="text-destructive text-xs mt-1">{errors.company_name}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-foreground mb-1.5">Business Stage *</label>
+              <label className="block text-sm font-medium text-foreground mb-1.5">Annual Revenue *</label>
               <select className={inputClass("business_stage")} value={formData.business_stage} onChange={(e) => handleChange("business_stage", e.target.value)}>
-                <option value="">Select stage</option>
-                <option value="Startup">Startup</option>
-                <option value="Growing">Growing</option>
-                <option value="Scaling">Scaling</option>
-                <option value="Established">Established</option>
+                <option value="">Select revenue tier</option>
+                <option value="Pre-revenue">Pre-revenue</option>
+                <option value="<$1M (<₹8Cr)">Less than $1M</option>
+                <option value="$1M-$10M (₹8Cr-₹80Cr)">$1M - $10M</option>
+                <option value="$10M+ (>₹80Cr)">$10M+</option>
               </select>
               {errors.business_stage && <p className="text-destructive text-xs mt-1">{errors.business_stage}</p>}
             </div>
@@ -354,7 +356,7 @@ const LeadForm = () => {
               className={`${inputClass("project_description")} min-h-[120px] resize-y`}
               value={formData.project_description}
               onChange={(e) => handleChange("project_description", e.target.value)}
-              placeholder="Describe your project goals, current architecture challenges, and what success looks like..."
+              placeholder="What is the exact business problem, and what does success look like for this initiative?"
               maxLength={2000}
             />
             <div className="flex justify-between mt-1">
@@ -364,6 +366,20 @@ const LeadForm = () => {
               </span>
             </div>
           </div>
+
+          <div className="flex items-start gap-3">
+            <input 
+              type="checkbox" 
+              id="decision_maker" 
+              checked={formData.is_decision_maker}
+              onChange={(e) => handleChange("is_decision_maker", e.target.checked as any)}
+              className="mt-1"
+            />
+            <label htmlFor="decision_maker" className="text-sm text-foreground">
+              I am the primary decision-maker for this project.
+            </label>
+          </div>
+          {errors.is_decision_maker && <p className="text-destructive text-xs mt-[-10px]">{errors.is_decision_maker}</p>}
 
           {status === "error" && (
             <motion.div
