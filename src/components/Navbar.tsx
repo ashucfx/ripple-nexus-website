@@ -111,11 +111,6 @@ const Navbar = () => {
                       );
                     })}
                   </div>
-                  <div className="bg-[#1f56d4]/10 p-4 border-t border-[#1f56d4]/20 text-center">
-                    <Link to="/platform" className="text-sm font-bold text-[#1f56d4] hover:text-[#3e72eb] transition-colors flex items-center justify-center gap-2">
-                      View All Capabilities & Platform Overview &rarr;
-                    </Link>
-                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -201,9 +196,6 @@ const Navbar = () => {
                             </div>
                           );
                         })}
-                        <Link to="/platform" onClick={() => setMobileOpen(false)} className="block text-sm font-bold mt-4" style={{ color: "var(--nexus-violet)" }}>
-                          View All Services &rarr;
-                        </Link>
                       </div>
                     </motion.div>
                   )}

@@ -6,6 +6,9 @@ import Footer from "@/components/Footer";
 import CtaSection from "@/components/CtaSection";
 import SEOHead from "@/components/SEOHead";
 import AeoBlock from "@/components/AeoBlock";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import ProcessSection from "@/components/ProcessSection";
+import GlobalSection from "@/components/GlobalSection";
 
 const BASE_URL = "https://www.theripplenexus.com";
 
@@ -311,6 +314,11 @@ const About = () => {
             </motion.div>
           </div>
         </section>
+
+        {/* Added Sections from Homepage */}
+        <ProcessSection />
+        <TestimonialsSection />
+        <GlobalSection />
 
         {/* AEO Block for Entity Optimization */}
         <AeoBlock 

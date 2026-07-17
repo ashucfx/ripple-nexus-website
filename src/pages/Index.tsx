@@ -21,13 +21,7 @@ const TrustSection = lazy(() => import("@/components/TrustSection"));
 // Below-fold sections — lazy loaded
 const ProblemSolutionSection = lazy(() => import("@/components/ProblemSolutionSection"));
 const ServicesSection = lazy(() => import("@/components/ServicesSection"));
-const DeliverySection = lazy(() => import("@/components/DeliverySection"));
-const PricingSection = lazy(() => import("@/components/PricingSection"));
-const ProcessSection = lazy(() => import("@/components/ProcessSection"));
 const RealStoriesSection = lazy(() => import("@/components/RealStoriesSection"));
-const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
-const FounderSection = lazy(() => import("@/components/FounderSection"));
-const GlobalSection = lazy(() => import("@/components/GlobalSection"));
 const CtaSection = lazy(() => import("@/components/CtaSection"));
 const LeadForm = lazy(() => import("@/components/LeadForm"));
 const Footer = lazy(() => import("@/components/Footer"));
@@ -201,28 +195,10 @@ const Index = () => {
         {/* 3. Capabilities: what we build */}
         <ServicesSection />
 
-        {/* 3.5. What you receive on delivery */}
-        <DeliverySection />
-
-        {/* 4. Engagement models (no public pricing) + compliance */}
-        <PricingSection />
-
-        {/* 5. Proof: verified metrics from named deployments */}
+        {/* 4. Proof: verified metrics from named deployments */}
         <RealStoriesSection />
 
-        {/* 6. Named references with verifiable companies */}
-        <TestimonialsSection />
-
-        {/* 7. Founder: human accountability — who is responsible for your system */}
-        <FounderSection />
-
-        {/* 8. Process: risk removal through transparent delivery */}
-        <ProcessSection />
-
-        {/* 9. Global reach: authority positioning */}
-        <GlobalSection />
-
-        {/* 10. Aspirational close */}
+        {/* 5. Aspirational close */}
         <CtaSection />
 
         {/* 11. Booking mechanism (Now a frictionless intake flow) */}
