@@ -34,7 +34,7 @@ const HeroSection = () => {
                 style={{ background: "var(--quantum-lime)" }}
               />
               <span className="font-mono text-[0.6875rem] font-semibold tracking-widest uppercase" style={{ color: "var(--pearl)" }}>
-                Enterprise AI Infrastructure
+                AI-First Digital Transformation
               </span>
             </motion.div>
 
@@ -51,9 +51,9 @@ const HeroSection = () => {
                 lineHeight: 1.05,
               }}
             >
-              Elite AI Engineering{" "}
+              Solve Complex Problems<br />
               <span className="gradient-text-vibrant">
-                Studio.
+                Using AI.
               </span>
             </motion.h1>
 
@@ -65,7 +65,8 @@ const HeroSection = () => {
               className="font-body max-w-xl leading-relaxed mb-10"
               style={{ fontSize: "1.125rem", color: "var(--graphite-300)" }}
             >
-              We architect custom automation pipelines, proprietary data infrastructure, and enterprise platforms. Deployed on your data. You own 100% of the IP.
+              We help organizations modernize, automate, optimize and scale. 
+              Deploy autonomous AI agents, enterprise software, and workflow automations that deliver measurable ROI.
             </motion.p>
 
             {/* CTAs */}
@@ -95,7 +96,7 @@ const HeroSection = () => {
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
                 <Calendar size={16} className="relative z-10" />
-                <span className="relative z-10">Book Free Strategy Call</span>
+                <span className="relative z-10">Schedule Consultation</span>
               </a>
               <a
                 href="/case-studies"

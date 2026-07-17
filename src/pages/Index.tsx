@@ -44,7 +44,7 @@ const schemaMarkup = {
       url: BASE_URL,
       logo: `${BASE_URL}/logo-icon.svg`,
       description:
-        "Ripple Nexus is an AI engineering studio that builds custom automation systems, data pipelines, and AI-powered software on your data.",
+        "Ripple Nexus is an AI-First Digital Transformation company helping organizations modernize, automate, optimize, and scale through Artificial Intelligence, Automation, and Enterprise Software.",
       foundingDate: "2021",
       areaServed: "Worldwide",
       contactPoint: {
@@ -78,9 +78,9 @@ const schemaMarkup = {
       "@type": "WebPage",
       "@id": `${BASE_URL}/#webpage`,
       url: BASE_URL,
-      name: "Ripple Nexus: Enterprise AI Engineering Studio",
+      name: "Ripple Nexus: AI-First Digital Transformation Company",
       description:
-        "Ripple Nexus is an AI engineering studio that builds custom autonomous systems on your data — owned by you, deployed in 90 days.",
+        "We solve complex business problems using AI. Ripple Nexus helps organizations modernize, automate, optimize, and scale through Artificial Intelligence, Automation, and Enterprise Software.",
       isPartOf: { "@id": `${BASE_URL}/#organization` },
       inLanguage: "en-US",
       potentialAction: {
@@ -91,18 +91,18 @@ const schemaMarkup = {
     {
       "@type": "ProfessionalService",
       "@id": `${BASE_URL}/#service`,
-      name: "Ripple Nexus Engineering Services",
+      name: "Ripple Nexus Digital Transformation Services",
       url: BASE_URL,
-      description: "Enterprise SaaS architecture, agentic AI pipelines, real-time data engineering, native mobile development, and RPA workflow automation.",
+      description: "AI Agents, Workflow Automation, Custom Software, Enterprise Applications, Data Engineering, API Development, and Cybersecurity.",
       provider: { "@id": `${BASE_URL}/#organization` },
       areaServed: "Worldwide",
       serviceType: [
-        "SaaS Architecture",
-        "Agentic AI Development",
+        "AI Agents",
+        "Workflow Automation",
+        "Custom Software Development",
+        "Enterprise Applications",
         "Data Engineering",
-        "Mobile App Development",
-        "RPA Automation",
-        "Cloud Infrastructure",
+        "Digital Transformation Consulting",
       ],
     },
     {
@@ -113,7 +113,7 @@ const schemaMarkup = {
           name: "What does Ripple Nexus build?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Ripple Nexus builds proprietary AI automation systems on your data — enterprise SaaS platforms, AI/LLM automation pipelines, data engines, native mobile apps, and RPA workflows for businesses globally.",
+            text: "Ripple Nexus solves complex business problems using AI. We build proprietary AI agents, autonomous workflow automations, enterprise software, and scalable data infrastructure.",
           },
         },
         {
@@ -182,8 +182,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background scroll-smooth">
       <SEOHead
-        title="Ripple Nexus: Enterprise AI Engineering Studio"
-        description="We build custom automation systems, data pipelines, and AI-powered software on your data. Owned by you, deployed in 90 days."
+        title="Ripple Nexus: AI-First Digital Transformation Company"
+        description="We solve complex business problems using AI. Ripple Nexus helps organizations modernize, automate, optimize, and scale through Artificial Intelligence, Automation, and Enterprise Software."
         canonical={BASE_URL}
         schemaMarkup={schemaMarkup}
       />

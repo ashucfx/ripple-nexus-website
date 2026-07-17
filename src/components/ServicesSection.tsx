@@ -8,6 +8,7 @@ const products = [
   {
     num: "01",
     name: "Autonomous Lead Flow",
+    slug: "ai-agents",
     desc: "Autonomous lead qualification agents trained on your ICP. Replaces manual SDR workflows with 24/7 AI that identifies, scores, and routes high-intent accounts — before a human touches them.",
     outcome: "60%+ reduction in unqualified pipeline",
     tags: ["LLM Agents", "RAG", "CRM Integration", "Intent Scoring"],
@@ -16,6 +17,7 @@ const products = [
   {
     num: "02",
     name: "Workflow Automation",
+    slug: "ai-workflow-automation",
     desc: "End-to-end workflow automation that eliminates the manual handoffs killing your team's bandwidth. Custom-built on n8n, Python, and your existing stack — not locked into a SaaS platform.",
     outcome: "20+ hrs/week reclaimed per team",
     tags: ["n8n", "Python RPA", "API Mesh", "Zero Vendor Lock-in"],
@@ -23,7 +25,8 @@ const products = [
   },
   {
     num: "03",
-    name: "SaaS Architecture Core",
+    name: "Enterprise Software Core",
+    slug: "enterprise-applications",
     desc: "Multi-tenant SaaS architecture engineered for 10× growth without a rewrite. We own the full stack — CI/CD, schema design, multi-AZ resilience — from day one.",
     outcome: "99.9%+ uptime · 10× scale capacity",
     tags: ["AWS", "Node.js", "PostgreSQL", "Microservices"],
@@ -32,6 +35,7 @@ const products = [
   {
     num: "04",
     name: "Real-Time Intelligence",
+    slug: "data-engineering",
     desc: "Unified data infrastructure that converts fragmented silos into a live decision engine. Sub-100ms query response across your entire business dataset.",
     outcome: "Sub-100ms · 100% data visibility",
     tags: ["Kafka", "BigQuery", "dbt", "Snowflake"],
@@ -40,6 +44,7 @@ const products = [
   {
     num: "05",
     name: "AI-First Mobile Edge",
+    slug: "mobile-app-development",
     desc: "Native iOS and Android apps with embedded AI features — in-app agents, personalization layers, and predictive UX built in from the architecture level.",
     outcome: "App Store launch in 10 weeks",
     tags: ["React Native", "Swift", "On-device AI", "Edge"],
@@ -48,6 +53,7 @@ const products = [
   {
     num: "06",
     name: "High-Performance Web",
+    slug: "web-development",
     desc: "Headless, composable web platforms optimised for Core Web Vitals and AI search engine discovery. Structured for AEO, GEO, and programmatic SEO at scale.",
     outcome: "Conversion rates doubled through performance",
     tags: ["Next.js", "Vercel Edge", "AEO/GEO", "Headless CMS"],
@@ -113,9 +119,12 @@ const ServicesSection = () => {
                 </span>
               </div>
 
-              <h3 className="font-display font-semibold text-xl leading-snug mb-3 text-white">
-                {p.name}
-              </h3>
+              <Link to={`/services/${p.slug}`} className="group flex items-center justify-between mb-3">
+                <h3 className="font-display font-semibold text-xl leading-snug text-white transition-colors group-hover:text-[var(--pearl)]">
+                  {p.name}
+                </h3>
+                <ArrowUpRight className="text-white/20 transition-all group-hover:text-[var(--pearl)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" size={20} />
+              </Link>
               <p className="font-body text-sm leading-relaxed text-white/60 mb-8">
                 {p.desc}
               </p>

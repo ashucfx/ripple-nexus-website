@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logoMark from "@/assets/logo-icon-mark.svg";
 
 const navLinks = [
-  { label: "Services", href: "/platform" },
+  { label: "Platform", href: "/platform" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "About", href: "/about" },
 ];
@@ -21,7 +21,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isActive = (href: string) => location.pathname === href;
+  const isActive = (href: string) => location.pathname === href || location.pathname.startsWith(`${href}/`);
 
   return (
     <nav
@@ -41,7 +41,7 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
           <img
             src={logoMark}
-            alt=""
+            alt="Ripple Nexus Logo"
             aria-hidden="true"
             className="w-8 h-8 object-contain"
           />
@@ -56,18 +56,16 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Desktop Links — Centered */}
+        {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               to={link.href}
-              className="font-body text-[13px] font-medium tracking-wide transition-colors duration-200 relative"
+              className="font-body text-[13px] font-medium tracking-wide transition-colors duration-200 relative group"
               style={{ color: isActive(link.href) ? "var(--pearl)" : "var(--graphite-300)" }}
-              onMouseEnter={e => (e.currentTarget.style.color = "var(--pearl)")}
-              onMouseLeave={e => (e.currentTarget.style.color = isActive(link.href) ? "var(--pearl)" : "var(--graphite-300)")}
             >
-              {link.label}
+              <span className="group-hover:text-[var(--pearl)] transition-colors">{link.label}</span>
               {isActive(link.href) && (
                 <span
                   className="absolute -bottom-1 left-0 right-0 h-px"
@@ -82,40 +80,28 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-4">
           <Link
             to="/contact"
-            className="font-body text-[13px] font-medium tracking-wide transition-colors duration-200"
+            className="font-body text-[13px] font-medium tracking-wide transition-colors duration-200 hover:text-[var(--pearl)]"
             style={{ color: "var(--graphite-300)" }}
-            onMouseEnter={e => (e.currentTarget.style.color = "var(--pearl)")}
-            onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-300)")}
           >
             Contact
           </Link>
           <a
             href="/#lead-form"
-            className="font-body font-semibold text-[13px] px-6 py-2.5 rounded-md transition-all duration-300"
+            className="font-body font-semibold text-[13px] px-6 py-2.5 rounded-md transition-all duration-300 hover:-translate-y-px"
             style={{
               background: "var(--nexus-violet)",
               color: "#fff",
               boxShadow: "0 4px 14px 0 rgba(124,92,255,0.35)",
             }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = "var(--violet-hover)";
-              e.currentTarget.style.boxShadow = "0 6px 20px 0 rgba(124,92,255,0.5)";
-              e.currentTarget.style.transform = "translateY(-1px)";
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = "var(--nexus-violet)";
-              e.currentTarget.style.boxShadow = "0 4px 14px 0 rgba(124,92,255,0.35)";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
           >
-            Book a Call
+            Book Assessment
           </a>
         </div>
 
         {/* Mobile Toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden transition-colors duration-200 p-1"
+          className="md:hidden transition-colors duration-200 p-1 hover:text-[var(--pearl)]"
           style={{ color: "var(--graphite-300)" }}
           aria-label="Toggle menu"
         >
@@ -144,7 +130,7 @@ const Navbar = () => {
                   key={link.label}
                   to={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="font-body text-sm font-medium transition-colors duration-200 py-1"
+                  className="font-body text-sm font-medium transition-colors duration-200 py-1 hover:text-[var(--pearl)]"
                   style={{ color: isActive(link.href) ? "var(--pearl)" : "var(--graphite-300)" }}
                 >
                   {link.label}
@@ -159,7 +145,7 @@ const Navbar = () => {
                   color: "#fff",
                 }}
               >
-                Book a Call
+                Book Assessment
               </a>
             </div>
           </motion.div>

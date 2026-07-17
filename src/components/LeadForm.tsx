@@ -5,12 +5,13 @@ import { useGeoCountry } from "../hooks/use-geo-country";
 import { INR_BUDGET_OPTIONS, USD_BUDGET_OPTIONS } from "../lib/rns-country";
 
 const challengeOptions = [
-  "Website & Digital Presence",
-  "App Development (Mobile/Cloud)",
-  "Software / SaaS Development",
-  "ERP / CMS Systems",
-  "AI & Chatbot Solutions",
-  "Automation & Process Optimization",
+  "Deploy AI Agents",
+  "Workflow & Process Automation",
+  "Custom Enterprise Software",
+  "Data Engineering & BI",
+  "Legacy System Modernization",
+  "Technical SEO & AEO/GEO",
+  "Digital Transformation Consulting",
   "Other",
 ];
 
@@ -161,27 +162,29 @@ const LeadForm = () => {
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-primary font-medium text-sm tracking-wide uppercase mb-4"
+            className="inline-block font-medium text-sm tracking-wide uppercase mb-4"
+            style={{ color: "var(--nexus-violet)" }}
           >
-            Start a Conversation
+            AI Readiness Assessment
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4"
+            className="text-3xl sm:text-4xl font-display font-bold mb-4 text-[var(--pearl)]"
           >
-            Describe Your <span className="text-gradient">Technical Challenge</span>
+            Request your <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}>Strategy Session</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="text-muted-foreground text-lg"
+            className="text-lg"
+            style={{ color: "var(--graphite-300)" }}
           >
-            We engage with companies investing seriously in engineering outcomes. Share your requirements and a senior architect will respond within 24 hours.
+            We engage with organizations investing seriously in AI and digital transformation. Share your operational challenges, and a senior architect will review your submission and respond within 24 hours.
           </motion.p>
         </div>
 
@@ -376,7 +379,26 @@ const LeadForm = () => {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-xl font-semibold text-base whitespace-nowrap hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02] transition-all duration-300 shadow-md disabled:opacity-60 disabled:hover:scale-100"
+            className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base whitespace-nowrap transition-all duration-300 disabled:opacity-60 disabled:hover:scale-100"
+            style={{
+              background: "var(--nexus-violet)",
+              color: "#fff",
+              boxShadow: "0 8px 32px -4px rgba(124,92,255,0.45)",
+            }}
+            onMouseEnter={e => {
+              if (status !== "submitting") {
+                e.currentTarget.style.background = "var(--violet-hover)";
+                e.currentTarget.style.transform = "translateY(-1px)";
+                e.currentTarget.style.boxShadow = "0 12px 40px -4px rgba(124,92,255,0.55)";
+              }
+            }}
+            onMouseLeave={e => {
+              if (status !== "submitting") {
+                e.currentTarget.style.background = "var(--nexus-violet)";
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 8px 32px -4px rgba(124,92,255,0.45)";
+              }
+            }}
           >
             {status === "submitting" ? (
               <>

@@ -16,6 +16,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import CancellationPolicy from "./pages/CancellationPolicy";
 import ServiceSilo from "./pages/ServiceSilo";
+import IndustrySilo from "./pages/IndustrySilo";
 import GeoService from "./pages/GeoService";
 import AdminPanel from "./pages/AdminPanel";
 
@@ -39,17 +40,12 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/services/:slug" element={<ServiceSilo />} />
+          <Route path="/industries/:slug" element={<IndustrySilo />} />
           <Route path="/locations/:country/:service" element={<GeoService />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/cancellation-policy" element={<CancellationPolicy />} />
           <Route path="/admin" element={<AdminPanel />} />
-          {/* Redirect old fake URLs to homepage */}
-          <Route path="/login" element={<Index />} />
-          <Route path="/docs" element={<Index />} />
-          <Route path="/changelog" element={<Index />} />
-          <Route path="/reliability" element={<Index />} />
-          <Route path="/security" element={<Index />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

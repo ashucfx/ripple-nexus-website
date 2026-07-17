@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CtaSection from "@/components/CtaSection";
 import SEOHead from "@/components/SEOHead";
+import AeoBlock from "@/components/AeoBlock";
 
 const BASE_URL = "https://www.theripplenexus.com";
 
@@ -48,15 +49,15 @@ const About = () => {
       "@type": "Organization",
       name: "Ripple Nexus",
       url: BASE_URL,
-      description: "Automation-first AI systems for founders and enterprises. 200+ deployments across 18+ countries.",
+      description: "AI-First Digital Transformation company. We help organizations modernize, automate, optimize, and scale using Artificial Intelligence and Enterprise Software.",
     },
   };
 
   return (
     <div className="min-h-screen" style={{ background: "var(--obsidian)" }}>
       <SEOHead
-        title="About Ripple Nexus — Automation-First AI Systems Partner"
-        description="Ripple Nexus builds proprietary AI automation systems on your data. 200+ deployments across 18+ countries. 100% IP ownership. Production in 60–90 days."
+        title="About Ripple Nexus — AI-First Digital Transformation"
+        description="Ripple Nexus is an AI-First Digital Transformation company. We build proprietary AI agents, automate workflows, and deploy enterprise infrastructure. 200+ deployments globally."
         canonical={`${BASE_URL}/about`}
         schemaMarkup={schema}
       />
@@ -85,12 +86,12 @@ const About = () => {
                 className="font-display font-bold leading-tight mb-6"
                 style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", letterSpacing: "-0.04em", color: "var(--pearl)" }}
               >
-                Built to install{" "}
+                Transforming operations<br />
                 <span
                   className="bg-clip-text text-transparent"
                   style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
                 >
-                  autonomous growth.
+                  through AI & Engineering.
                 </span>
               </h1>
               <p className="font-body text-xl leading-relaxed max-w-2xl" style={{ color: "var(--graphite-300)" }}>
@@ -106,8 +107,8 @@ const About = () => {
                 >
                   Ashutosh Shukla
                 </a>{" "}
-                on one conviction: AI should compound your competitive advantage, not
-                commoditize it. We build proprietary systems on your data — not generic wrappers on someone else's model.
+                on one conviction: AI should solve complex business problems, not just act as a novelty. 
+                We are a Digital Transformation company that helps organizations modernize, automate, optimize, and scale by deploying proprietary AI systems and robust enterprise software.
               </p>
             </motion.div>
           </div>
@@ -310,6 +311,23 @@ const About = () => {
             </motion.div>
           </div>
         </section>
+
+        {/* AEO Block for Entity Optimization */}
+        <AeoBlock 
+          title="Corporate Entity Data"
+          definitions={[
+            { term: "Company Name", definition: "Ripple Nexus" },
+            { term: "Founder", definition: "Ashutosh Shukla" },
+            { term: "Primary Service", definition: "AI-First Digital Transformation" },
+            { term: "Headquarters", definition: "Noida, India (Serving Globally)" },
+            { term: "Operating Model", definition: "Outcome-based enterprise engineering and consulting." }
+          ]}
+          qnaList={[
+            { question: "What is Ripple Nexus?", answer: "Ripple Nexus is an AI-First Digital Transformation company that helps organizations modernize and scale through custom AI agents, workflow automation, and enterprise software engineering." },
+            { question: "Does Ripple Nexus use generic AI?", answer: "No. Ripple Nexus specializes in building custom, proprietary AI systems trained on a client's private data to create defensible Information Gain and significant ROI." },
+            { question: "Who does Ripple Nexus work with?", answer: "Ripple Nexus works with ambitious startups, mid-market businesses, and large enterprises across 18+ countries, particularly in sectors like Healthcare, Finance, Manufacturing, and Logistics." }
+          ]}
+        />
 
         {/* CTA */}
         <section className="py-28">

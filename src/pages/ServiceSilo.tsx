@@ -3,27 +3,32 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import CtaSection from "@/components/CtaSection";
+import { servicesData } from "@/data/services";
+import NotFound from "./NotFound";
 
 const ServiceSilo = () => {
   const { slug } = useParams();
+  
+  const service = servicesData.find(s => s.slug === slug);
 
-  const formattedTitle = slug
-    ? slug.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")
-    : "AI Automation Systems";
+  if (!service) {
+    return <NotFound />;
+  }
 
   const serviceSchema = {
     "@context": "https://schema.org/",
     "@type": "Service",
-    serviceType: formattedTitle,
-    provider: { "@type": "Organization", name: "Ripple Nexus", url: "https://www.theripplenexus.com" },
-    areaServed: { "@type": "Country", name: "Worldwide" },
-    hasOfferCatalog: {
+    "name": `${service.title} | Ripple Nexus`,
+    "description": service.overview,
+    "provider": { "@type": "Organization", "name": "Ripple Nexus", "url": "https://www.theripplenexus.com" },
+    "areaServed": { "@type": "Country", "name": "Worldwide" },
+    "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      name: `${formattedTitle} Systems`,
-      itemListElement: [
+      "name": `${service.title} Services`,
+      "itemListElement": [
         {
           "@type": "Offer",
-          itemOffered: { "@type": "Service", name: `Enterprise ${formattedTitle}` },
+          "itemOffered": { "@type": "Service", "name": `Enterprise ${service.title}` },
         },
       ],
     },
@@ -32,8 +37,8 @@ const ServiceSilo = () => {
   return (
     <div className="min-h-screen" style={{ background: "var(--obsidian)" }}>
       <SEOHead
-        title={`${formattedTitle} | Proprietary AI Systems by Ripple Nexus`}
-        description={`Build proprietary ${formattedTitle.toLowerCase()} on your data. Open-standard architecture, 100% IP ownership, production deployment in 60–90 days. Verifiable ROI.`}
+        title={`${service.title} | AI & Digital Transformation | Ripple Nexus`}
+        description={service.overview}
         canonical={`https://www.theripplenexus.com/services/${slug}`}
         schemaMarkup={serviceSchema}
       />
@@ -50,85 +55,132 @@ const ServiceSilo = () => {
               background: "radial-gradient(ellipse at top, rgba(124,92,255,0.12) 0%, transparent 65%)",
             }}
           />
-          <p className="eyebrow mb-6">System Catalogue</p>
+          <p className="eyebrow mb-6">{service.category}</p>
           <h1
             className="font-display font-bold leading-tight mb-6"
             style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", letterSpacing: "-0.04em", color: "var(--pearl)" }}
           >
-            Enterprise{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{ backgroundImage: "linear-gradient(135deg, #7C5CFF 0%, #B794FF 55%, #22D3EE 100%)" }}
             >
-              {formattedTitle}
+              {service.title}
             </span>
           </h1>
           <p
             className="font-body text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
             style={{ color: "var(--graphite-300)" }}
           >
-            Proprietary {formattedTitle.toLowerCase()} built on your data.
-            Open-standard architecture. 100% IP ownership on delivery. Production in 60–90 days.
+            {service.overview}
           </p>
         </section>
 
         {/* Content */}
-        <section className="section-padding max-w-3xl mx-auto mb-20">
-          <div
-            className="p-8 rounded-xl space-y-6"
-            style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)" }}
-          >
-            <div>
+        <section className="section-padding max-w-4xl mx-auto mb-20 space-y-12">
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Challenges */}
+            <div
+              className="p-8 rounded-xl space-y-6"
+              style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)" }}
+            >
               <h2
                 className="font-display font-bold text-xl mb-3"
                 style={{ color: "var(--pearl)", letterSpacing: "-0.02em" }}
               >
-                Why Choose Ripple Nexus for {formattedTitle}?
+                Business Challenges We Solve
               </h2>
-              <p className="font-body text-sm leading-relaxed" style={{ color: "var(--graphite-300)" }}>
-                When investing in <strong style={{ color: "var(--pearl)" }}>{formattedTitle.toLowerCase()}</strong>,
-                companies face the technical debt of rushed configurations and poorly scoped architectures.
-                We eliminate that risk. Our discovery process ensures the infrastructure we build is
-                exactly what your next stage of growth demands.
-              </p>
-            </div>
-
-            <div style={{ borderTop: "1px solid var(--graphite-600)", paddingTop: "1.5rem" }}>
-              <h3
-                className="font-display font-bold text-base mb-3"
-                style={{ color: "var(--pearl)", letterSpacing: "-0.015em" }}
-              >
-                Open-Standard Architecture
-              </h3>
-              <p className="font-body text-sm leading-relaxed" style={{ color: "var(--graphite-400)" }}>
-                Built on Make, n8n, Python, and open APIs — not proprietary black boxes.
-                Every workflow, every agent, every data pipeline stays yours forever.
-                Walk away with 100% of the IP, any time.
-              </p>
-            </div>
-
-            <div style={{ borderTop: "1px solid var(--graphite-600)", paddingTop: "1.5rem" }}>
-              <h3
-                className="font-display font-bold text-base mb-4"
-                style={{ color: "var(--pearl)", letterSpacing: "-0.015em" }}
-              >
-                Implementation Phases
-              </h3>
-              <ul className="space-y-3">
-                {[
-                  ["Discovery & Architecture", "Mapping data flows, automation opportunities, and scale requirements."],
-                  ["Engineered Development", "Clean, production-grade systems built on open standards."],
-                  ["QA & Stress Testing", "High-load simulations before any production deployment."],
-                  ["Deployment & Handover", "Zero-downtime rollout with full IP transfer on delivery."],
-                ].map(([label, desc]) => (
-                  <li key={label} className="flex items-start gap-3">
-                    <span className="font-mono text-xs mt-0.5 shrink-0" style={{ color: "var(--nexus-violet)" }}>—</span>
+              <ul className="space-y-4">
+                {service.businessChallenges.map((challenge, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="font-mono text-xs mt-0.5 shrink-0" style={{ color: "rgba(244,63,94,0.8)" }}>—</span>
                     <span className="font-body text-sm leading-relaxed" style={{ color: "var(--graphite-300)" }}>
-                      <strong style={{ color: "var(--pearl)" }}>{label}:</strong> {desc}
+                      {challenge}
                     </span>
                   </li>
                 ))}
               </ul>
+            </div>
+
+            {/* Benefits */}
+            <div
+              className="p-8 rounded-xl space-y-6"
+              style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)" }}
+            >
+              <h2
+                className="font-display font-bold text-xl mb-3"
+                style={{ color: "var(--pearl)", letterSpacing: "-0.02em" }}
+              >
+                Expected ROI & Benefits
+              </h2>
+              <ul className="space-y-4">
+                {service.benefits.map((benefit, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="font-mono text-xs mt-0.5 shrink-0" style={{ color: "var(--quantum-lime)" }}>✓</span>
+                    <span className="font-body text-sm leading-relaxed" style={{ color: "var(--graphite-300)" }}>
+                      {benefit}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Solution & Delivery */}
+          <div
+            className="p-8 rounded-xl"
+            style={{ background: "var(--ink)", border: "1px solid var(--graphite-600)" }}
+          >
+            <div className="mb-10">
+              <h3 className="font-display font-bold text-2xl mb-4" style={{ color: "var(--pearl)" }}>
+                Solution Overview
+              </h3>
+              <p className="font-body text-base leading-relaxed" style={{ color: "var(--graphite-300)" }}>
+                {service.solutionOverview}
+              </p>
+            </div>
+            
+            <div className="mb-10 pt-10" style={{ borderTop: "1px solid var(--graphite-600)" }}>
+              <h3 className="font-display font-bold text-2xl mb-4" style={{ color: "var(--pearl)" }}>
+                How We Deliver
+              </h3>
+              <p className="font-body text-base leading-relaxed" style={{ color: "var(--graphite-300)" }}>
+                {service.howWeDeliver}
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-10 pt-10" style={{ borderTop: "1px solid var(--graphite-600)" }}>
+              <div>
+                <h4 className="font-body font-semibold text-sm mb-4 uppercase tracking-wider text-[var(--pearl)]">Deliverables</h4>
+                <ul className="space-y-3">
+                  {service.deliverables.map((item, i) => (
+                    <li key={i} className="font-body text-sm leading-relaxed text-[var(--graphite-300)] flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--nexus-violet)]" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-body font-semibold text-sm mb-4 uppercase tracking-wider text-[var(--pearl)]">Technical Specifications</h4>
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <span className="font-mono text-xs text-[var(--graphite-400)] block mb-1">Timeline</span>
+                    <span className="font-body text-sm text-[var(--pearl)]">{service.timeline}</span>
+                  </div>
+                  <div>
+                    <span className="font-mono text-xs text-[var(--graphite-400)] block mb-2">Technology Stack</span>
+                    <div className="flex flex-wrap gap-2">
+                      {service.technologyStack.map((tech, i) => (
+                        <span key={i} className="font-mono text-[0.65rem] px-2 py-1 rounded bg-white/5 border border-white/10 text-white/70">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>

@@ -40,8 +40,8 @@ const Footer = () => {
               </span>
             </Link>
             <p className="font-body text-[15px] leading-relaxed mb-5" style={{ color: "var(--graphite-400)" }}>
-              Automation-first AI systems for founders and enterprises who refuse to
-              operate below their potential. Trusted by 200+ companies across 18+ countries.
+              AI-First Digital Transformation systems for organizations that demand operational supremacy. 
+              We engineer predictive intelligence, workflow automation, and enterprise infrastructure.
             </p>
             <div className="flex flex-wrap gap-2 mb-8">
               {["Security-First", "100% IP Ownership", "18+ Countries"].map((badge) => (
@@ -89,28 +89,52 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Explore Column */}
           <div className="lg:col-span-3 lg:col-start-7">
             <h4
               className="font-body font-bold text-sm tracking-wider uppercase mb-7"
               style={{ color: "var(--pearl)" }}
             >
-              Explore
+              Capabilities
             </h4>
             <nav className="flex flex-col gap-4 text-[15px]">
               {[
-                { to: "/platform", label: "Capabilities" },
-                { to: "/case-studies", label: "Case Studies" },
+                { to: "/services/ai-agents", label: "AI Agents" },
+                { to: "/services/ai-workflow-automation", label: "Workflow Automation" },
+                { to: "/services/enterprise-applications", label: "Enterprise Software" },
+                { to: "/services/data-engineering", label: "Data Engineering" },
+                { to: "/platform", label: "View All Capabilities" },
+              ].map(({ to, label }) => (
+                <Link
+                  key={label}
+                  to={to}
+                  className="transition-colors duration-200 hover:text-[var(--pearl)]"
+                  style={{ color: "var(--graphite-400)" }}
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Company Column */}
+          <div className="lg:col-span-2">
+            <h4
+              className="font-body font-bold text-sm tracking-wider uppercase mb-7"
+              style={{ color: "var(--pearl)" }}
+            >
+              Company
+            </h4>
+            <nav className="flex flex-col gap-4 text-[15px]">
+              {[
                 { to: "/about", label: "About Us" },
+                { to: "/case-studies", label: "Case Studies" },
                 { to: "/contact", label: "Contact" },
               ].map(({ to, label }) => (
                 <Link
                   key={label}
                   to={to}
-                  className="transition-colors duration-200"
+                  className="transition-colors duration-200 hover:text-[var(--pearl)]"
                   style={{ color: "var(--graphite-400)" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--pearl)")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-400)")}
                 >
                   {label}
                 </Link>
@@ -150,7 +174,7 @@ const Footer = () => {
               © {new Date().getFullYear()} Ripple Nexus. All rights reserved.
             </p>
             <p className="font-body text-[12px] mt-1" style={{ color: "var(--graphite-500)" }}>
-              Building growth systems for the world's most ambitious companies.
+              Engineered for Enterprise scale. Delivered with startup velocity.
             </p>
           </div>
           <div className="flex items-center gap-6 text-[14px] font-medium">
