@@ -44,6 +44,38 @@ export default async function handler(req, res) {
       },
     });
 
+    // Save lead to Supabase database
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+    if (supabaseUrl && supabaseKey) {
+      try {
+        await fetch(`${supabaseUrl}/rest/v1/rns_leads`, {
+          method: 'POST',
+          headers: {
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            full_name,
+            email,
+            phone,
+            company_name,
+            business_website,
+            business_stage,
+            primary_challenge,
+            budget_range,
+            timeline,
+            project_description
+          })
+        });
+      } catch (err) {
+        console.error("Failed to save lead to database:", err);
+        // Continue to send email even if DB insert fails
+      }
+    }
+
     const htmlTemplate = `
       <!DOCTYPE html>
       <html>

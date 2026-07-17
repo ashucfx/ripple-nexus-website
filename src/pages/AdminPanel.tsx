@@ -9,7 +9,7 @@ import {
   Users, CreditCard, Calendar, Settings, TrendingUp, CheckCircle,
   XCircle, ChevronDown, ChevronUp, Loader2, LogOut, Plus,
   BarChart3, RefreshCw, Trash2, AlertTriangle, Search, DollarSign,
-  IndianRupee, Clock, Activity, Shield, Briefcase, ExternalLink,
+  IndianRupee, Clock, Activity, Shield, Briefcase, ExternalLink, Download, Database,
 } from 'lucide-react';
 import type { AdminApplicant } from '@/lib/scheduler-types';
 
@@ -533,6 +533,161 @@ function ApplicantsTab({
   );
 }
 
+// ── Leads Tab ─────────────────────────────────────────────────────────────
+
+type Lead = {
+  id: string;
+  full_name: string;
+  email: string;
+  phone: string;
+  company_name: string;
+  business_website: string;
+  business_stage: string;
+  primary_challenge: string;
+  budget_range: string;
+  timeline: string;
+  project_description: string;
+  created_at: string;
+};
+
+function LeadsTab({
+  leads, loading, onRefresh, onDelete
+}: {
+  leads: Lead[];
+  loading: boolean;
+  onRefresh: () => void;
+  onDelete: (id: string) => Promise<void>;
+}) {
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
+  const [confirm, setConfirm] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
+
+  const filtered = leads.filter(l => 
+    !search || 
+    l.full_name?.toLowerCase().includes(search.toLowerCase()) || 
+    l.email?.toLowerCase().includes(search.toLowerCase()) ||
+    l.company_name?.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const handleDelete = async (id: string) => {
+    setDeleting(id);
+    await onDelete(id);
+    setDeleting(null);
+    setConfirm(null);
+    setExpanded(null);
+  };
+
+  const exportCSV = () => {
+    if (leads.length === 0) return;
+    const headers = ['Date', 'Name', 'Email', 'Phone', 'Company', 'Website', 'Stage', 'Challenge', 'Budget', 'Timeline', 'Description'];
+    const rows = leads.map(l => [
+      new Date(l.created_at).toLocaleString(),
+      `"${(l.full_name || '').replace(/"/g, '""')}"`,
+      `"${(l.email || '').replace(/"/g, '""')}"`,
+      `"${(l.phone || '').replace(/"/g, '""')}"`,
+      `"${(l.company_name || '').replace(/"/g, '""')}"`,
+      `"${(l.business_website || '').replace(/"/g, '""')}"`,
+      `"${(l.business_stage || '').replace(/"/g, '""')}"`,
+      `"${(l.primary_challenge || '').replace(/"/g, '""')}"`,
+      `"${(l.budget_range || '').replace(/"/g, '""')}"`,
+      `"${(l.timeline || '').replace(/"/g, '""')}"`,
+      `"${(l.project_description || '').replace(/"/g, '""')}"`
+    ]);
+    const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `rns_leads_${new Date().toISOString().slice(0,10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  return (
+    <div>
+      {confirm && (
+        <ConfirmDialog
+          message="Delete this lead? This cannot be undone."
+          onConfirm={() => handleDelete(confirm)}
+          onCancel={() => setConfirm(null)}
+        />
+      )}
+
+      <div className="flex flex-col sm:flex-row gap-3 mb-5">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search leads..."
+            className="w-full bg-background border border-border rounded-xl pl-9 pr-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-[#1f56d4]/40"
+          />
+        </div>
+        <div className="flex gap-2 shrink-0">
+          <button onClick={onRefresh} disabled={loading} className="px-3 py-2.5 bg-card border border-border rounded-xl text-muted-foreground hover:text-foreground transition-colors">
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+          </button>
+          <button onClick={exportCSV} className="flex items-center gap-2 px-4 py-2.5 bg-[#3FBD8B] hover:bg-[#34a275] text-white font-bold rounded-xl text-sm transition-colors">
+            <Download className="w-3.5 h-3.5" /> Export CSV
+          </button>
+        </div>
+      </div>
+
+      {loading ? (
+        <div className="py-16 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto text-muted-foreground" /></div>
+      ) : (
+        <div className="space-y-2">
+          {filtered.map(l => (
+            <div key={l.id} className="bg-card border border-border rounded-xl overflow-hidden hover:border-white/15 transition-colors">
+              <div className="flex items-center justify-between p-4 cursor-pointer" onClick={() => setExpanded(expanded === l.id ? null : l.id)}>
+                <div className="min-w-0">
+                  <p className="font-semibold text-foreground text-sm truncate">{l.full_name}</p>
+                  <p className="text-xs text-muted-foreground truncate">{l.email} · {l.company_name}</p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0 ml-3">
+                  <span className="hidden sm:inline text-xs text-muted-foreground">{new Date(l.created_at).toLocaleDateString()}</span>
+                  <button onClick={(e) => { e.stopPropagation(); setConfirm(l.id); }} disabled={deleting === l.id} className="p-1.5 text-muted-foreground hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10">
+                    {deleting === l.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
+                  </button>
+                  {expanded === l.id ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
+                </div>
+              </div>
+              <AnimatePresence>
+                {expanded === l.id && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="border-t border-border overflow-hidden">
+                    <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Challenge</p>
+                        <p className="text-foreground">{l.primary_challenge || '—'}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Budget · Timeline</p>
+                        <p className="text-foreground">{l.budget_range} · {l.timeline}</p>
+                      </div>
+                      <div className="sm:col-span-2">
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">Description</p>
+                        <p className="text-foreground/80 leading-relaxed text-xs">{l.project_description || '—'}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+          {filtered.length === 0 && (
+            <div className="text-center py-16 text-muted-foreground text-sm">
+              No leads found.
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Slots Tab ─────────────────────────────────────────────────────────────
 
 type Slot = { id: string; slot_date: string; start_time: string; end_time: string; is_available: boolean };
@@ -934,7 +1089,7 @@ function ClientForgeTab() {
 
 // ── Main Admin Dashboard ──────────────────────────────────────────────────
 
-type Tab = 'overview' | 'applicants' | 'slots' | 'settings' | 'clientforge';
+type Tab = 'overview' | 'applicants' | 'leads' | 'slots' | 'settings' | 'clientforge';
 
 export default function AdminPanel() {
   const [authed, setAuthed] = useState(false);
@@ -943,6 +1098,8 @@ export default function AdminPanel() {
   const [stats, setStats] = useState<Record<string, number>>({});
   const [applicants, setApplicants] = useState<AdminApplicant[]>([]);
   const [applicantsLoading, setApplicantsLoading] = useState(false);
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [leadsLoading, setLeadsLoading] = useState(false);
 
   const loadStats = useCallback(async () => {
     const d = await adminAction('stats').catch(() => ({}));
@@ -954,6 +1111,13 @@ export default function AdminPanel() {
     const d = await adminAction('applicants').catch(() => ({ applicants: [] }));
     setApplicants(d.applicants || []);
     setApplicantsLoading(false);
+  }, []);
+
+  const loadLeads = useCallback(async () => {
+    setLeadsLoading(true);
+    const d = await adminAction('leads').catch(() => ({ leads: [] }));
+    setLeads(d.leads || []);
+    setLeadsLoading(false);
   }, []);
 
   // Check existing token on mount
@@ -972,7 +1136,8 @@ export default function AdminPanel() {
   useEffect(() => {
     if (!authed) return;
     if (tab === 'applicants') loadApplicants();
-  }, [authed, tab, loadApplicants]);
+    if (tab === 'leads') loadLeads();
+  }, [authed, tab, loadApplicants, loadLeads]);
 
   const onLogin = async () => {
     setAuthed(true);
@@ -983,6 +1148,11 @@ export default function AdminPanel() {
     await adminAction('delete-applicant', { applicantId: id });
     setApplicants((a) => a.filter((x) => x.id !== id));
     await loadStats();
+  };
+
+  const handleDeleteLead = async (id: string) => {
+    await adminAction('delete-lead', { leadId: id });
+    setLeads((l) => l.filter((x) => x.id !== id));
   };
 
   const handlePurgeAll = async () => {
@@ -1011,6 +1181,7 @@ export default function AdminPanel() {
   const TABS: { key: Tab; label: string; icon: React.ReactNode; badge?: number; highlight?: boolean }[] = [
     { key: 'overview',     label: 'Overview',      icon: <BarChart3 className="w-4 h-4" /> },
     { key: 'applicants',   label: 'Applicants',    icon: <Users className="w-4 h-4" />, badge: stats.totalApplicants },
+    { key: 'leads',        label: 'Leads',         icon: <Database className="w-4 h-4" /> },
     { key: 'slots',        label: 'Slots',         icon: <Calendar className="w-4 h-4" /> },
     { key: 'settings',     label: 'Settings',      icon: <Settings className="w-4 h-4" /> },
     { key: 'clientforge',  label: 'Client Forge',  icon: <Briefcase className="w-4 h-4" />, highlight: true },
@@ -1104,6 +1275,22 @@ export default function AdminPanel() {
                     onRefresh={loadApplicants}
                     onDelete={handleDeleteApplicant}
                     onPurgeAll={handlePurgeAll}
+                  />
+                </motion.div>
+              )}
+
+              {tab === 'leads' && (
+                <motion.div key="leads" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
+                      <Database className="w-5 h-5 text-[#1f56d4]" /> Project Leads
+                    </h2>
+                  </div>
+                  <LeadsTab
+                    leads={leads}
+                    loading={leadsLoading}
+                    onRefresh={loadLeads}
+                    onDelete={handleDeleteLead}
                   />
                 </motion.div>
               )}

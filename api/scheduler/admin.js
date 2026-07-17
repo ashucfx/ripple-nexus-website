@@ -87,6 +87,22 @@ export default async function handler(req, res) {
       return res.status(200).json({ applicants: rows || [] });
     }
 
+    // ── Leads list ─────────────────────────────────────────────────
+    if (action === 'leads') {
+      const rows = await sbSelect('rns_leads', {
+        order: 'created_at.desc',
+        limit: '500',
+      });
+      return res.status(200).json({ leads: rows || [] });
+    }
+
+    if (action === 'delete-lead') {
+      const { leadId } = body;
+      if (!leadId) return res.status(400).json({ error: 'leadId required' });
+      await sbDelete('rns_leads', { id: leadId });
+      return res.status(200).json({ success: true });
+    }
+
     // ── Settings ───────────────────────────────────────────────────
     if (action === 'settings') {
       const rows = await sbSelect('rns_settings', { select: 'key,value' });

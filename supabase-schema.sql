@@ -178,3 +178,28 @@ FROM  rns_applicants a
 LEFT JOIN rns_payments p ON p.applicant_id = a.id AND p.status = 'completed'
 LEFT JOIN rns_bookings b ON b.applicant_id = a.id AND b.status <> 'cancelled'
 ORDER BY a.created_at DESC;
+
+-- ──────────────────────────────────────────────────────────────────────
+-- 9. Leads (from Contact Form)
+-- ──────────────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS rns_leads (
+  id                  UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  full_name           TEXT        NOT NULL,
+  email               TEXT        NOT NULL,
+  phone               TEXT,
+  company_name        TEXT,
+  business_website    TEXT,
+  business_stage      TEXT,
+  primary_challenge   TEXT,
+  budget_range        TEXT,
+  timeline            TEXT,
+  project_description TEXT,
+  created_at          TIMESTAMPTZ DEFAULT NOW(),
+  updated_at          TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_rns_leads_email    ON rns_leads(email);
+CREATE INDEX IF NOT EXISTS idx_rns_leads_created  ON rns_leads(created_at DESC);
+
+ALTER TABLE rns_leads DISABLE ROW LEVEL SECURITY;
+
