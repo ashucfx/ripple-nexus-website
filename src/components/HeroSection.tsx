@@ -51,9 +51,9 @@ const HeroSection = () => {
                 lineHeight: 1.05,
               }}
             >
-              Solve Complex Problems<br />
+              Turn Complexity Into<br />
               <span className="gradient-text-vibrant">
-                Using AI.
+                Competitive Advantage.
               </span>
             </motion.h1>
 
@@ -65,8 +65,7 @@ const HeroSection = () => {
               className="font-body max-w-xl leading-relaxed mb-10"
               style={{ fontSize: "1.125rem", color: "var(--graphite-300)" }}
             >
-              We help organizations modernize, automate, optimize and scale. 
-              Deploy autonomous AI agents, enterprise software, and workflow automations that deliver measurable ROI.
+              We engineer proprietary AI agents, enterprise software, and workflow automations that scale your operations without scaling headcount. Stop paying for generic wrappers. Start building your moat.
             </motion.p>
 
             {/* CTAs */}
@@ -96,7 +95,7 @@ const HeroSection = () => {
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
                 <Calendar size={16} className="relative z-10" />
-                <span className="relative z-10">Schedule Consultation</span>
+                <span className="relative z-10">Book Strategy Session</span>
               </a>
               <a
                 href="/case-studies"
@@ -111,7 +110,7 @@ const HeroSection = () => {
                   e.currentTarget.style.background = "rgba(18,20,31,0.6)";
                 }}
               >
-                View Case Studies <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
+                View ROI Case Studies <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
               </a>
             </motion.div>
 
