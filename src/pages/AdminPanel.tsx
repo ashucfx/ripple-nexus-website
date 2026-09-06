@@ -222,19 +222,32 @@ export default function AdminPanel() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterQualified, setFilterQualified] = useState<'all' | 'qualified'>('all');
   const [expandedLead, setExpandedLead] = useState<string | null>(null);
+  const [dbWarning, setDbWarning] = useState<string | null>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const loadStats = useCallback(async () => {
-    const d = await adminAction('stats').catch(() => ({}));
-    setStats(d);
+    try {
+      const d = await adminAction('stats');
+      setStats(d || {});
+      if (d?.dbWarning) setDbWarning(d.dbWarning);
+    } catch (err: unknown) {
+      console.warn('Failed to load stats:', err);
+    }
   }, []);
 
   const loadLeads = useCallback(async () => {
     setLeadsLoading(true);
-    const d = await adminAction('leads').catch(() => ({ leads: [] }));
-    setLeads(d.leads || []);
-    setLeadsLoading(false);
+    try {
+      const d = await adminAction('leads');
+      setLeads(d?.leads || []);
+      if (d?.dbWarning) setDbWarning(d.dbWarning);
+    } catch (err: unknown) {
+      console.warn('Failed to load leads:', err);
+      setLeads([]);
+    } finally {
+      setLeadsLoading(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -243,10 +256,18 @@ export default function AdminPanel() {
     adminAction('stats')
       .then((d) => {
         setStats(d);
+        if (d?.dbWarning) setDbWarning(d.dbWarning);
         setAuthed(true);
       })
-      .catch(() => {
-        clearToken();
+      .catch((err: unknown) => {
+        const msg = err instanceof Error ? err.message : '';
+        if (msg.toLowerCase().includes('unauthorized') || msg.toLowerCase().includes('expired')) {
+          clearToken();
+        } else {
+          // If it's a database or backend issue, keep user authed and surface the warning
+          setAuthed(true);
+          setDbWarning(msg || 'Database connection issue detected.');
+        }
       })
       .finally(() => setLoading(false));
   }, []);
@@ -443,6 +464,31 @@ export default function AdminPanel() {
 
       {/* Main Content Area */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+        {/* Database Notice / Diagnostic Banner */}
+        {dbWarning && (
+          <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 flex items-start gap-3.5 shadow-[0_0_20px_rgba(245,158,11,0.1)]">
+            <Shield className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+            <div className="flex-1 text-xs font-mono">
+              <div className="font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-2">
+                <span>Database Diagnostics Alert</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300">Action Required</span>
+              </div>
+              <p className="text-amber-200/90 leading-relaxed font-sans text-xs sm:text-sm">
+                {dbWarning}
+              </p>
+              <div className="mt-3 pt-3 border-t border-amber-500/20 flex flex-wrap items-center gap-4 text-[11px]">
+                <span>Open your Supabase Dashboard &gt; <strong>SQL Editor</strong>, run <code className="bg-amber-950/70 border border-amber-500/30 px-1.5 py-0.5 rounded text-white font-mono">supabase-schema.sql</code></span>
+                <button
+                  onClick={() => { setDbWarning(null); loadStats(); loadLeads(); }}
+                  className="px-2.5 py-1 rounded-lg bg-amber-400 hover:bg-amber-300 text-black font-mono font-bold uppercase transition-colors"
+                >
+                  Re-check Connection
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* ── TAB 1: OVERVIEW ────────────────────────────────────────── */}
         {tab === 'overview' && (
           <div className="space-y-8 animate-in fade-in duration-200">

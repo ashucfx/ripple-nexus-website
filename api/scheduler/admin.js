@@ -54,25 +54,39 @@ export default async function handler(req, res) {
 
     // ── Stats ──────────────────────────────────────────────────────
     if (action === 'stats') {
-      const leads = await sbSelect('rns_leads', { select: 'id,budget_range,created_at,is_decision_maker,is_qualified' });
-      const bookings = await sbSelect('rns_bookings', { select: 'id,status' });
+      let leads = [];
+      let bookings = [];
+      let dbWarning = null;
+
+      try {
+        leads = await sbSelect('rns_leads', { select: 'id,budget_range,created_at,is_decision_maker,is_qualified' });
+      } catch (err) {
+        console.warn('[admin] rns_leads query failed:', err.message);
+        dbWarning = `Table 'rns_leads' not found or accessible (${err.message}). Ensure you have run supabase-schema.sql in your Supabase SQL Editor.`;
+      }
+
+      try {
+        bookings = await sbSelect('rns_bookings', { select: 'id,status' });
+      } catch (err) {
+        console.warn('[admin] rns_bookings query failed:', err.message);
+      }
       
-      const totalLeads = leads.length;
-      const qualifiedLeads = leads.filter(l => l.is_qualified).length;
+      const totalLeads = leads?.length || 0;
+      const qualifiedLeads = leads?.filter?.(l => l.is_qualified)?.length || 0;
       
       const oneWeekAgo = new Date();
       oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
       const oneWeekAgoStr = oneWeekAgo.toISOString();
-      const leadsThisWeek = leads.filter(l => l.created_at >= oneWeekAgoStr).length;
+      const leadsThisWeek = leads?.filter?.(l => l.created_at >= oneWeekAgoStr)?.length || 0;
       
-      const highBudgetLeads = leads.filter(l => 
+      const highBudgetLeads = leads?.filter?.(l => 
         l.budget_range && 
         (l.budget_range.includes('150k') || l.budget_range.includes('500k') || l.budget_range.includes('15,00,000') ||
          l.budget_range.includes('5k_20k') || l.budget_range.includes('20k_50k') || l.budget_range.includes('above_50k'))
-      ).length;
+      )?.length || 0;
       
-      const decisionMakers = leads.filter(l => l.is_decision_maker === true || l.is_decision_maker === 'true').length;
-      const upcomingBookings = bookings.filter(b => b.status === 'confirmed').length;
+      const decisionMakers = leads?.filter?.(l => l.is_decision_maker === true || l.is_decision_maker === 'true')?.length || 0;
+      const upcomingBookings = bookings?.filter?.(b => b.status === 'confirmed')?.length || 0;
 
       return res.status(200).json({
         totalLeads,
@@ -80,17 +94,26 @@ export default async function handler(req, res) {
         highBudgetLeads,
         decisionMakers,
         qualifiedLeads,
-        upcomingBookings
+        upcomingBookings,
+        dbWarning
       });
     }
 
     // ── Leads list ─────────────────────────────────────────────────
     if (action === 'leads') {
-      const rows = await sbSelect('rns_leads', {
-        order: 'created_at.desc',
-        limit: '500',
-      });
-      return res.status(200).json({ leads: rows || [] });
+      try {
+        const rows = await sbSelect('rns_leads', {
+          order: 'created_at.desc',
+          limit: '500',
+        });
+        return res.status(200).json({ leads: rows || [] });
+      } catch (err) {
+        console.error('[admin] leads fetch error:', err.message);
+        return res.status(200).json({
+          leads: [],
+          dbWarning: `Table 'rns_leads' not detected in database (${err.message}). Run supabase-schema.sql in your Supabase SQL Editor.`
+        });
+      }
     }
 
     if (action === 'delete-lead') {

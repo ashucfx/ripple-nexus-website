@@ -71,9 +71,12 @@ export default async function handler(req, res) {
     // Save lead to Supabase database
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+    let dbSaved = false;
+    let dbError = null;
+
     if (supabaseUrl && supabaseKey) {
       try {
-        await fetch(`${supabaseUrl}/rest/v1/rns_leads`, {
+        const dbRes = await fetch(`${supabaseUrl}/rest/v1/rns_leads`, {
           method: 'POST',
           headers: {
             'apikey': supabaseKey,
@@ -85,23 +88,35 @@ export default async function handler(req, res) {
             id: leadId,
             full_name,
             email,
-            phone,
-            company_name,
-            business_website,
-            business_stage,
-            primary_challenge,
-            budget_range,
-            timeline,
-            project_description,
+            phone: phone || null,
+            company_name: company_name || null,
+            business_website: business_website || null,
+            business_stage: business_stage || null,
+            primary_challenge: primary_challenge || null,
+            budget_range: budget_range || null,
+            timeline: timeline || null,
+            project_description: project_description || null,
             priority_score,
             is_qualified,
             is_decision_maker: !!is_decision_maker
           })
         });
+
+        if (!dbRes.ok) {
+          const errText = await dbRes.text();
+          dbError = `Supabase HTTP ${dbRes.status}: ${errText}`;
+          console.error('[contact] Supabase lead save failed:', dbError);
+        } else {
+          dbSaved = true;
+          console.log('[contact] Lead successfully inserted into Supabase rns_leads:', leadId);
+        }
       } catch (err) {
-        console.error("Failed to save lead to database:", err);
-        // Continue to send email even if DB insert fails
+        dbError = err.message;
+        console.error('[contact] Supabase network/exec error:', err);
       }
+    } else {
+      dbError = 'SUPABASE_URL or SUPABASE_SERVICE_KEY is missing from environment variables';
+      console.warn('[contact]', dbError);
     }
 
     const cleanDescription = (project_description || 'No description provided.')
@@ -261,7 +276,9 @@ export default async function handler(req, res) {
       success: true, 
       message: 'Email sent successfully!',
       leadId,
-      is_qualified 
+      is_qualified,
+      dbSaved,
+      dbError
     });
   } catch (error) {
     console.error("Error sending email:", error);
