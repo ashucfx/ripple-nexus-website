@@ -1,225 +1,204 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, Code, Brain, Database, Briefcase, Zap, Shield } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import logoMark from "@/assets/logo-icon-mark.svg";
-import { servicesData } from "@/data/services";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X, ArrowRight } from "lucide-react";
+import { telemetry } from "../analytics/telemetry";
+import logoMark from "../assets/logo-icon-mark.svg";
 
-const categories = [
-  { name: 'Artificial Intelligence', icon: <Brain className="w-4 h-4" /> },
-  { name: 'Engineering', icon: <Code className="w-4 h-4" /> },
-  { name: 'Data', icon: <Database className="w-4 h-4" /> },
-  { name: 'Infrastructure', icon: <Shield className="w-4 h-4" /> },
+interface NavItem {
+  id: string;
+  label: string;
+  event: string;
+}
+
+const NAV_ITEMS: NavItem[] = [
+  { id: "proof", label: "Proof", event: "hero_work_click" },
+  { id: "intent", label: "Problem States", event: "solution_content_view" },
+  { id: "case-studies", label: "Case Studies", event: "case_study_open" },
+  { id: "capabilities", label: "Capabilities", event: "capability_open" },
+  { id: "founder", label: "Leadership", event: "team_section_view" },
+  { id: "objections", label: "FAQ", event: "solution_content_view" },
 ];
 
-const Navbar = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      // Active section scroll spy
+      const scrollPosition = window.scrollY + 200;
+      for (const item of NAV_ITEMS) {
+        const el = document.getElementById(item.id);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(item.id);
+            break;
+          }
+        }
+      }
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close dropdowns on route change
-  useEffect(() => {
-    setServicesOpen(false);
-    setMobileOpen(false);
-  }, [location.pathname]);
-
-  const isActive = (href: string) => location.pathname === href || location.pathname.startsWith(`${href}/`);
+  const scrollTo = (id: string, eventName?: string) => {
+    setMobileMenuOpen(false);
+    if (eventName) {
+      telemetry.track(eventName as any, { section: id });
+    }
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      style={{
-        background: scrolled ? "rgba(10,11,20,0.82)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? "1px solid var(--graphite-600)" : "1px solid transparent",
-        paddingTop: scrolled ? "1rem" : "1.5rem",
-        paddingBottom: scrolled ? "1rem" : "1.5rem",
-      }}
-    >
-      <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between relative">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2.5 shrink-0 group z-50">
-          <img src={logoMark} alt="Ripple Nexus Logo" aria-hidden="true" className="w-8 h-8 object-contain" />
-          <span className="font-display font-bold text-xl tracking-tight" style={{ letterSpacing: "-0.03em", color: "var(--pearl)" }}>
-            Ripple <span style={{ color: "var(--graphite-300)" }}>Nexus</span>
-          </span>
+    <header className="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-5xl pointer-events-none transition-all duration-300 flex flex-col items-center">
+      {/* 2026 Modern Floating Island Capsule with Precision Corner Edges */}
+      <div
+        className={`relative w-full pointer-events-auto rounded-2xl border transition-all duration-300 flex items-center justify-between gap-3 sm:gap-4 px-3.5 sm:px-5 py-2 sm:py-2.5 ${
+          scrolled
+            ? "bg-[#07080D]/95 backdrop-blur-2xl border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.92),inset_0_1px_0_0_rgba(255,255,255,0.2)]"
+            : "bg-[#07080D]/85 backdrop-blur-xl border-white/12 shadow-[0_12px_36px_rgba(0,0,0,0.75),inset_0_1px_0_0_rgba(255,255,255,0.12)]"
+        }`}
+      >
+        {/* 2026 Modern Precision Corner Edge Accents with Neon Cyan Highlights */}
+        <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t-2 border-l-2 border-[#00F0FF] rounded-tl-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
+        <span className="absolute -top-px -right-px w-3.5 h-3.5 border-t-2 border-r-2 border-[#00F0FF] rounded-tr-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
+        <span className="absolute -bottom-px -left-px w-3.5 h-3.5 border-b-2 border-l-2 border-[#00F0FF] rounded-bl-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
+        <span className="absolute -bottom-px -right-px w-3.5 h-3.5 border-b-2 border-r-2 border-[#00F0FF] rounded-br-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
+
+        {/* Dynamic Specular Highlights */}
+        <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#00F0FF]/50 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-12 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-[#7C5CFF]/30 to-transparent pointer-events-none" />
+
+        {/* Brand Lockup */}
+        <Link
+          to="/"
+          className="flex items-center gap-2.5 sm:gap-3 text-left focus:outline-none group shrink-0"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <div className="w-8 h-8 rounded-xl bg-[#12141F] border border-white/15 flex items-center justify-center p-1.5 transition-all duration-300 group-hover:scale-105 group-hover:border-[#00F0FF]/60 group-hover:shadow-[0_0_18px_rgba(0,240,255,0.4)] shrink-0">
+            <img
+              src={logoMark}
+              alt="Ripple Nexus"
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <div className="flex flex-col justify-center">
+            <span className="font-display font-bold text-sm sm:text-base tracking-tight text-white uppercase leading-none whitespace-nowrap">
+              Ripple Nexus
+            </span>
+            <span className="font-mono text-[9px] text-[#00F0FF] tracking-widest uppercase leading-none mt-1 hidden sm:block whitespace-nowrap font-semibold">
+              Digital Systems Engineering
+            </span>
+          </div>
         </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-          
-          {/* Services Dropdown */}
-          <div 
-            className="relative"
-            onMouseEnter={() => setServicesOpen(true)}
-            onMouseLeave={() => setServicesOpen(false)}
-          >
-            <button
-              className="flex items-center gap-1.5 font-body text-[13px] font-medium tracking-wide transition-colors duration-200 py-2"
-              style={{ color: isActive('/services') || servicesOpen ? "var(--pearl)" : "var(--graphite-300)" }}
-            >
-              Services
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`} />
-            </button>
-            
-            <AnimatePresence>
-              {servicesOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 5, scale: 0.98 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[600px] rounded-2xl overflow-hidden shadow-2xl"
-                  style={{
-                    background: "rgba(15, 17, 26, 0.95)",
-                    backdropFilter: "blur(20px)",
-                    border: "1px solid var(--graphite-600)",
-                  }}
-                >
-                  <div className="p-6 grid grid-cols-2 gap-x-8 gap-y-6">
-                    {categories.map(cat => {
-                      const catServices = servicesData.filter(s => s.category === cat.name).slice(0, 4);
-                      if (catServices.length === 0) return null;
-                      return (
-                        <div key={cat.name}>
-                          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider mb-3" style={{ color: "var(--nexus-violet)" }}>
-                            {cat.icon} {cat.name}
-                          </div>
-                          <ul className="space-y-2.5">
-                            {catServices.map(s => (
-                              <li key={s.slug}>
-                                <Link 
-                                  to={`/services/${s.slug}`}
-                                  className="block text-sm font-medium transition-colors hover:text-white"
-                                  style={{ color: "var(--graphite-300)" }}
-                                >
-                                  {s.title}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+        {/* Center Desktop Navigation Links with Active Spy Pill */}
+        <nav className="hidden lg:flex items-center gap-1 font-mono text-xs uppercase tracking-wider whitespace-nowrap">
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => scrollTo(item.id, item.event)}
+                className={`relative px-3 py-1.5 rounded-lg transition-all duration-200 flex items-center gap-1.5 ${
+                  isActive
+                    ? "text-white bg-white/[0.12] border border-white/15 shadow-[0_0_12px_rgba(0,240,255,0.2)]"
+                    : "text-[#9EA3B5] hover:text-white hover:bg-white/[0.08]"
+                }`}
+              >
+                {isActive && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] shadow-[0_0_6px_#00F0FF]" />
+                )}
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Live Telemetry Badge & Primary CTA */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* Subtle Live Engine Indicator */}
+          <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#10131E] border border-[#00E599]/30 font-mono text-[10px] text-[#8E93A4] shadow-[0_0_10px_rgba(0,229,153,0.15)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00E599] animate-pulse shadow-[0_0_6px_#00E599]" />
+            <span className="text-[#D0D4E0] font-medium tracking-wider">SYS LIVE // 99.99%</span>
           </div>
 
-          <Link to="/case-studies" className="font-body text-[13px] font-medium tracking-wide transition-colors duration-200" style={{ color: isActive('/case-studies') ? "var(--pearl)" : "var(--graphite-300)" }}>
-            <span className="hover:text-[var(--pearl)] transition-colors">Case Studies</span>
-          </Link>
-          <Link to="/about" className="font-body text-[13px] font-medium tracking-wide transition-colors duration-200" style={{ color: isActive('/about') ? "var(--pearl)" : "var(--graphite-300)" }}>
-            <span className="hover:text-[var(--pearl)] transition-colors">About</span>
-          </Link>
-        </div>
+          <button
+            onClick={() => {
+              telemetry.track("hero_cta_click", { location: "navbar" });
+              scrollTo("intake");
+            }}
+            className="hidden sm:inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-gradient-to-r from-white via-slate-100 to-[#E2E8F0] text-black font-mono text-xs font-bold uppercase tracking-wider rounded-xl transition-all duration-300 hover:from-[#00F0FF] hover:via-[#38BDF8] hover:to-[#7C5CFF] hover:text-black shadow-[0_0_18px_rgba(255,255,255,0.2)] hover:shadow-[0_0_28px_rgba(0,240,255,0.5)] whitespace-nowrap group"
+          >
+            <span>Start a Project</span>
+            <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+          </button>
 
-        {/* Desktop CTA */}
-        <div className="hidden md:flex items-center gap-4 z-50">
-          <Link to="/contact" className="font-body text-[13px] font-medium tracking-wide transition-colors duration-200 hover:text-[var(--pearl)]" style={{ color: "var(--graphite-300)" }}>
-            Contact
-          </Link>
-          <a href="/#lead-form" className="font-body font-semibold text-[13px] px-6 py-2.5 rounded-md transition-all duration-300 hover:-translate-y-px" style={{ background: "var(--nexus-violet)", color: "#fff", boxShadow: "0 4px 14px 0 rgba(124,92,255,0.35)" }}>
-            Book Assessment
-          </a>
+          {/* Mobile / Tablet Toggle Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 text-white hover:text-[#00F0FF] focus:outline-none shrink-0"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-
-        {/* Mobile Toggle */}
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden transition-colors duration-200 p-1 hover:text-[var(--pearl)] z-50" style={{ color: "var(--graphite-300)" }} aria-label="Toggle menu">
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: '100vh' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="absolute top-0 left-0 right-0 md:hidden overflow-y-auto"
-            style={{
-              background: "rgba(10,11,20,0.98)",
-              backdropFilter: "blur(20px)",
-              paddingTop: "5rem" // Space for the header
-            }}
-          >
-            <div className="flex flex-col px-6 py-4 pb-20 gap-2">
-              
-              {/* Mobile Services Accordion */}
-              <div className="border-b border-[var(--graphite-600)] py-3">
-                <button 
-                  onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                  className="flex items-center justify-between w-full font-body text-lg font-medium transition-colors duration-200"
-                  style={{ color: "var(--pearl)" }}
+      {/* Modern Floating Mobile Drawer Card with Matching Corner Accents */}
+      {mobileMenuOpen && (
+        <div className="relative lg:hidden pointer-events-auto w-full max-w-5xl mt-2 bg-[#08090E]/95 backdrop-blur-2xl border border-white/15 rounded-2xl p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.92)] z-50 flex flex-col gap-4 animate-in fade-in slide-in-from-top-3 duration-200">
+          <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t-2 border-l-2 border-[#00F0FF] rounded-tl-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
+          <span className="absolute -top-px -right-px w-3.5 h-3.5 border-t-2 border-r-2 border-[#00F0FF] rounded-tr-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
+          <span className="absolute -bottom-px -left-px w-3.5 h-3.5 border-b-2 border-l-2 border-[#00F0FF] rounded-bl-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
+          <span className="absolute -bottom-px -right-px w-3.5 h-3.5 border-b-2 border-r-2 border-[#00F0FF] rounded-br-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
+
+          <div className="flex flex-col gap-1.5 font-mono text-xs tracking-wider uppercase">
+            {NAV_ITEMS.map((item, index) => {
+              const isActive = activeSection === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollTo(item.id, item.event)}
+                  className={`text-left py-2.5 px-3 rounded-lg transition-colors border-b border-[#14161F] flex items-center justify-between ${
+                    isActive
+                      ? "text-white bg-white/10"
+                      : "text-[#8E93A4] hover:text-white hover:bg-white/5"
+                  }`}
                 >
-                  Services
-                  <ChevronDown className={`w-5 h-5 transition-transform duration-200 ${mobileServicesOpen ? 'rotate-180' : ''}`} />
-                </button>
-                <AnimatePresence>
-                  {mobileServicesOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pt-4 pb-2 pl-4 space-y-5">
-                        {categories.map(cat => {
-                          const catServices = servicesData.filter(s => s.category === cat.name).slice(0,3);
-                          if(catServices.length === 0) return null;
-                          return (
-                            <div key={cat.name}>
-                              <p className="text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2" style={{ color: "var(--nexus-violet)" }}>
-                                {cat.icon} {cat.name}
-                              </p>
-                              <ul className="space-y-3 border-l border-[var(--graphite-600)] pl-4">
-                                {catServices.map(s => (
-                                  <li key={s.slug}>
-                                    <Link to={`/services/${s.slug}`} onClick={() => setMobileOpen(false)} className="block text-sm font-medium" style={{ color: "var(--graphite-300)" }}>
-                                      {s.title}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </motion.div>
+                  <span>
+                    [{String(index + 1).padStart(2, "0")}] {item.label}
+                  </span>
+                  {isActive && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] shadow-[0_0_6px_#00F0FF]" />
                   )}
-                </AnimatePresence>
-              </div>
-
-              <Link to="/case-studies" onClick={() => setMobileOpen(false)} className="font-body text-lg font-medium transition-colors duration-200 py-3 border-b border-[var(--graphite-600)] hover:text-[var(--pearl)]" style={{ color: isActive('/case-studies') ? "var(--pearl)" : "var(--graphite-300)" }}>
-                Case Studies
-              </Link>
-              <Link to="/about" onClick={() => setMobileOpen(false)} className="font-body text-lg font-medium transition-colors duration-200 py-3 border-b border-[var(--graphite-600)] hover:text-[var(--pearl)]" style={{ color: isActive('/about') ? "var(--pearl)" : "var(--graphite-300)" }}>
-                About
-              </Link>
-              <Link to="/contact" onClick={() => setMobileOpen(false)} className="font-body text-lg font-medium transition-colors duration-200 py-3 border-b border-[var(--graphite-600)] hover:text-[var(--pearl)]" style={{ color: isActive('/contact') ? "var(--pearl)" : "var(--graphite-300)" }}>
-                Contact
-              </Link>
-
-              <a href="/#lead-form" onClick={() => setMobileOpen(false)} className="font-body font-semibold text-base px-4 py-4 mt-6 rounded-md text-center w-full transition-all duration-300" style={{ background: "var(--nexus-violet)", color: "#fff" }}>
-                Book Assessment
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+                </button>
+              );
+            })}
+          </div>
+          <button
+            onClick={() => {
+              telemetry.track("hero_cta_click", { location: "mobile_navbar" });
+              scrollTo("intake");
+            }}
+            className="w-full py-3.5 bg-gradient-to-r from-white via-slate-100 to-[#E2E8F0] hover:from-[#00F0FF] hover:to-[#7C5CFF] text-black font-mono text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+          >
+            <span>Start a Project</span>
+            <ArrowRight size={14} />
+          </button>
+        </div>
+      )}
+    </header>
   );
 };
 
