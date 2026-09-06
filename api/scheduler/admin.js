@@ -59,10 +59,10 @@ export default async function handler(req, res) {
       let dbWarning = null;
 
       try {
-        leads = await sbSelect('rns_leads', { select: 'id,budget_range,created_at,is_decision_maker,is_qualified' });
+        leads = await sbSelect('rns_leads', { select: '*' });
       } catch (err) {
         console.warn('[admin] rns_leads query failed:', err.message);
-        dbWarning = `Table 'rns_leads' not found or accessible (${err.message}). Ensure you have run supabase-schema.sql in your Supabase SQL Editor.`;
+        dbWarning = `Table 'rns_leads' issue (${err.message}). Run the ALTER TABLE migration in Supabase SQL Editor.`;
       }
 
       try {

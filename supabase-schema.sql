@@ -201,6 +201,20 @@ CREATE TABLE IF NOT EXISTS rns_leads (
   updated_at          TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Migration: Ensure all columns exist even if rns_leads was created previously
+ALTER TABLE rns_leads ADD COLUMN IF NOT EXISTS phone TEXT;
+ALTER TABLE rns_leads ADD COLUMN IF NOT EXISTS company_name TEXT;
+ALTER TABLE rns_leads ADD COLUMN IF NOT EXISTS business_website TEXT;
+ALTER TABLE rns_leads ADD COLUMN IF NOT EXISTS business_stage TEXT;
+ALTER TABLE rns_leads ADD COLUMN IF NOT EXISTS primary_challenge TEXT;
+ALTER TABLE rns_leads ADD COLUMN IF NOT EXISTS budget_range TEXT;
+ALTER TABLE rns_leads ADD COLUMN IF NOT EXISTS timeline TEXT;
+ALTER TABLE rns_leads ADD COLUMN IF NOT EXISTS project_description TEXT;
+ALTER TABLE rns_leads ADD COLUMN IF NOT EXISTS priority_score INTEGER DEFAULT 0;
+ALTER TABLE rns_leads ADD COLUMN IF NOT EXISTS is_qualified BOOLEAN DEFAULT false;
+ALTER TABLE rns_leads ADD COLUMN IF NOT EXISTS is_decision_maker BOOLEAN DEFAULT false;
+ALTER TABLE rns_leads ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT NOW();
+
 CREATE INDEX IF NOT EXISTS idx_rns_leads_email    ON rns_leads(email);
 CREATE INDEX IF NOT EXISTS idx_rns_leads_created  ON rns_leads(created_at DESC);
 
