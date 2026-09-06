@@ -4,7 +4,7 @@
      Use: favicon source, app icon, avatar, dense UI placements.
      Clear space: 1 unit = 1/8 of icon side. Keep 1 unit clear on all sides.
 -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ripple Nexus">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 15 34 34" role="img" aria-label="Ripple Nexus">
   <defs>
     <linearGradient id="rn-grad" x1="0%" y1="0%" x2="100%" y2="50%">
       <stop offset="0%"  stop-color="#7C5CFF"/>
