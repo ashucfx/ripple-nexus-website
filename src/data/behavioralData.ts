@@ -1,0 +1,373 @@
+import { BehavioralIntentId, IntentProfile, CaseStudyItem, CapabilityGroup } from '../models/behavioral';
+
+export const INTENT_PROFILES: Record<BehavioralIntentId, IntentProfile> = {
+  build: {
+    id: 'build',
+    label: 'BUILD',
+    tagline: 'I need to build something new.',
+    statement: 'Engineering customer-facing SaaS platforms, bespoke internal applications, and core digital products from blank canvas to production scale.',
+    ctaText: 'TALK ABOUT THE PRODUCT →',
+    focusAreas: ['SaaS Architecture', 'Full-Stack Product Engineering', 'Multi-Tenant Systems', 'UX Engineering', 'API Design'],
+    architecturePreview: {
+      title: 'Bespoke Multi-Tenant SaaS Engine',
+      description: 'Zero-bloat product architecture designed with modular domain boundaries, tenant isolation, and sub-100ms API response targets.',
+      metrics: [
+        { label: 'Time to V1 Production', value: '8–12 Weeks' },
+        { label: 'Client IP Ownership', value: '100% Transfer' },
+        { label: 'Architecture Lifetime', value: '5+ Years Scalable' },
+      ],
+      technologies: ['React / TypeScript', 'FastAPI / Node.js', 'PostgreSQL', 'Redis', 'Docker'],
+    },
+  },
+  automate: {
+    id: 'automate',
+    label: 'AUTOMATE',
+    tagline: 'My team does too much manually.',
+    statement: 'Replacing human bottleneck tasks and error-prone manual spreadsheets with deterministic AI agents, webhook meshes, and autonomous workflows.',
+    ctaText: 'SHOW US THE WORKFLOW →',
+    focusAreas: ['Autonomous AI Agents', 'RAG over Private Data', 'n8n & Custom Python RPA', 'CRM & ERP Synchronisation', 'Intelligent Document Extraction'],
+    architecturePreview: {
+      title: 'Private Data RAG & Multi-Agent Orchestration',
+      description: 'Deterministic intelligence pipeline reasoning over internal databases with zero hallucinations and strict role-based access control.',
+      metrics: [
+        { label: 'Manual Hours Reclaimed', value: '25+ hrs / wk / user' },
+        { label: 'Operational Duplication', value: 'Zero Redundancy' },
+        { label: 'Data Privacy', value: 'Air-Gapped / Isolated' },
+      ],
+      technologies: ['LangChain / LlamaIndex', 'Python', 'n8n Self-Hosted', 'Pinecone / pgvector', 'Enterprise APIs'],
+    },
+  },
+  modernize: {
+    id: 'modernize',
+    label: 'MODERNIZE',
+    tagline: 'Our existing system is holding us back.',
+    statement: 'Decomposing fragile legacy monoliths, upgrading brittle databases, refactoring spaghetti codebases, and migrating to resilient cloud native architecture.',
+    ctaText: 'DESCRIBE YOUR CURRENT SYSTEM →',
+    focusAreas: ['Legacy Code Refactoring', 'Cloud Migrations (AWS / GCP)', 'Microservice Decomposition', 'Database Optimization', 'Zero-Downtime Cutover'],
+    architecturePreview: {
+      title: 'Zero-Downtime Monolith Strangler Pipeline',
+      description: 'Surgical extraction of high-friction services behind high-performance proxy gateways without breaking active business operations.',
+      metrics: [
+        { label: 'API Latency Reduction', value: 'Up to 90%' },
+        { label: 'System Availability', value: '99.99% Uptime' },
+        { label: 'Maintenance Cost', value: '-60% Server Waste' },
+      ],
+      technologies: ['Kong API Gateway', 'Kubernetes', 'AWS Multi-AZ', 'PostgreSQL', 'Redis Cache'],
+    },
+  },
+  scale: {
+    id: 'scale',
+    label: 'SCALE',
+    tagline: 'We’ve outgrown our current technology.',
+    statement: 'Hardening data pipelines, query throughput, auto-scaling clusters, and infrastructure security for systems hitting traffic or concurrency ceilings.',
+    ctaText: 'TALK ABOUT THE SCALE PROBLEM →',
+    focusAreas: ['High-Throughput Data Systems', 'Multi-AZ Kubernetes Clusters', 'Cache Mesh Architecture', 'Database Sharding & Replication', 'Disaster Recovery & SOC2'],
+    architecturePreview: {
+      title: 'Resilient Distributed Infrastructure Mesh',
+      description: 'Horizontally autoscaling application clusters with automated failover, distributed tracing, and telemetry alerting.',
+      metrics: [
+        { label: 'Throughput Multiplier', value: '8x–15x Concurrency' },
+        { label: 'Failover Latency', value: '< 30 Seconds' },
+        { label: 'Incident Response Time', value: 'Sub-Minute Alarms' },
+      ],
+      technologies: ['AWS / GCP', 'Terraform', 'Kubernetes (EKS)', 'Prometheus / Grafana', 'Snowflake'],
+    },
+  },
+};
+
+export const CASE_STUDIES: CaseStudyItem[] = [
+  {
+    id: 'enterprise-crm-overhaul',
+    title: 'Enterprise CRM & Field Sales System',
+    client: 'FMCG Distribution Enterprise',
+    industry: 'FMCG / Distribution Logistics',
+    intentCategory: 'automate',
+    summary: 'Replaced a fragmented legacy CRM across 12 states with an automated lead routing and mobile-first field sales synchronization platform.',
+    problem: '40% duplicated customer accounts, 48-hour delayed lead responses, and zero real-time visibility into field sales teams operating across 12 states.',
+    context: 'Field distributors were logging orders on paper and disparate WhatsApp groups, causing revenue leakage, inventory mismatches, and delayed billing reconciliations.',
+    decision: 'Rather than buying another bloated off-the-shelf SaaS license, we engineered a custom Salesforce-integrated operational hub with real-time mobile sync and automated queue routing.',
+    build: 'Lightweight offline-capable PWA for field agents, event-driven webhook pipeline, and executive telemetry dashboard for regional managers.',
+    system: 'Event-driven message queues validate stock against ERP before dispatching lead routing algorithms. Fully audited changes with RBAC access.',
+    result: 'Lead response time accelerated by 68%, customer data duplication was completely eradicated, and field order accuracy increased 3-fold.',
+    metrics: [
+      { label: 'Lead Response Acceleration', value: '68% Faster' },
+      { label: 'Data Duplication', value: '0% Post-Launch' },
+      { label: 'Field Accuracy', value: '3x Improvement' },
+    ],
+    tags: ['Salesforce', 'Automated Routing', 'Offline-First PWA', 'Analytics'],
+    duration: '4 Months to Production',
+    diagramAsset: '/nexus-control-plane.png',
+  },
+  {
+    id: 'cloud-infrastructure-modernization',
+    title: 'Zero-Downtime Multi-AZ Cloud Migration',
+    client: 'Series B Financial Services Firm',
+    industry: 'FinTech / Lending',
+    intentCategory: 'modernize',
+    summary: 'Migrated critical transactional banking services from brittle on-premise iron to a resilient multi-availability-zone AWS Kubernetes cluster.',
+    problem: 'Periodic server crashes during transaction spikes caused 99.2% uptime degradation, customer trust erosion, and regulatory compliance audit warnings.',
+    context: 'The company handled over 250,000 monthly transactions with strict financial compliance requirements where single-minute outages cost thousands in fines.',
+    decision: 'Architected a phased strangler-fig migration to AWS EKS with automated zero-downtime rolling deploys and end-to-end data encryption at rest and in transit.',
+    build: 'Multi-AZ Kubernetes deployment with automated horizontal pod autoscaling, Redis cluster caching, and segregated secret key management.',
+    system: 'Kong ingress gateway routes traffic dynamically between active-active zones with sub-second health-check failover and Prometheus telemetry.',
+    result: 'Uptime increased to 99.97%, infrastructure server costs dropped by 60%, and deployment cycle times shrunk 10x.',
+    metrics: [
+      { label: 'Uptime Verified', value: '99.97%' },
+      { label: 'Infrastructure Cost', value: '-60% Reduction' },
+      { label: 'Deployment Frequency', value: '10x Faster' },
+    ],
+    tags: ['AWS EKS', 'Kubernetes', 'Docker', 'DevOps & CI/CD'],
+    duration: '6 Months',
+    diagramAsset: '/multi-az-k8s.png',
+  },
+  {
+    id: 'api-gateway-microservices',
+    title: 'High-Throughput Microservices & API Gateway',
+    client: 'Global Logistics Aggregator',
+    industry: 'Supply Chain & Freight',
+    intentCategory: 'scale',
+    summary: 'Decomposed a crashing monolithic backend into 12 high-performance microservices handling 50,000+ daily mission-critical API dispatches.',
+    problem: 'Legacy monolithic backend suffered from 4-second average response latencies, memory leaks, and frequent cascade crashes under freight surges.',
+    context: 'Shipping carriers and customs brokers were dropping integration webhooks, creating shipping container hold-ups at primary ports of entry.',
+    decision: 'Surgically decoupled the monolithic database into domain-driven microservices connected via Kong API Gateway with Redis token-bucket rate limiting.',
+    build: '12 independent Go and Node.js microservices with distributed message brokers, health monitoring, and edge-cached rate limits.',
+    system: 'Kong gateway terminates TLS, inspects rate tiers, and forwards requests to containerized worker pools with automated circuit breakers.',
+    result: 'API response times plummeted from 4,000ms to 200ms avg, API throughput grew 8x, and system achieved zero crashes over 6 months.',
+    metrics: [
+      { label: 'Average Response Time', value: '200ms (Down from 4s)' },
+      { label: 'Throughput Multiplier', value: '8x Capacity' },
+      { label: 'System Crashes', value: '0 Over 6 Months' },
+    ],
+    tags: ['Kong API Gateway', 'Microservices', 'Redis Caching', 'Go / Node'],
+    duration: '5 Months',
+    diagramAsset: '/data-ingestion.png',
+  },
+  {
+    id: 'b2b-supply-chain-portal',
+    title: 'Custom B2B Supplier Orchestration Platform',
+    client: 'AgriTech Enterprise',
+    industry: 'Agriculture & Commodities',
+    intentCategory: 'build',
+    summary: 'Engineered a bespoke full-stack supplier portal integrating directly with enterprise ERP to replace unstructured WhatsApp ordering.',
+    problem: 'Vendors and suppliers submitting bulk crop and logistics orders via manual chat messages led to a 15% fulfillment error rate and invoice discrepancies.',
+    context: 'Hundreds of non-technical rural suppliers needed an intuitive interface that could translate field procurement into strict corporate accounting standards.',
+    decision: 'Constructed an ultra-fast web portal with role-based supplier access, automated tax/invoice generation, and bidirectional SAP data synchronization.',
+    build: 'Tailored React frontend with intuitive multi-lingual support, serverless backend microservices, and webhook-driven ERP bridges.',
+    system: 'Suppliers submit purchase orders that pass instant automated validation checks, generate immutable digital POs, and sync to central ledger.',
+    result: 'Invoice processing turnaround shrank by 65%, $1.2M in annual operational waste was eliminated, and order error rates dropped to <0.5%.',
+    metrics: [
+      { label: 'Annual Operational Savings', value: '$1.2M' },
+      { label: 'Invoice Processing Time', value: '-65% Turnaround' },
+      { label: 'Fulfillment Error Rate', value: '< 0.5%' },
+    ],
+    tags: ['Custom SaaS', 'B2B Portal', 'SAP Integration', 'React / TypeScript'],
+    duration: '4 Months',
+    diagramAsset: '/nexus-control-plane.png',
+  },
+  {
+    id: 'predictive-maintenance-ai',
+    title: 'Industrial Telemetry & Anomaly Detection AI',
+    client: 'Heavy Industrial Equipment Operator',
+    industry: 'Heavy Industry & Mining',
+    intentCategory: 'automate',
+    summary: 'Implemented real-time sensor telemetry ingestion and predictive machine learning models to forecast hardware component failures.',
+    problem: 'Unplanned component breakdowns and sudden conveyor shutdowns cost $2M+ in unrecoverable annual downtime and emergency repairs.',
+    context: 'Equipment operated in remote locations with continuous thermal and vibration stress, where preventative repairs cost 10x less than sudden breakdowns.',
+    decision: 'Built an edge-to-cloud telemetry ingestion pipeline feeding real-time anomaly detection models calibrated to component vibration patterns.',
+    build: 'Kafka streaming pipeline ingesting 10,000 sensor pulses/sec, Python analytical models, and alerting dispatch matrix for field engineers.',
+    system: 'Stream workers calculate rolling standard deviations across sensor metrics. Threshold anomalies trigger immediate SMS/email dispatch.',
+    result: 'Predicted 85% of critical component failures 48 hours in advance, preserving $1.2M in operational downtime in Year 1 alone.',
+    metrics: [
+      { label: 'Early Failure Prediction', value: '85% Accuracy' },
+      { label: 'Advance Warning Window', value: '48 Hours Prior' },
+      { label: 'Year 1 Downtime Savings', value: '$1.2M Preserved' },
+    ],
+    tags: ['Machine Learning', 'Kafka', 'IoT Telemetry', 'FastAPI'],
+    duration: '7 Months',
+    diagramAsset: '/rag-topology.png',
+  },
+  {
+    id: 'headless-global-storefront',
+    title: 'High-Conversion Headless Commerce Architecture',
+    client: 'Luxury D2C Brand',
+    industry: 'Retail & Global Commerce',
+    intentCategory: 'build',
+    summary: 'Engineered a sub-second headless e-commerce experience replacing a bloated WooCommerce monolith across 14 international currency regions.',
+    problem: '6+ second page loads and clunky checkout steps drove a 74% mobile cart abandonment rate on legacy shared server infrastructure.',
+    context: 'High-ticket buyers expect fluid, app-like responsiveness. Every 100ms of lag directly depressed checkout completions.',
+    decision: 'Re-architected the customer touchpoint into a static-generated headless Next.js frontend querying Shopify Plus APIs via distributed CDN edge caches.',
+    build: 'Modern component-driven storefront, instant client-side cart management, dynamic currency conversions, and automated inventory sync.',
+    system: 'Edge servers cache catalogue pages with incremental static regeneration. Dynamic cart and payment flows interact directly with secure APIs.',
+    result: 'Mobile load times improved by 300% (under 800ms), mobile conversion rate jumped by 42%, and 14 regions unified under a single dashboard.',
+    metrics: [
+      { label: 'Page Load Speed', value: '300% Faster (<800ms)' },
+      { label: 'Mobile Conversion Rate', value: '+42% Lift' },
+      { label: 'Regional Coverage', value: '14 Countries Unified' },
+    ],
+    tags: ['Headless Commerce', 'Shopify Plus API', 'Edge CDN', 'Design System'],
+    duration: '5 Months',
+    diagramAsset: '/nexus-control-plane.png',
+  },
+];
+
+export const CAPABILITY_GROUPS: CapabilityGroup[] = [
+  {
+    id: 'product-engineering',
+    title: 'PRODUCT ENGINEERING',
+    description: 'We architect and build commercial software that solves operational friction and withstands real market scale.',
+    subCapabilities: [
+      {
+        name: 'SaaS Platforms',
+        description: 'Multi-tenant applications with billing, granular RBAC, audit trails, and resilient database partitioning.',
+        impact: 'Built for enterprise procurement readiness.',
+      },
+      {
+        name: 'Web & Mobile Applications',
+        description: 'Blazing fast, responsive web systems and native-feel apps built with TypeScript, React, and Flutter.',
+        impact: 'Sub-second interactions with zero bloat.',
+      },
+      {
+        name: 'Internal Platforms',
+        description: 'Custom back-office control planes, order desks, and administrative consoles tailored to your workflows.',
+        impact: 'Eliminate disconnected SaaS tool chaos.',
+      },
+      {
+        name: 'Enterprise Systems',
+        description: 'Secure, production-hardened software connecting into existing SAP, Salesforce, or Oracle deployments.',
+        impact: 'Extend legacy software without replacing it.',
+      },
+    ],
+  },
+  {
+    id: 'ai-automation',
+    title: 'AI + AUTOMATION',
+    description: 'We deploy deterministic AI and process orchestration that executes repeatable work without hallucination.',
+    subCapabilities: [
+      {
+        name: 'Autonomous AI Agents',
+        description: 'Task-driven intelligence executing multi-step business logic, reading databases, and answering inquiries.',
+        impact: 'Operational efficiency without headcount bloat.',
+      },
+      {
+        name: 'Workflow Orchestration',
+        description: 'Robust automation pipelines built on self-hosted n8n, Make, and custom Python microservices.',
+        impact: 'Reclaim 20+ hours per week per employee.',
+      },
+      {
+        name: 'Private Data RAG Systems',
+        description: 'Retrieval-Augmented Generation that grounds LLM reasoning strictly in your private organizational documents.',
+        impact: 'Guaranteed hallucination-free domain answers.',
+      },
+      {
+        name: 'Process Automation (RPA)',
+        description: 'Automated document processing, invoice reconciliation, and cross-platform data syncing.',
+        impact: '100% data fidelity and audit traceability.',
+      },
+    ],
+  },
+  {
+    id: 'data-infrastructure',
+    title: 'DATA + INFRASTRUCTURE',
+    description: 'We engineer high-throughput cloud infrastructure that keeps your business running at 99.99% availability.',
+    subCapabilities: [
+      {
+        name: 'Cloud Architecture & DevOps',
+        description: 'Automated Kubernetes clusters on AWS/GCP with multi-AZ failover and continuous CI/CD pipelines.',
+        impact: 'Zero-downtime deployments and reduced cloud spend.',
+      },
+      {
+        name: 'Data Warehousing & BI',
+        description: 'Snowflake and PostgreSQL data pipelines aggregating multi-source metrics into real-time executive dashboards.',
+        impact: 'Single source of truth for business metrics.',
+      },
+      {
+        name: 'High-Throughput APIs',
+        description: 'Low-latency REST and GraphQL gateways with token-bucket rate limiting and distributed Redis caching.',
+        impact: 'Handles 10x traffic surges without degradation.',
+      },
+      {
+        name: 'Security & Compliance Posture',
+        description: 'Role-based access control, encryption at rest/transit, vulnerability assessment, and SOC2/HIPAA readiness.',
+        impact: 'Institutional trust for enterprise buyers.',
+      },
+    ],
+  },
+  {
+    id: 'product-experience',
+    title: 'PRODUCT EXPERIENCE',
+    description: 'We turn complex technological capability into clear, intuitive, and high-converting human interfaces.',
+    subCapabilities: [
+      {
+        name: 'Product & UX Design',
+        description: 'User-tested UX architecture built around human decision-making and cognitive load reduction.',
+        impact: 'Rapid user onboarding with near-zero training.',
+      },
+      {
+        name: 'Design Systems',
+        description: 'Modular, token-based design systems that guarantee engineering consistency across multi-product suites.',
+        impact: '50% faster feature development cycles.',
+      },
+      {
+        name: 'Conversion Architecture',
+        description: 'Behavior-driven funnels, progressive disclosure forms, and micro-commitment UX patterns.',
+        impact: 'Transforms passive visitors into qualified buyers.',
+      },
+      {
+        name: 'Frontend Performance Tuning',
+        description: 'Code-splitting, sub-second First Contentful Paint, and mobile rendering optimization.',
+        impact: 'Flawless performance across low-bandwidth environments.',
+      },
+    ],
+  },
+];
+
+export const OBJECTIONS = [
+  {
+    id: 'already-have-devs',
+    question: '“We already have developers.”',
+    answer: 'That is completely fine. We do not replace your internal team—we work alongside them as senior systems architects. We build the foundational infrastructure, complex product architecture, or high-risk integrations that your team does not have the capacity or specialized bandwidth to tackle.',
+  },
+  {
+    id: 'dont-know-what-we-need',
+    question: '“We don’t know exactly what we need yet.”',
+    answer: 'You do not need a finished product specification or a 50-page brief to speak with us. Start with what is broken, what is slow, or what business outcome you need to achieve. The first technical conversation is designed to analyze the problem and identify the cleanest architectural path.',
+  },
+  {
+    id: 'existing-system',
+    question: '“We have a legacy system that we cannot easily replace.”',
+    answer: 'We rarely recommend tearing everything down. We specialize in non-invasive modernization—placing resilient API gateways, microservices, and automation bridges around your existing databases so you gain modern capabilities without risking operational downtime.',
+  },
+  {
+    id: 'not-ready-yet',
+    question: '“We are not ready to commit to a project.”',
+    answer: 'There is zero pressure to commit. Explaining what you are trying to change costs nothing. If we determine that Ripple Nexus is not the appropriate technical fit or that your team can solve it with off-the-shelf software, we will tell you directly and point you in the right direction.',
+  },
+];
+
+export const PROCESS_STEPS = [
+  {
+    step: '01',
+    title: 'Tell us what you’re trying to change',
+    description: 'Share the bottleneck, product idea, or manual workflow holding your team back through our intake engine or direct conversation.',
+  },
+  {
+    step: '02',
+    title: 'We review the technical context',
+    description: 'Our lead architect personally evaluates your current systems, constraints, data flows, and required business outcomes.',
+  },
+  {
+    step: '03',
+    title: 'We ask the important questions',
+    description: 'A focused, engineer-to-operator discussion to identify hidden edge cases, integration hurdles, and operational realities.',
+  },
+  {
+    step: '04',
+    title: 'We evaluate commercial & technical fit',
+    description: 'We establish whether Ripple Nexus can deliver a definitive 3x–10x ROI outcome. If an off-the-shelf tool solves it, we tell you immediately.',
+  },
+  {
+    step: '05',
+    title: 'We deliver a written systems brief in 48 hours',
+    description: 'Scope, architecture diagram, timeline, and fixed investment schedule. If we cannot articulate the solution in writing, we do not build it.',
+  },
+];
