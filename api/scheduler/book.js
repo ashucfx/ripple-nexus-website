@@ -158,6 +158,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         id: bookingId,
         applicant_id: null, 
+        lead_id: leadId || null,
         slot_id: slotId,
         slot_date: slot.slot_date,
         slot_start_time: slot.start_time,

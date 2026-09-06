@@ -180,7 +180,7 @@ LEFT JOIN rns_bookings b ON b.applicant_id = a.id AND b.status <> 'cancelled'
 ORDER BY a.created_at DESC;
 
 -- ──────────────────────────────────────────────────────────────────────
--- 9. Leads (from Contact Form)
+-- 9. Leads (from Contact & Project Intake Dossier)
 -- ──────────────────────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS rns_leads (
   id                  UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -205,4 +205,8 @@ CREATE INDEX IF NOT EXISTS idx_rns_leads_email    ON rns_leads(email);
 CREATE INDEX IF NOT EXISTS idx_rns_leads_created  ON rns_leads(created_at DESC);
 
 ALTER TABLE rns_leads DISABLE ROW LEVEL SECURITY;
+
+-- Optional link from bookings to inbound leads
+ALTER TABLE rns_bookings ADD COLUMN IF NOT EXISTS lead_id UUID REFERENCES rns_leads(id) ON DELETE SET NULL;
+CREATE INDEX IF NOT EXISTS idx_rns_bookings_lead ON rns_bookings(lead_id);
 
