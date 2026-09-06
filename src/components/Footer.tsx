@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
                   Ripple Nexus
                 </span>
                 <span className="font-mono text-[10px] text-[#00F0FF] tracking-wider uppercase mt-1">
-                  Digital Systems Engineering
+                  AI Systems That Run The Business
                 </span>
               </div>
             </div>
