@@ -80,23 +80,45 @@ export const ProjectIntake: React.FC<ProjectIntakeProps> = ({ initialProblem }) 
     setErrorMessage("");
     setSubmitting(true);
 
+    const problemLabels: Record<string, string> = {
+      new_product: "Build a New Core Platform / Product",
+      internal_platform: "Modernize or Replace Internal Platform",
+      ai_automation: "Automate Manual Workflows with AI",
+      existing_software: "Fix, Modernize, or Scale Existing Software",
+      data_infrastructure: "Enterprise Data Infrastructure & Ingestion",
+      not_sure: "Strategic Technical Assessment & Architecture",
+    };
+
+    const formattedProblem = problemLabels[problem] || problem;
+
     const payload = {
+      full_name: contactName.trim(),
+      email: contactEmail.trim(),
+      company_name: companyName.trim() || "Not specified",
+      primary_challenge: formattedProblem,
+      timeline: timelineExpectation || "Not specified",
+      project_description: [
+        `PRIMARY OBJECTIVE: ${formattedProblem}`,
+        contextDetail ? `CONTEXT & BOTTLENECK:\n${contextDetail}` : null,
+        systemsInvolved ? `EXISTING STACK / SYSTEMS:\n${systemsInvolved}` : null,
+        timelineExpectation ? `TIMELINE EXPECTATION: ${timelineExpectation}` : null,
+      ]
+        .filter(Boolean)
+        .join("\n\n"),
       problem_type: problem,
       context_detail: contextDetail,
       systems_involved: systemsInvolved,
-      timeline: timelineExpectation,
-      full_name: contactName.trim(),
-      email: contactEmail.trim(),
-      company_name: companyName.trim(),
     };
 
     try {
-      // Attempt backend API delivery if available
-      const response = await fetch("/api/send-email", {
+      // Primary serverless route: /api/contact (sends email to info@theripplenexus.com & saves to Supabase)
+      await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-      }).catch(() => null);
+      }).catch((err) => {
+        console.warn("Direct API call attempt:", err);
+      });
 
       telemetry.track("project_intake_step_5", payload);
       telemetry.track("project_intake_complete", payload);

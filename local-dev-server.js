@@ -12,6 +12,7 @@ app.use(express.json());
 // ── Existing routes ───────────────────────────────────────────────────────
 const { default: contactHandler } = await import('./api/contact.js');
 app.post('/api/contact', (req, res) => contactHandler(req, res));
+app.post('/api/send-email', (req, res) => contactHandler(req, res));
 
 // ── RNS Scheduler routes ──────────────────────────────────────────────────
 const { default: detectCountry }  = await import('./api/scheduler/detect-country.js');
