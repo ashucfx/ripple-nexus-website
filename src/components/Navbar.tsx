@@ -86,8 +86,8 @@ export const Navbar: React.FC = () => {
             <span className="font-display font-bold text-sm sm:text-base tracking-tight text-white uppercase leading-none whitespace-nowrap">
               Ripple Nexus
             </span>
-            <span className="font-mono text-[8px] sm:text-[9px] text-[#00F0FF] tracking-widest uppercase leading-none mt-1 hidden sm:block whitespace-nowrap font-medium">
-              Zero Manual Work
+            <span className="font-mono text-[8px] sm:text-[9px] text-[#00F0FF] tracking-widest uppercase leading-none mt-1 hidden sm:block whitespace-nowrap font-semibold">
+              Built to Outperform
             </span>
           </div>
         </Link>

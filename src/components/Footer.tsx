@@ -21,8 +21,8 @@ export const Footer: React.FC = () => {
                 <span className="font-display font-bold text-lg sm:text-xl uppercase tracking-tight leading-none text-white">
                   Ripple Nexus
                 </span>
-                <span className="font-mono text-[10px] text-[#00F0FF] tracking-wider uppercase mt-1 font-medium">
-                  Zero Manual Work
+                <span className="font-mono text-[10px] text-[#00F0FF] tracking-wider uppercase mt-1 font-semibold">
+                  Built to Outperform
                 </span>
               </div>
             </div>
