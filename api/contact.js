@@ -104,100 +104,156 @@ export default async function handler(req, res) {
       }
     }
 
+    const cleanDescription = (project_description || 'No description provided.')
+      .replace(/\n/g, '<br/>');
+
     const htmlTemplate = `
       <!DOCTYPE html>
       <html>
       <head>
         <meta charset="utf-8">
-        <style>
-          body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #06070a; margin: 0; padding: 40px 20px; color: #fdfdfd; }
-          .wrapper { max-width: 640px; margin: 0 auto; background: #0a0b14; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.4); overflow: hidden; border: 1px solid #1a1c29; }
-          .header { background: #0a0b14; padding: 40px; text-align: center; border-bottom: 2px solid #1a1c29; position: relative; }
-          .header::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #7c5cff, #22d3ee, transparent); }
-          .header h1 { color: #fdfdfd; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
-          .header p { color: #7c5cff; font-size: 11px; margin: 8px 0 0 0; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
-          
-          .content { padding: 45px 40px; background: #0a0b14; }
-          .greeting { font-size: 16px; color: #e2e8f0; line-height: 1.6; margin-bottom: 35px; border-bottom: 1px solid #1a1c29; padding-bottom: 20px; }
-          .greeting strong { color: #fdfdfd; }
-          
-          .grid { display: grid; gap: 20px; }
-          .row { background: #12141c; padding: 20px; border-radius: 8px; border: 1px solid #1a1c29; border-left: 3px solid #7c5cff; }
-          .row.highlight { background: #12141c; border-left: 3px solid #22d3ee; }
-          
-          .label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #828a9f; font-weight: 700; margin-bottom: 8px; }
-          .value { font-size: 15px; color: #fdfdfd; font-weight: 500; word-break: break-word; }
-          .value a { color: #7c5cff; text-decoration: none; font-weight: 600; }
-          
-          .box { margin-top: 30px; background: #12141c; border: 1px solid #1a1c29; padding: 25px; border-radius: 8px; }
-          .box-label { font-size: 11px; font-weight: 700; color: #fdfdfd; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
-          .box-text { font-size: 14px; color: #a1a8c2; line-height: 1.7; }
-          
-          .footer { background: #06070a; padding: 25px; text-align: center; font-size: 11px; color: #64748b; border-top: 1px solid #1a1c29; font-weight: 400; line-height: 1.6; }
-          .footer strong { color: #fdfdfd; font-weight: 600; }
-        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New Client Intake Dossier</title>
       </head>
-      <body>
-        <div class="wrapper">
-          <div class="header">
-            <h1>Architecture Strategy Session</h1>
-            <p>Lead ID: ${shortLeadId} &nbsp;•&nbsp; Ripple Nexus Enterprise</p>
-          </div>
+      <body style="margin: 0; padding: 30px 15px; background-color: #060709; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 620px; margin: 0 auto; background-color: #0D0F16; border: 1px solid #1E2028; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.8);">
           
-          <div class="content">
-            <div class="greeting">
-              <strong>${full_name || 'A prospective client'}</strong> has requested an Architecture Strategy Session.
-            </div>
-            
-            <div class="grid">
-              <div class="row">
-                <div class="label">Client Identity</div>
-                <div class="value">
-                  <a href="mailto:${email || ''}">${email || 'No email provided'}</a><br/>
-                  <span style="color: #a1a8c2; font-size: 14px; display: inline-block; margin-top: 4px;">${phone || 'No phone provided'}</span>
-                </div>
+          <!-- Top Neon Edge -->
+          <tr>
+            <td height="3" style="background: linear-gradient(90deg, #00F0FF, #7C5CFF); line-height: 3px; font-size: 3px;">&nbsp;</td>
+          </tr>
+
+          <!-- Header -->
+          <tr>
+            <td style="padding: 32px 36px 24px 36px; border-bottom: 1px solid #1E2028;">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>
+                    <div style="font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; font-size: 11px; font-weight: 700; color: #00F0FF; letter-spacing: 2px; text-transform: uppercase;">
+                      [INTAKE DOSSIER // NEW INQUIRY]
+                    </div>
+                    <div style="font-size: 22px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.5px; margin-top: 6px; text-transform: uppercase;">
+                      Ripple Nexus Control Plane
+                    </div>
+                  </td>
+                  <td align="right" valign="top">
+                    <span style="display: inline-block; padding: 4px 12px; background-color: #12141F; border: 1px solid #2A2E44; border-radius: 20px; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 11px; color: #00F0FF; font-weight: 600;">
+                      ${shortLeadId}
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Client Spotlight Card -->
+          <tr>
+            <td style="padding: 28px 36px; background-color: #10121D; border-bottom: 1px solid #1E2028;">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>
+                    <div style="font-family: 'SFMono-Regular', Consolas, monospace; font-size: 10px; color: #8E93A4; text-transform: uppercase; letter-spacing: 1.5px;">
+                      Prospective Client
+                    </div>
+                    <div style="font-size: 20px; font-weight: 800; color: #FFFFFF; margin-top: 4px;">
+                      ${full_name || 'Direct Inquiry'}
+                    </div>
+                    <div style="font-size: 13px; color: #00F0FF; margin-top: 2px; font-weight: 500;">
+                      ${company_name || 'Organization Not Specified'}
+                    </div>
+                  </td>
+                  <td align="right" valign="middle">
+                    <a href="mailto:${email}?subject=Re:%20Ripple%20Nexus%20Technical%20Evaluation%20[${shortLeadId}]" style="display: inline-block; padding: 10px 18px; background-color: #FFFFFF; color: #000000; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 11px; font-weight: 800; text-transform: uppercase; text-decoration: none; border-radius: 10px; letter-spacing: 1px;">
+                      Reply Direct &rarr;
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Key Metrics / Dossier Specs -->
+          <tr>
+            <td style="padding: 28px 36px 16px 36px;">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <!-- Email -->
+                  <td width="50%" valign="top" style="padding-bottom: 20px; padding-right: 15px;">
+                    <div style="font-family: 'SFMono-Regular', Consolas, monospace; font-size: 10px; color: #8E93A4; text-transform: uppercase; letter-spacing: 1px;">
+                      Direct Email
+                    </div>
+                    <div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 4px;">
+                      <a href="mailto:${email}" style="color: #00F0FF; text-decoration: none;">${email || 'None provided'}</a>
+                    </div>
+                  </td>
+                  <!-- Phone / Contact -->
+                  <td width="50%" valign="top" style="padding-bottom: 20px; padding-left: 15px;">
+                    <div style="font-family: 'SFMono-Regular', Consolas, monospace; font-size: 10px; color: #8E93A4; text-transform: uppercase; letter-spacing: 1px;">
+                      Contact Phone
+                    </div>
+                    <div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 4px;">
+                      ${phone ? `<a href="tel:${phone}" style="color: #FFFFFF; text-decoration: none;">${phone}</a>` : '<span style="color: #555D75;">Not provided</span>'}
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <!-- Objective -->
+                  <td width="50%" valign="top" style="padding-bottom: 20px; padding-right: 15px;">
+                    <div style="font-family: 'SFMono-Regular', Consolas, monospace; font-size: 10px; color: #8E93A4; text-transform: uppercase; letter-spacing: 1px;">
+                      Primary Objective
+                    </div>
+                    <div style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-top: 4px; line-height: 1.4;">
+                      ${primary_challenge || 'Custom Development'}
+                    </div>
+                  </td>
+                  <!-- Timeline & Score -->
+                  <td width="50%" valign="top" style="padding-bottom: 20px; padding-left: 15px;">
+                    <div style="font-family: 'SFMono-Regular', Consolas, monospace; font-size: 10px; color: #8E93A4; text-transform: uppercase; letter-spacing: 1px;">
+                      Timeline &amp; Priority
+                    </div>
+                    <div style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-top: 4px;">
+                      ${timeline || 'Standard'} &nbsp;&bull;&nbsp; 
+                      <span style="color: ${is_qualified ? '#00E599' : '#00F0FF'}; font-family: 'SFMono-Regular', Consolas, monospace;">
+                        ${is_qualified ? 'HIGH INTENT' : 'STANDARD'}
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Technical Context & Scope -->
+          <tr>
+            <td style="padding: 0 36px 32px 36px;">
+              <div style="font-family: 'SFMono-Regular', Consolas, monospace; font-size: 10px; color: #00F0FF; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;">
+                [CLIENT CONTEXT &amp; TECHNICAL REQUIREMENTS]
               </div>
-              
-              <div class="row">
-                <div class="label">Organization Details</div>
-                <div class="value">${company_name || 'N/A'} &nbsp;<span style="color: #64748b;">•</span>&nbsp; ${business_stage || 'N/A'}</div>
+              <div style="background-color: #08090C; border: 1px solid #1E2028; border-radius: 12px; padding: 20px; font-size: 13px; color: #D0D4E0; line-height: 1.7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                ${cleanDescription}
               </div>
-              
-              <div class="row">
-                <div class="label">Digital Footprint</div>
-                <div class="value">${business_website && business_website !== 'N/A' ? `<a href="${business_website}">${business_website}</a>` : 'No URL Provided'}</div>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 24px 36px; background-color: #07080D; border-top: 1px solid #1E2028; text-align: center;">
+              <div style="font-family: 'SFMono-Regular', Consolas, monospace; font-size: 10px; color: #555D75; text-transform: uppercase; letter-spacing: 1px;">
+                Ripple Nexus Systems &bull; Dispatched to info@theripplenexus.com &bull; Confidential
               </div>
-              
-              <div class="row highlight">
-                <div class="label" style="color: #22d3ee;">Primary Objective</div>
-                <div class="value" style="color: #fdfdfd; font-size: 16px; font-weight: 600;">${primary_challenge || 'N/A'}</div>
-              </div>
-              
-              <div class="row highlight" style="border-left-color: #3fbd8b;">
-                <div class="label" style="color: #3fbd8b;">Budget & Timeline</div>
-                <div class="value" style="color: #fdfdfd; font-size: 16px; font-weight: 600;">${budget_range || 'N/A'} &nbsp;<span style="color: #64748b;">|</span>&nbsp; ${timeline || 'N/A'}</div>
-              </div>
-            </div>
-            
-            <div class="box">
-              <div class="box-label">Technical Scope & Project Description</div>
-              <div class="box-text">${project_description ? project_description.replace(/\\n/g, '<br/>') : 'No description provided by the client.'}</div>
-            </div>
-          </div>
-          
-          <div class="footer">
-            This lead was securely processed by <strong>Ripple Nexus Systems (RNS)</strong>.<br/>
-            To manage this lead, map data, or update access passwords, please log in to the <strong>RNS Admin Dashboard</strong>.
-          </div>
-        </div>
+            </td>
+          </tr>
+
+        </table>
       </body>
       </html>
     `;
 
     await transporter.sendMail({
-      from: `"Ripple Nexus Notifier" <${process.env.SMTP_USER}>`,
+      from: `"Ripple Nexus Intake" <${process.env.SMTP_USER}>`,
       to: 'info@theripplenexus.com',
-      subject: `New Lead [${shortLeadId}]: ${full_name} - ${company_name || 'Consultation'}`,
+      replyTo: email,
+      subject: `⚡ New Project Dossier: ${full_name} (${company_name || 'Direct Inquiry'}) — [${shortLeadId}]`,
       html: htmlTemplate,
     });
 

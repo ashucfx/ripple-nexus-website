@@ -34,9 +34,9 @@ export default async function handler(req, res) {
         });
       }
 
-      const adminPass = process.env.RNS_ADMIN_PASSWORD;
+      const adminPass = process.env.ADMIN_PASSWORD || process.env.RNS_ADMIN_PASSWORD;
       if (!adminPass) {
-        return res.status(500).json({ error: 'RNS_ADMIN_PASSWORD env var not set' });
+        return res.status(500).json({ error: 'ADMIN_PASSWORD env var not set' });
       }
       if (body.password !== adminPass) {
         return res.status(401).json({
