@@ -1,30 +1,19 @@
-import { lazy, Suspense, useEffect } from "react";
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import SEOHead from "@/components/SEOHead";
-
-/**
- * Homepage — Institutional authority conversion structure:
- *
- * Diagnosis-driven restructure:
- * ✓ Removed QuestionsSection (fear-based, redundant, CTA noise)
- * ✓ Removed EmotionalStatement (replaced by FounderSection authority)
- * ✓ Added FounderSection immediately after proof (humanises brand)
- * ✓ Page flows: Hero → Trust → Mechanism → Capabilities → Proof →
- *   Testimonials → Founder → Process → Global → CTA → Form → Footer
- * ✓ Reduced from 15 sections to 11 — each with a distinct conversion purpose
- */
-
-// Above-fold sections — eager
-const TrustSection = lazy(() => import("@/components/TrustSection"));
-
-// Below-fold sections — lazy loaded
-const ProblemSolutionSection = lazy(() => import("@/components/ProblemSolutionSection"));
-const ServicesSection = lazy(() => import("@/components/ServicesSection"));
-const RealStoriesSection = lazy(() => import("@/components/RealStoriesSection"));
-const CtaSection = lazy(() => import("@/components/CtaSection"));
-const LeadForm = lazy(() => import("@/components/LeadForm"));
-const Footer = lazy(() => import("@/components/Footer"));
+import React, { useState, useEffect } from "react";
+import Navbar from "../components/Navbar";
+import HeroSection from "../components/HeroSection";
+import ProofSection from "../components/ProofSection";
+import BehavioralIntentSelector from "../components/BehavioralIntentSelector";
+import CaseStudiesSection from "../components/CaseStudiesSection";
+import CapabilitySection from "../components/CapabilitySection";
+import FounderSection from "../components/FounderSection";
+import ObjectionSection from "../components/ObjectionSection";
+import ProcessSection from "../components/ProcessSection";
+import ProjectIntake from "../components/ProjectIntake";
+import FinalCTA from "../components/FinalCTA";
+import Footer from "../components/Footer";
+import SEOHead from "../components/SEOHead";
+import { BehavioralIntentId, CaseStudyItem } from "../models/behavioral";
+import { telemetry } from "../analytics/telemetry";
 
 const BASE_URL = "https://www.theripplenexus.com";
 
@@ -36,15 +25,15 @@ const schemaMarkup = {
       "@id": `${BASE_URL}/#organization`,
       name: "Ripple Nexus",
       url: BASE_URL,
-      logo: `${BASE_URL}/logo-icon.svg`,
+      logo: `${BASE_URL}/favicon.svg`,
       description:
-        "Ripple Nexus is an AI-First Digital Transformation company helping organizations modernize, automate, optimize, and scale through Artificial Intelligence, Automation, and Enterprise Software.",
-      foundingDate: "2021",
+        "Digital product engineering, AI workflows, automation systems, and data infrastructure for companies that refuse to operate manually.",
+      foundingDate: "2023",
       areaServed: "Worldwide",
       contactPoint: {
         "@type": "ContactPoint",
         telephone: "+91-7599-756-826",
-        contactType: "customer support",
+        contactType: "technical sales",
         email: "info@theripplenexus.com",
         availableLanguage: "English",
       },
@@ -55,160 +44,109 @@ const schemaMarkup = {
       ],
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Cospazes, A-116, Urbtech Trade Centre, Sec-132",
+        streetAddress: "Cospazes, A-116 Urbtech Trade Centre, Sec-132",
         addressLocality: "Noida",
         addressRegion: "Uttar Pradesh",
         postalCode: "201304",
         addressCountry: "IN",
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.9",
-        reviewCount: "42",
-        bestRating: "5",
       },
     },
     {
       "@type": "WebPage",
       "@id": `${BASE_URL}/#webpage`,
       url: BASE_URL,
-      name: "Ripple Nexus: AI-First Digital Transformation Company",
+      name: "Ripple Nexus — Digital Systems & AI Engineering",
       description:
-        "We solve complex business problems using AI. Ripple Nexus helps organizations modernize, automate, optimize, and scale through Artificial Intelligence, Automation, and Enterprise Software.",
+        "We build SaaS platforms, AI workflows, business applications and digital infrastructure around how your business actually works.",
       isPartOf: { "@id": `${BASE_URL}/#organization` },
       inLanguage: "en-US",
-      potentialAction: {
-        "@type": "ReadAction",
-        target: BASE_URL,
-      },
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": `${BASE_URL}/#service`,
-      name: "Ripple Nexus Digital Transformation Services",
-      url: BASE_URL,
-      description: "AI Agents, Workflow Automation, Custom Software, Enterprise Applications, Data Engineering, API Development, and Cybersecurity.",
-      provider: { "@id": `${BASE_URL}/#organization` },
-      areaServed: "Worldwide",
-      serviceType: [
-        "AI Agents",
-        "Workflow Automation",
-        "Custom Software Development",
-        "Enterprise Applications",
-        "Data Engineering",
-        "Digital Transformation Consulting",
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What does Ripple Nexus build?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Ripple Nexus solves complex business problems using AI. We build proprietary AI agents, autonomous workflow automations, enterprise software, and scalable data infrastructure.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "How long does a typical project take?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Most projects go from Architecture Discovery to production in 60–90 days. MVP launches can be as fast as 4–6 weeks depending on scope.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What countries does Ripple Nexus serve?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Ripple Nexus serves clients in 18+ countries across South Asia, Southeast Asia, the Middle East, Africa, Europe, and the Americas.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "How do I start working with Ripple Nexus?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Begin with an Architecture Discovery session at theripplenexus.com. A senior architect will analyse your operational bottlenecks and deliver a written systems brief within 48 hours.",
-          },
-        },
-      ],
     },
   ],
 };
 
-/**
- * Homepage — Institutional authority conversion structure
- *
- * Section order rationale:
- * 1. Hero — Category positioning (aspiration, not fear)
- * 2. TrustSection — Immediate credibility: stats, IP guarantee, compliance, industry ticker
- * 3. ProblemSolution — Mechanism differentiation: why generic AI fails, what we do instead
- * 4. ServicesSection — Capabilities: six proprietary systems
- * 5. PricingSection — Engagement Models (no public pricing) + compliance badges
- * 6. RealStoriesSection — Proof: verified metrics from named deployments
- * 7. TestimonialsSection — Named references with verifiable companies
- * 8. FounderSection — Human accountability: who is responsible for your system
- * 9. ProcessSection — Risk removal: transparent, repeatable delivery
- * 10. GlobalSection — Geographic authority
- * 11. CtaSection — Aspirational close
- * 12. LeadForm — Booking mechanism
- * 13. LeadForm — General inquiry fallback
- * 14. Footer
- */
-const Index = () => {
+const Index: React.FC = () => {
+  const [currentIntent, setCurrentIntent] = useState<BehavioralIntentId>("build");
+  const [selectedIntakeProblem, setSelectedIntakeProblem] = useState<
+    "new_product" | "internal_platform" | "ai_automation" | "existing_software" | "data_infrastructure" | "not_sure"
+  >("new_product");
+
   useEffect(() => {
-    if (window.location.hash !== "#lead-form") return;
-    let attempts = 0;
-    const tryScroll = () => {
-      const el = document.getElementById("lead-form");
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else if (attempts++ < 30) {
-        setTimeout(tryScroll, 150);
-      }
-    };
-    tryScroll();
+    telemetry.track("page_view", { title: document.title });
   }, []);
 
+  const handleIntentChange = (intent: BehavioralIntentId) => {
+    setCurrentIntent(intent);
+    if (intent === "build") setSelectedIntakeProblem("new_product");
+    else if (intent === "automate") setSelectedIntakeProblem("ai_automation");
+    else if (intent === "modernize") setSelectedIntakeProblem("existing_software");
+    else if (intent === "scale") setSelectedIntakeProblem("data_infrastructure");
+  };
+
+  const handleIntentAction = (intent: BehavioralIntentId) => {
+    handleIntentChange(intent);
+    const el = document.getElementById("intake");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleDiscussSimilarCase = (study: CaseStudyItem) => {
+    handleIntentChange(study.intentCategory);
+    const el = document.getElementById("intake");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleSelectCapability = (capTitle: string) => {
+    const el = document.getElementById("intake");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div className="min-h-screen bg-background scroll-smooth">
+    <div className="min-h-screen bg-[#08090C] text-white selection:bg-[#00F0FF] selection:text-black">
       <SEOHead
-        title="Ripple Nexus: AI-First Digital Transformation Company"
-        description="We solve complex business problems using AI. Ripple Nexus helps organizations modernize, automate, optimize, and scale through Artificial Intelligence, Automation, and Enterprise Software."
+        title="Ripple Nexus — Digital Systems & AI Engineering"
+        description="We build SaaS platforms, AI workflows, business applications and digital infrastructure around how your business actually operates. Build → Automate → Scale."
         canonical={BASE_URL}
         schemaMarkup={schemaMarkup}
       />
+
       <Navbar />
-      <HeroSection />
 
-      <Suspense fallback={<div className="py-16" />}>
+      <main>
+        {/* 01 ATTENTION: Hero */}
+        <HeroSection />
 
-        {/* 1. Immediate trust signals */}
-        <TrustSection />
+        {/* 03 CURIOSITY: Architectural Proof */}
+        <ProofSection />
 
-        {/* 2. Mechanism: why generic AI fails, what we do differently */}
-        <ProblemSolutionSection />
+        {/* 04 & 05 SELF-IDENTIFICATION & RELEVANCE: Behavioral Intent */}
+        <BehavioralIntentSelector
+          currentIntent={currentIntent}
+          onIntentChange={handleIntentChange}
+          onIntentAction={handleIntentAction}
+        />
 
-        {/* 3. Capabilities: what we build */}
-        <ServicesSection />
+        {/* 06 CREDIBILITY: 6-Stage Case Studies */}
+        <CaseStudiesSection onDiscussSimilar={handleDiscussSimilarCase} />
 
-        {/* 4. Proof: verified metrics from named deployments */}
-        <RealStoriesSection />
+        {/* 07 TECHNICAL COMPETENCE: 4 Capability Domains */}
+        <CapabilitySection onSelectCapability={handleSelectCapability} />
 
-        {/* 5. Aspirational close */}
-        <CtaSection />
+        {/* 08 HUMAN ACCOUNTABILITY: Founder & Lead Architect */}
+        <FounderSection />
 
-        {/* 11. Booking mechanism (Now a frictionless intake flow) */}
-        <LeadForm />
+        {/* 09 OBJECTION REMOVAL: Pre-empting Enterprise Friction */}
+        <ObjectionSection />
 
-        {/* 12. Footer */}
-        <Footer />
+        {/* 10 RISK REDUCTION: Transparent What Happens Next */}
+        <ProcessSection />
 
-      </Suspense>
+        {/* 11 COMMITMENT: Progressive Smart Intake Engine */}
+        <ProjectIntake initialProblem={selectedIntakeProblem} />
 
+        {/* 12 CONVERSION: Final Decisive CTA */}
+        <FinalCTA />
+      </main>
+
+      <Footer />
     </div>
   );
 };
