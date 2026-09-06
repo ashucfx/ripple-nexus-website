@@ -1,202 +1,149 @@
+import React from "react";
 import { Link } from "react-router-dom";
-import logoMark from "@/assets/logo-icon-mark.svg";
-import { Phone, Mail, MessageCircle, MapPin, Linkedin, Instagram, Twitter } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { telemetry } from "../analytics/telemetry";
+import logoMark from "../assets/logo-icon-mark.svg";
 
-const socialLinks = [
-  { href: "https://www.linkedin.com/company/ripple-nexus", icon: Linkedin, label: "LinkedIn" },
-  { href: "https://x.com/ripplenexus", icon: Twitter, label: "X / Twitter" },
-  { href: "https://www.instagram.com/ripplenexus/", icon: Instagram, label: "Instagram" },
-];
-
-const Footer = () => {
+export const Footer: React.FC = () => {
   return (
-    <footer
-      className="relative pt-24 pb-12 overflow-hidden"
-      style={{
-        background: "var(--obsidian)",
-        borderTop: "1px solid var(--graphite-600)",
-      }}
-    >
-      {/* Violet radial glow at top center */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse at top, rgba(124,92,255,0.1) 0%, transparent 65%)",
-        }}
-      />
-
-      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
-
-          {/* Brand & Mission */}
-          <div className="lg:col-span-4 pr-4">
-            <Link to="/" className="flex items-center gap-2.5 mb-6 group">
-              <img src={logoMark} alt="" aria-hidden="true" className="w-9 h-9 object-contain" />
-              <span
-                className="font-display font-bold text-xl tracking-tight"
-                style={{ letterSpacing: "-0.03em", color: "var(--pearl)" }}
-              >
-                Ripple <span style={{ color: "var(--graphite-300)" }}>Nexus</span>
-              </span>
-            </Link>
-            <p className="font-body text-[15px] leading-relaxed mb-5" style={{ color: "var(--graphite-400)" }}>
-              AI-First Digital Transformation systems for organizations that demand operational supremacy. 
-              We engineer predictive intelligence, workflow automation, and enterprise infrastructure.
-            </p>
-            <div className="flex flex-wrap gap-2 mb-8">
-              {["Security-First", "100% IP Ownership", "18+ Countries"].map((badge) => (
-                <span
-                  key={badge}
-                  className="font-mono text-[11px] rounded-full px-2.5 py-0.5 font-medium"
-                  style={{
-                    color: "var(--graphite-300)",
-                    border: "1px solid var(--graphite-600)",
-                    background: "rgba(124,92,255,0.05)",
-                  }}
-                >
-                  {badge}
-                </span>
-              ))}
-            </div>
+    <footer className="bg-[#050608] border-t border-[#1E2028] text-white py-16">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-16 border-b border-[#1E2028]">
+          {/* Brand Lockup & Positioning */}
+          <div className="lg:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              {socialLinks.map(({ href, icon: Icon, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="w-9 h-9 flex items-center justify-center rounded-full transition-all duration-200"
-                  style={{
-                    background: "rgba(124,92,255,0.06)",
-                    border: "1px solid var(--graphite-600)",
-                    color: "var(--graphite-300)",
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.background = "rgba(124,92,255,0.15)";
-                    e.currentTarget.style.borderColor = "rgba(124,92,255,0.4)";
-                    e.currentTarget.style.color = "var(--nexus-violet)";
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.background = "rgba(124,92,255,0.06)";
-                    e.currentTarget.style.borderColor = "var(--graphite-600)";
-                    e.currentTarget.style.color = "var(--graphite-300)";
-                  }}
-                >
-                  <Icon size={16} />
-                </a>
-              ))}
+              <img
+                src={logoMark}
+                alt="Ripple Nexus"
+                className="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0"
+              />
+              <div className="flex flex-col">
+                <span className="font-display font-bold text-lg sm:text-xl uppercase tracking-tight leading-none text-white">
+                  Ripple Nexus
+                </span>
+                <span className="font-mono text-[10px] text-[#00F0FF] tracking-wider uppercase mt-1">
+                  Digital Systems Engineering
+                </span>
+              </div>
+            </div>
+            <p className="font-mono text-xs text-[#00F0FF] uppercase tracking-wider">
+              DIGITAL PRODUCT ENGINEERING + AI + AUTOMATION
+            </p>
+            <p className="font-body text-sm text-[#8E93A4] max-w-sm leading-relaxed">
+              We build the digital systems behind ambitious businesses. SaaS platforms, AI workflows, business applications, and data infrastructure built around how your business actually operates.
+            </p>
+            <div className="font-mono text-xs text-white pt-2">
+              BUILD → AUTOMATE → SCALE
             </div>
           </div>
 
-          <div className="lg:col-span-3 lg:col-start-7">
-            <h4
-              className="font-body font-bold text-sm tracking-wider uppercase mb-7"
-              style={{ color: "var(--pearl)" }}
-            >
-              Capabilities
-            </h4>
-            <nav className="flex flex-col gap-4 text-[15px]">
-              {[
-                { to: "/services/ai-agents", label: "AI Agents" },
-                { to: "/services/ai-workflow-automation", label: "Workflow Automation" },
-                { to: "/services/enterprise-applications", label: "Enterprise Software" },
-                { to: "/services/data-engineering", label: "Data Engineering" },
-                { to: "/platform", label: "View All Capabilities" },
-              ].map(({ to, label }) => (
-                <Link
-                  key={label}
-                  to={to}
-                  className="transition-colors duration-200 hover:text-[var(--pearl)]"
-                  style={{ color: "var(--graphite-400)" }}
+          {/* Quick Architecture Navigation */}
+          <div className="lg:col-span-3 space-y-3 font-mono text-xs">
+            <div className="text-[#8E93A4] uppercase tracking-widest pb-1 border-b border-[#1E2028]">
+              NAVIGATION
+            </div>
+            <ul className="space-y-2 text-[#B4B9C8]">
+              <li>
+                <a href="#proof" className="hover:text-white transition-colors">
+                  [01] Systems Proof
+                </a>
+              </li>
+              <li>
+                <a href="#intent" className="hover:text-white transition-colors">
+                  [02] Problem Identification
+                </a>
+              </li>
+              <li>
+                <a href="#case-studies" className="hover:text-white transition-colors">
+                  [03] Verified Case Studies
+                </a>
+              </li>
+              <li>
+                <a href="#capabilities" className="hover:text-white transition-colors">
+                  [04] Core Capabilities
+                </a>
+              </li>
+              <li>
+                <a href="#founder" className="hover:text-white transition-colors">
+                  [05] Human Accountability
+                </a>
+              </li>
+              <li>
+                <a href="#objections" className="hover:text-white transition-colors">
+                  [06] Objections & FAQ
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Direct Verification & Channels */}
+          <div className="lg:col-span-4 space-y-3 font-mono text-xs">
+            <div className="text-[#8E93A4] uppercase tracking-widest pb-1 border-b border-[#1E2028]">
+              DIRECT CONTACT
+            </div>
+            <div className="space-y-2 text-[#B4B9C8]">
+              <div>
+                <span className="text-[#8E93A4]">LEAD ARCHITECT:</span>{" "}
+                <a
+                  href="mailto:info@theripplenexus.com"
+                  onClick={() => telemetry.track("email_click", { location: "footer" })}
+                  className="text-white hover:text-[#00F0FF] underline"
                 >
-                  {label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+                  info@theripplenexus.com
+                </a>
+              </div>
+              <div>
+                <span className="text-[#8E93A4]">TELEPHONE:</span>{" "}
+                <a href="tel:+917599756826" className="text-white">
+                  +91-7599-756-826
+                </a>
+              </div>
+              <div className="pt-2 text-[11px] text-[#8E93A4]">
+                LOCATION: Cospazes, A-116 Urbtech Trade Centre, Sec-132, Noida, UP 201304, India.
+              </div>
+            </div>
 
-          {/* Company Column */}
-          <div className="lg:col-span-2">
-            <h4
-              className="font-body font-bold text-sm tracking-wider uppercase mb-7"
-              style={{ color: "var(--pearl)" }}
-            >
-              Company
-            </h4>
-            <nav className="flex flex-col gap-4 text-[15px]">
-              {[
-                { to: "/about", label: "About Us" },
-                { to: "/case-studies", label: "Case Studies" },
-                { to: "/contact", label: "Contact" },
-              ].map(({ to, label }) => (
-                <Link
-                  key={label}
-                  to={to}
-                  className="transition-colors duration-200 hover:text-[var(--pearl)]"
-                  style={{ color: "var(--graphite-400)" }}
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Office (Compact) */}
-          <div className="lg:col-span-3">
-            <h4
-              className="font-body font-bold text-sm tracking-wider uppercase mb-7"
-              style={{ color: "var(--pearl)" }}
-            >
-              Office
-            </h4>
-            <address
-              className="font-body text-[13px] not-italic leading-relaxed flex flex-col gap-2 mb-5"
-              style={{ color: "var(--graphite-400)" }}
-            >
-              <span>Cospazes, A-116<br />Urbtech Trade Centre<br />Sec-132, Noida — 201304, India</span>
-              <a href="mailto:info@theripplenexus.com" className="mt-2 hover:text-white transition-colors">info@theripplenexus.com</a>
-              <a href="tel:+917599756826" className="hover:text-white transition-colors">+91 7599 756 826</a>
-            </address>
-          </div>
-        </div>
-
-        {/* Bottom Legal Bar */}
-        <div
-          className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6"
-          style={{ borderTop: "1px solid var(--graphite-600)" }}
-        >
-          <div>
-            <p
-              className="font-body text-[14px] font-medium tracking-wide"
-              style={{ color: "var(--graphite-400)" }}
-            >
-              © {new Date().getFullYear()} Ripple Nexus. All rights reserved.
-            </p>
-            <p className="font-body text-[12px] mt-1" style={{ color: "var(--graphite-500)" }}>
-              Engineered for Enterprise scale. Delivered with startup velocity.
-            </p>
-          </div>
-          <div className="flex items-center gap-6 text-[14px] font-medium">
-            {[
-              { to: "/privacy-policy", label: "Privacy Policy" },
-              { to: "/terms-of-service", label: "Terms of Service" },
-              { to: "/cancellation-policy", label: "Refund Policy" },
-            ].map(({ to, label }) => (
-              <Link
-                key={label}
-                to={to}
-                className="transition-colors duration-200"
-                style={{ color: "var(--graphite-400)" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "var(--nexus-violet)")}
-                onMouseLeave={e => (e.currentTarget.style.color = "var(--graphite-400)")}
+            <div className="pt-4 flex items-center gap-4">
+              <a
+                href="https://www.linkedin.com/company/ripple-nexus"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => telemetry.track("linkedin_click", { location: "footer" })}
+                className="inline-flex items-center gap-1 text-white hover:text-[#00F0FF] transition-colors"
               >
-                {label}
-              </Link>
-            ))}
+                <span>LinkedIn</span>
+                <ArrowUpRight size={12} />
+              </a>
+              <a
+                href="https://x.com/ripplenexus"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-white hover:text-[#00F0FF] transition-colors"
+              >
+                <span>X / Twitter</span>
+                <ArrowUpRight size={12} />
+              </a>
+            </div>
           </div>
         </div>
 
+        {/* Bottom Bar: Copyright & Legal */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-[#8E93A4]">
+          <div>
+            © {new Date().getFullYear()} Ripple Nexus. All rights reserved.
+          </div>
+          <div className="flex items-center gap-6">
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <Link to="/terms-of-service" className="hover:text-white transition-colors">
+              Terms of Service
+            </Link>
+            <Link to="/cancellation-policy" className="hover:text-white transition-colors">
+              Cancellation Policy
+            </Link>
+          </div>
+        </div>
       </div>
     </footer>
   );
