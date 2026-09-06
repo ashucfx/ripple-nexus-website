@@ -130,7 +130,7 @@ const Index: React.FC = () => {
         {/* 07 TECHNICAL COMPETENCE: 4 Capability Domains */}
         <CapabilitySection onSelectCapability={handleSelectCapability} />
 
-        {/* 08 HUMAN ACCOUNTABILITY: Founder & Lead Architect */}
+        {/* 08 HUMAN ACCOUNTABILITY: Founder */}
         <FounderSection />
 
         {/* 09 OBJECTION REMOVAL: Pre-empting Enterprise Friction */}

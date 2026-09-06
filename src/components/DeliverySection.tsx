@@ -72,7 +72,7 @@ const DeliverySection = () => {
                 Ashutosh Shukla
               </p>
               <p className="font-mono text-[0.6rem] tracking-wide" style={{ color: "var(--graphite-400)" }}>
-                Founder & Lead Architect
+                Founder
               </p>
             </div>
           </motion.div>

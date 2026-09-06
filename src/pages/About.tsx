@@ -208,7 +208,7 @@ const About = () => {
                 </p>
                 <p className="pt-6 font-display font-bold text-lg" style={{ color: "var(--pearl)" }}>
                   Ashutosh Shukla<br/>
-                  <span className="font-body text-sm font-normal" style={{ color: "var(--graphite-400)" }}>Founder & Lead Architect</span>
+                  <span className="font-body text-sm font-normal" style={{ color: "var(--graphite-400)" }}>Founder</span>
                 </p>
               </div>
             </motion.div>

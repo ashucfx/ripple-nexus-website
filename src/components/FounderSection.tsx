@@ -40,7 +40,7 @@ export const FounderSection: React.FC = () => {
                     Ashutosh Shukla
                   </h3>
                   <p className="font-mono text-xs text-[#00F0FF] uppercase tracking-wider">
-                    Founder & Systems Engineer
+                    Founder
                   </p>
                 </div>
               </div>
@@ -109,7 +109,7 @@ export const FounderSection: React.FC = () => {
 
             <div className="pt-6 border-t border-[#1E2028] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="font-mono text-xs text-[#8E93A4]">
-                DIRECT ENGINEERING DESK:
+                MAIL US:
                 <br />
                 <a
                   href="mailto:info@theripplenexus.com"

@@ -353,7 +353,7 @@ export const PROCESS_STEPS = [
   {
     step: '02',
     title: 'We review the technical context',
-    description: 'Our lead architect personally evaluates your current systems, constraints, data flows, and required business outcomes.',
+    description: 'We personally evaluate your current systems, constraints, data flows, and required business outcomes.',
   },
   {
     step: '03',

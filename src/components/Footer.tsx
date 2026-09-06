@@ -83,7 +83,7 @@ export const Footer: React.FC = () => {
             </div>
             <div className="space-y-2 text-[#B4B9C8]">
               <div>
-                <span className="text-[#8E93A4]">LEAD ARCHITECT:</span>{" "}
+                <span className="text-[#8E93A4]">MAIL US:</span>{" "}
                 <a
                   href="mailto:info@theripplenexus.com"
                   onClick={() => telemetry.track("email_click", { location: "footer" })}
