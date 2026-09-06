@@ -29,7 +29,7 @@ export const Navbar: React.FC = () => {
       setScrolled(window.scrollY > 20);
 
       // Active section scroll spy
-      const scrollPosition = window.scrollY + 200;
+      const scrollPosition = window.scrollY + 220;
       for (const item of NAV_ITEMS) {
         const el = document.getElementById(item.id);
         if (el) {
@@ -60,32 +60,22 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-5xl pointer-events-none transition-all duration-300 flex flex-col items-center">
-      {/* 2026 Modern Floating Island Capsule with Precision Corner Edges */}
+    <header className="fixed top-3 sm:top-5 inset-x-0 z-50 flex flex-col items-center px-3 sm:px-6 pointer-events-none transition-all duration-300">
+      {/* Sleek Floating Island Pill with Fully Rounded Corners */}
       <div
-        className={`relative w-full pointer-events-auto rounded-2xl border transition-all duration-300 flex items-center justify-between gap-3 sm:gap-4 px-3.5 sm:px-5 py-2 sm:py-2.5 ${
+        className={`w-full max-w-5xl pointer-events-auto rounded-full border transition-all duration-300 flex items-center justify-between gap-3 sm:gap-4 px-3 sm:px-5 py-2 sm:py-2.5 ${
           scrolled
-            ? "bg-[#07080D]/95 backdrop-blur-2xl border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.92),inset_0_1px_0_0_rgba(255,255,255,0.2)]"
-            : "bg-[#07080D]/85 backdrop-blur-xl border-white/12 shadow-[0_12px_36px_rgba(0,0,0,0.75),inset_0_1px_0_0_rgba(255,255,255,0.12)]"
+            ? "bg-[#08090C]/92 backdrop-blur-xl border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.12)]"
+            : "bg-[#08090C]/80 backdrop-blur-lg border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)]"
         }`}
       >
-        {/* 2026 Modern Precision Corner Edge Accents with Neon Cyan Highlights */}
-        <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t-2 border-l-2 border-[#00F0FF] rounded-tl-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
-        <span className="absolute -top-px -right-px w-3.5 h-3.5 border-t-2 border-r-2 border-[#00F0FF] rounded-tr-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
-        <span className="absolute -bottom-px -left-px w-3.5 h-3.5 border-b-2 border-l-2 border-[#00F0FF] rounded-bl-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
-        <span className="absolute -bottom-px -right-px w-3.5 h-3.5 border-b-2 border-r-2 border-[#00F0FF] rounded-br-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
-
-        {/* Dynamic Specular Highlights */}
-        <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#00F0FF]/50 to-transparent pointer-events-none" />
-        <div className="absolute inset-x-12 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-[#7C5CFF]/30 to-transparent pointer-events-none" />
-
         {/* Brand Lockup */}
         <Link
           to="/"
-          className="flex items-center gap-2.5 sm:gap-3 text-left focus:outline-none group shrink-0"
+          className="flex items-center gap-2.5 sm:gap-3 text-left focus:outline-none group shrink-0 pl-1"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
-          <div className="w-8 h-8 rounded-xl bg-[#12141F] border border-white/15 flex items-center justify-center p-1.5 transition-all duration-300 group-hover:scale-105 group-hover:border-[#00F0FF]/60 group-hover:shadow-[0_0_18px_rgba(0,240,255,0.4)] shrink-0">
+          <div className="w-8 h-8 rounded-full bg-[#12141F] border border-white/10 flex items-center justify-center p-1.5 transition-transform duration-200 group-hover:scale-105 shrink-0">
             <img
               src={logoMark}
               alt="Ripple Nexus"
@@ -96,13 +86,13 @@ export const Navbar: React.FC = () => {
             <span className="font-display font-bold text-sm sm:text-base tracking-tight text-white uppercase leading-none whitespace-nowrap">
               Ripple Nexus
             </span>
-            <span className="font-mono text-[9px] text-[#00F0FF] tracking-widest uppercase leading-none mt-1 hidden sm:block whitespace-nowrap font-semibold">
+            <span className="font-mono text-[9px] text-[#00F0FF] tracking-widest uppercase leading-none mt-1 hidden sm:block whitespace-nowrap font-medium">
               Digital Systems Engineering
             </span>
           </div>
         </Link>
 
-        {/* Center Desktop Navigation Links with Active Spy Pill */}
+        {/* Center Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-1 font-mono text-xs uppercase tracking-wider whitespace-nowrap">
           {NAV_ITEMS.map((item) => {
             const isActive = activeSection === item.id;
@@ -110,10 +100,10 @@ export const Navbar: React.FC = () => {
               <button
                 key={item.id}
                 onClick={() => scrollTo(item.id, item.event)}
-                className={`relative px-3 py-1.5 rounded-lg transition-all duration-200 flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-full transition-all duration-150 flex items-center gap-1.5 ${
                   isActive
-                    ? "text-white bg-white/[0.12] border border-white/15 shadow-[0_0_12px_rgba(0,240,255,0.2)]"
-                    : "text-[#9EA3B5] hover:text-white hover:bg-white/[0.08]"
+                    ? "text-white bg-white/10 shadow-[0_0_10px_rgba(0,240,255,0.15)] font-semibold"
+                    : "text-[#8E93A4] hover:text-white hover:bg-white/5"
                 }`}
               >
                 {isActive && (
@@ -125,23 +115,17 @@ export const Navbar: React.FC = () => {
           })}
         </nav>
 
-        {/* Live Telemetry Badge & Primary CTA */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          {/* Subtle Live Engine Indicator */}
-          <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#10131E] border border-[#00E599]/30 font-mono text-[10px] text-[#8E93A4] shadow-[0_0_10px_rgba(0,229,153,0.15)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00E599] animate-pulse shadow-[0_0_6px_#00E599]" />
-            <span className="text-[#D0D4E0] font-medium tracking-wider">SYS LIVE // 99.99%</span>
-          </div>
-
+        {/* Primary CTA Button & Mobile Toggle */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0 pr-1">
           <button
             onClick={() => {
               telemetry.track("hero_cta_click", { location: "navbar" });
               scrollTo("intake");
             }}
-            className="hidden sm:inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-gradient-to-r from-white via-slate-100 to-[#E2E8F0] text-black font-mono text-xs font-bold uppercase tracking-wider rounded-xl transition-all duration-300 hover:from-[#00F0FF] hover:via-[#38BDF8] hover:to-[#7C5CFF] hover:text-black shadow-[0_0_18px_rgba(255,255,255,0.2)] hover:shadow-[0_0_28px_rgba(0,240,255,0.5)] whitespace-nowrap group"
+            className="hidden sm:inline-flex items-center gap-2 px-5 py-2 sm:py-2.5 bg-white text-black font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#00F0FF] rounded-full transition-all duration-150 shadow-sm hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] whitespace-nowrap"
           >
             <span>Start a Project</span>
-            <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            <ArrowRight size={13} />
           </button>
 
           {/* Mobile / Tablet Toggle Button */}
@@ -155,14 +139,9 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Modern Floating Mobile Drawer Card with Matching Corner Accents */}
+      {/* Sleek Floating Mobile Drawer Card */}
       {mobileMenuOpen && (
-        <div className="relative lg:hidden pointer-events-auto w-full max-w-5xl mt-2 bg-[#08090E]/95 backdrop-blur-2xl border border-white/15 rounded-2xl p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.92)] z-50 flex flex-col gap-4 animate-in fade-in slide-in-from-top-3 duration-200">
-          <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t-2 border-l-2 border-[#00F0FF] rounded-tl-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
-          <span className="absolute -top-px -right-px w-3.5 h-3.5 border-t-2 border-r-2 border-[#00F0FF] rounded-tr-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
-          <span className="absolute -bottom-px -left-px w-3.5 h-3.5 border-b-2 border-l-2 border-[#00F0FF] rounded-bl-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
-          <span className="absolute -bottom-px -right-px w-3.5 h-3.5 border-b-2 border-r-2 border-[#00F0FF] rounded-br-xl pointer-events-none shadow-[0_0_8px_rgba(0,240,255,0.7)]" />
-
+        <div className="lg:hidden pointer-events-auto w-full max-w-5xl mt-2 bg-[#08090C]/95 backdrop-blur-2xl border border-white/15 rounded-3xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.9)] z-50 flex flex-col gap-4 animate-in fade-in slide-in-from-top-3 duration-200">
           <div className="flex flex-col gap-1.5 font-mono text-xs tracking-wider uppercase">
             {NAV_ITEMS.map((item, index) => {
               const isActive = activeSection === item.id;
@@ -170,7 +149,7 @@ export const Navbar: React.FC = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollTo(item.id, item.event)}
-                  className={`text-left py-2.5 px-3 rounded-lg transition-colors border-b border-[#14161F] flex items-center justify-between ${
+                  className={`text-left py-2.5 px-3 rounded-xl transition-colors border-b border-[#14161F] flex items-center justify-between ${
                     isActive
                       ? "text-white bg-white/10"
                       : "text-[#8E93A4] hover:text-white hover:bg-white/5"
@@ -191,7 +170,7 @@ export const Navbar: React.FC = () => {
               telemetry.track("hero_cta_click", { location: "mobile_navbar" });
               scrollTo("intake");
             }}
-            className="w-full py-3.5 bg-gradient-to-r from-white via-slate-100 to-[#E2E8F0] hover:from-[#00F0FF] hover:to-[#7C5CFF] text-black font-mono text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+            className="w-full py-3.5 bg-white text-black font-mono text-xs font-bold uppercase tracking-wider rounded-full flex items-center justify-center gap-2 hover:bg-[#00F0FF] transition-colors"
           >
             <span>Start a Project</span>
             <ArrowRight size={14} />
